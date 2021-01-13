@@ -30,12 +30,14 @@ import subprocess
 from core.badges import badges
 from core.storage import storage
 from core.modules import modules
+from core.execute import execute
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
         self.modules = modules()
+        self.execute = execute()
         
         self.details = {
             'Category': "developer",
@@ -61,7 +63,7 @@ class ZetaSploitCommand:
         imported_modules = self.storage.get("imported_modules")
         if not imported_modules or module not in imported_modules:
             module_path = self.storage.get("modules")[module_category][module_platform][module_name]['Path']
-            edit_mode = [editor, module_path]
-            subprocess.call(edit_mode)
+            edit_mode = editor + " " + module_path
+            self.execute.execute_system(edit_mode)
         else:
             self.badges.output_error("Can not edit already used module!")
