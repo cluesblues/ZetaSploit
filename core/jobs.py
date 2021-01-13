@@ -135,6 +135,8 @@ class jobs():
             job_end_function = False
         if not end_arguments:
             job_end_arguments = False
+        if not self.storage.get("jobs"):
+            self.storage.set("jobs", dict())
         job_id = len(self.storage.get("jobs"))
         job_data = {
             job_id: {
@@ -147,7 +149,5 @@ class jobs():
                 'end_arguments': end_arguments
             }
         }
-        if not self.storage.get("jobs"):
-            self.storage.set("jobs", dict())
         self.storage.update("jobs", job_data)
         return job_id
