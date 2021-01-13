@@ -36,7 +36,7 @@ enty8080@kali:~# %boldservice chatd start%end
 enty8080@kali:~# %boldchatcli https://chat-console.org/enty8080%end
 %bold%blue[*]%end Connecting to https://chat-console.org/enty8080...
 %bold%green[+]%end Account activated!
-
+%newline
     _______________________________________
    /            %boldCHAT - CONSOLE%end             \
    |_______________________________________|
@@ -48,9 +48,9 @@ enty8080@kali:~# %boldchatcli https://chat-console.org/enty8080%end
    | %redthecakeisfalse%end: You are bad at code.  |
    | %greenenty8080%end (you): Why do you think so?  |
    |_______________________________________|
-   | <%boldchat%end>: %bold%redyou had been banned!%red          |
+   | <%boldchat%end>: %bold%redyou had been banned!%end          |
    | Reason: %red@thecakeisfalse%end blocked you   |
    \_______________________________________/
-
+%newline
 enty8080@kali:~# %boldservice chatd stop
 %end
