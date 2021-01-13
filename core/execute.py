@@ -48,7 +48,7 @@ class execute:
             command = self.storage.get("commands")[menu][commands[0]]
             if command.details['NeedsArgs']:
                 if (len(commands) - 1) < command.details['ArgsCount']:
-                    self.io.output("Usage: " + command.details['Usage'])
+                    self.badges.output_usage(command.details['Usage'])
                 else:
                     command.details['Args'] = self.formatter.format_arguments(arguments)
                     try:
@@ -85,7 +85,7 @@ class execute:
     def parse_and_execute_command(self, commands, command, arguments):
         if command['NeedsArgs']:
             if (len(commands) - 1) < command['ArgsCount']:
-                self.io.output("Usage: " + command['Usage'])
+                self.badges.output_usage(command['Usage'])
             else:
                 command['Args'] = self.formatter.format_arguments(arguments)
                 try:
