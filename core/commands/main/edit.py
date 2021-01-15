@@ -51,6 +51,7 @@ class ZetaSploitCommand:
 
     def run(self):
         module = self.details['Args'][0]
+        
         module_category = self.modules.get_category(module)
         module_platform = self.modules.get_platform(module)
         module_name = self.modules.get_name(module)
@@ -65,9 +66,12 @@ class ZetaSploitCommand:
             self.badges.output_warning("Shell variable EDITOR not set.")
             editor = "vi"
             
-        if self.modules.check_imported(module):
-            module_path = self.storage.get("modules")[module_category][module_platform][module_name]['Path']
-            edit_mode = editor + " " + module_path
-            self.execute.execute_system(edit_mode)
+        if self.modules.check_exist(module):
+            if self.modules.check_imported(module):
+                module_path = self.storage.get("modules")[module_category][module_platform][module_name]['Path']
+                edit_mode = editor + " " + module_path
+                self.execute.execute_system(edit_mode)
+            else:
+                self.badges.output_error("Can not edit already used module!")
         else:
-            self.badges.output_error("Can not edit already used module!")
+            self.badges.output_error("Invalid module!")
