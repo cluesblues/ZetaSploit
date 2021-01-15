@@ -91,19 +91,12 @@ class ZetaSploitCommand:
 
     def run(self):
         module = self.details['Args'][0]
-        modules = self.storage.get("modules")
         
         category = self.modules.get_category(module)
         platform = self.modules.get_platform(module)
         
-        if category in modules.keys():
-            if platform in modules[category].keys():
-                module = self.modules.get_name(module)
-                if module in modules[category][platform].keys():
-                    self.add_module(category, platform, module)
-                else:
-                    self.badges.output_error("Invalid module!")
-            else:
-                self.badges.output_error("Invalid module!")
+        if self.modules.check_exist(module):
+            module = self.modules.get_name(module)
+            self.add_module(category, platform, module)
         else:
             self.badges.output_error("Invalid module!")
