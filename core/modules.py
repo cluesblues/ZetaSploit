@@ -36,13 +36,18 @@ class modules:
         self.badges = badges()
         self.storage = storage()
         
-    def check_exist(self, category, platform, name):
-        modules = self.storage.get("modules")
-        if category in modules.keys():
-            if platform in modules[category].keys():
-                module = self.get_name(module)
-                if module in modules[category][platform].keys():
-                    return True
+    def check_exist(self, name):
+        if self.check_style(name):
+            modules = self.storage.get("modules")
+            
+            category = self.get_category(name)
+            platform = self.get_platform(name)
+        
+            if category in modules.keys():
+                if platform in modules[category].keys():
+                    module = self.get_name(module)
+                    if module in modules[category][platform].keys():
+                        return True
         return False
 
     def check_style(self, name):
@@ -51,13 +56,19 @@ class modules:
         return False
        
     def get_category(self, name):
-        return name.split('/')[0]
+        if self.check_style(name):
+            return name.split('/')[0]
+        return None
 
     def get_platform(self, name):
-        return name.split('/')[1]
+        if self.check_style(name):
+            return name.split('/')[1]
+        return None
     
     def get_name(self, name):
-        return os.path.join(*(name.split(os.path.sep)[2:]))
+        if self.check_style(name):
+            return os.path.join(*(name.split(os.path.sep)[2:]))
+        return None
 
     def get_full_name(self, category, platform, name):
         return category + '/' + platform + '/' + name
