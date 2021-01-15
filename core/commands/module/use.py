@@ -73,7 +73,7 @@ class ZetaSploitCommand:
         if not not_installed:
             imported_modules = self.storage.get("imported_modules")
             full_name = self.modules.get_full_name(category, platform, module)
-            if not imported_modules or full_name not in imported_modules:
+            if if self.modules.check_imported(full_name):
                 module_object = self.import_module(category, platform, module)
                 if not module_object:
                     return
