@@ -28,11 +28,22 @@ import os
 
 from core.io import io
 from core.badges import badges
+from core.storage import storage
 
 class modules:
     def __init__(self):
         self.io = io()
         self.badges = badges()
+        self.storage = storage()
+        
+    def check_exist(self, category, platform, name):
+        modules = self.storage.get("modules")
+        if category in modules.keys():
+            if platform in modules[category].keys():
+                module = self.get_name(module)
+                if module in modules[category][platform].keys():
+                    return True
+        return False
 
     def check_style(self, name):
         if len(name.split('/')) >= 4:
