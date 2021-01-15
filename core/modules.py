@@ -34,6 +34,11 @@ class modules:
         self.io = io()
         self.badges = badges()
 
+    def check_style(self, name):
+        if len(name.split('/')) >= 4:
+            return True
+        return False
+       
     def get_category(self, name):
         return name.split('/')[0]
 
