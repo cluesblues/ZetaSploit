@@ -60,8 +60,7 @@ class ZetaSploitCommand:
         else:
             editor = os.environ['EDITOR']
             
-        imported_modules = self.storage.get("imported_modules")
-        if not imported_modules or module not in imported_modules:
+        if self.modules.check_imported(module):
             module_path = self.storage.get("modules")[module_category][module_platform][module_name]['Path']
             edit_mode = editor + " " + module_path
             self.execute.execute_system(edit_mode)
