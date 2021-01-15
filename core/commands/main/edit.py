@@ -55,10 +55,15 @@ class ZetaSploitCommand:
         module_platform = self.modules.get_platform(module)
         module_name = self.modules.get_name(module)
         
-        if not os.environ['EDITOR']:
+        try:
+            if not os.environ['EDITOR']:
+                self.badges.output_warning("Shell variable EDITOR not set.")
+                editor = "vi"
+            else:
+                editor = os.environ['EDITOR']
+        except KeyError:
+            self.badges.output_warning("Shell variable EDITOR not set.")
             editor = "vi"
-        else:
-            editor = os.environ['EDITOR']
             
         if self.modules.check_imported(module):
             module_path = self.storage.get("modules")[module_category][module_platform][module_name]['Path']
