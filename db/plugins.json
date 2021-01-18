@@ -1,9 +1,0 @@
-{
-    "nmap": {
-        "Description": "Nmap scan plugin for ZetaSploit.",
-        "Path": "plugins/nmap",
-         "Dependencies": [
-             "nmap3"
-         ]
-    }
-}
