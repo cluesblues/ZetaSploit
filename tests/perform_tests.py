@@ -27,6 +27,7 @@
 import sys
 
 from core.badges import badges
+from core.importer import importer
 
 from tests.modules_tests import modules_tests
 from tests.plugins_tests import plugins_tests
@@ -39,6 +40,8 @@ class perform_tests:
         self.plugins_tests = plugins_tests()
         
     def perform_tests(self):
+        self.importer.import_database()
+        
         statuses = list()
         self.badges.output_process("Performing modules test...")
         statuses.append(self.modules_tests.perform_test())
