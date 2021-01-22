@@ -9,12 +9,6 @@
     <br>enables you to write, test, and execute exploit code.
     <br>
     <br>
-    <b>Features</b><br>
-    No unusable code and functions.
-    <br>Developer options.
-    <br>Easy to use libraries.
-    <br>
-    <br>
     <b>Useful links:</b><br>
-    <p align="center"><a href="">Getting Started</a> | <a href="">Using ZetaSploit</a> | <a href="">Developing ZetaSploit</a></p>
+    <p align="center"><a href="https://zetasploit.netlify.app">ZetaSploit Framework</a></p>
 </p>
