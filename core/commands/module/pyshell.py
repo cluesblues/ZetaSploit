@@ -58,4 +58,4 @@ class ZetaSploitCommand:
             except (EOFError, KeyboardInterrupt):
                 return
             except Exception as e:
-                self.badges.output_error(e)
+                self.badges.output_error(str(e))
