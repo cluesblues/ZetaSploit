@@ -24,8 +24,12 @@
 # SOFTWARE.
 #
 
+from core.badges import badges
+
 class ZetaSploitCommand:
     def __init__(self):
+        self.badges = badges()
+        
         self.details = {
             'Category': "database",
             'Name': "modules_db",
@@ -39,4 +43,4 @@ class ZetaSploitCommand:
     def run(self):
         option = self.details['Args'][0]
         if option not in ['-l', '-r', '-a']:
-            pass
+            self.badges.output_usage(self.details['Usage'])
