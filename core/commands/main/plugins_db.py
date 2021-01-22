@@ -41,4 +41,6 @@ class ZetaSploitCommand:
         }
 
     def run(self):
-        pass
+        option = self.details['Args'][0]
+        if option not in ['-l', '-r', '-a']:
+            self.badges.output_usage(self.details['Usage'])
