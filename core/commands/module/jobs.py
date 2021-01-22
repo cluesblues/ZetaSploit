@@ -64,14 +64,14 @@ class ZetaSploitCommand:
                 self.formatter.format_table("Active Jobs", headers, *jobs_data)
                 self.io.output("")
             else:
-                self.badges.output_warning("No running jobs available!")
+                self.badges.output_warning("No running jobs available.")
         elif choice == '-k':
             if len(self.details['Args']) < 2:
-                self.io.output(self.details['Usage'])
+                self.badges.output_usage(self.details['Usage'])
             else:
                 try:
                     self.jobs.delete_job(self.details['Args'][1])
                 except Exception:
                     pass
         else:
-            self.io.output(self.details['Usage'])
+            self.badges.output_usage(self.details['Usage'])

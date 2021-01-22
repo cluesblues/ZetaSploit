@@ -53,9 +53,9 @@
             }
         },
         "linux": {
-            "stager/zetant_reverse_tcp": {
+            "stager/membrane_reverse_tcp": {
                 "Description": "Linux reverse TCP shell with full remote functionality.",
-                "Path": "modules/exploit/linux/stager/zetant_reverse_tcp",
+                "Path": "modules/exploit/linux/stager/membrane_reverse_tcp",
                 "Dependencies": [
                     ""
                 ]
@@ -69,9 +69,9 @@
                     ""
                 ]
             },
-            "stager/zetant_reverse_tcp": {
+            "stager/membrane_reverse_tcp": {
                 "Description": "macOS reverse TCP shell with full remote functionality.",
-                "Path": "modules/exploit/macos/stager/zetant_reverse_tcp",
+                "Path": "modules/exploit/macos/stager/membrane_reverse_tcp",
                 "Dependencies": [
                     ""
                 ]
@@ -124,53 +124,53 @@
     },
     "post": {
         "linux": {
-            "zetant/transfer/download": {
+            "membrane/transfer/download": {
                 "Description": "Download remote file.",
-                "Path": "modules/post/linux/zetant/transfer/download",
+                "Path": "modules/post/linux/membrane/transfer/download",
                 "Dependencies": [
                     ""
                 ]
             },
-            "zetant/transfer/upload": {
+            "membrane/transfer/upload": {
                 "Description": "Upload local file.",
-                "Path": "modules/post/linux/zetant/transfer/upload",
+                "Path": "modules/post/linux/membrane/transfer/upload",
                 "Dependencies": [
                     ""
                 ]
             }
         },
         "macos": {
-            "zetant/gather/getvol": {
+            "membrane/gather/getvol": {
                 "Description": "Get device volume level.",
-                "Path": "modules/post/macos/zetant/gather/getvol",
+                "Path": "modules/post/macos/membrane/gather/getvol",
                 "Dependencies": [
                     ""
                 ]
             },
-            "zetant/gather/prompt": {
+            "membrane/gather/prompt": {
                 "Description": "Prompt user to type password.",
-                "Path": "modules/post/macos/zetant/gather/prompt",
+                "Path": "modules/post/macos/membrane/gather/prompt",
                 "Dependencies": [
                     ""
                 ]
             },
-            "zetant/transfer/download": {
+            "membrane/transfer/download": {
                 "Description": "Download remote file.",
-                "Path": "modules/post/macos/zetant/transfer/download",
+                "Path": "modules/post/macos/membrane/transfer/download",
                 "Dependencies": [
                     ""
                 ]
             },
-            "zetant/transfer/upload": {
+            "membrane/transfer/upload": {
                 "Description": "Upload local file.",
-                "Path": "modules/post/macos/zetant/transfer/upload",
+                "Path": "modules/post/macos/membrane/transfer/upload",
                 "Dependencies": [
                     ""
                 ]
             },
-            "zetant/trolling/say": {
+            "membrane/trolling/say": {
                 "Description": "Say text message on device.",
-                "Path": "modules/post/macos/zetant/trolling/say",
+                "Path": "modules/post/macos/membrane/trolling/say",
                 "Dependencies": [
                     ""
                 ]

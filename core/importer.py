@@ -127,7 +127,10 @@ class importer:
             pass
         self.storage.set("commands", commands)
 
+    def import_database(self):
+        self.db.add_modules('main', self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['modules_database'])
+        self.db.add_plugins('main', self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['plugins_database'])
+        
     def import_all(self):
         self.import_commands()
-        self.db.add_modules('zsf_modules_db', self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['modules_database'])
-        self.db.add_plugins('zsf_plugins_db', self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['plugins_database'])
+        self.import_database()

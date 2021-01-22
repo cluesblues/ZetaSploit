@@ -26,29 +26,25 @@
 
 import os
 
-from core.db import db
 from core.badges import badges
 from core.importer import importer
 from core.storage import storage
-from core.config import config
 
 class plugins_tests:
     def __init__(self):
-        self.db = db()
         self.badges = badges()
         self.importer = importer()
         self.storage = storage()
-        self.config = config()
         
     def perform_test(self):
         fail = False
-        self.db.add_plugins(self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['plugins_database'])
         plugins = self.storage.get("plugins")
-        for plugin in plugins.keys():
-            try:
-                _ = self.importer.import_plugin(plugins[plugin]['Path'])
-                self.badges.output_success(plugin + ': OK')
-            except Exception:
-                self.badges.output_error(plugin + ': FAIL')
-                fail = True
+        if plugins:
+            for plugin in plugins.keys():
+                try:
+                    _ = self.importer.import_plugin(plugins[plugin]['Path'])
+                    self.badges.output_success(plugin + ': OK')
+                except Exception:
+                    self.badges.output_error(plugin + ': FAIL')
+                    fail = True
         return fail

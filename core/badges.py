@@ -58,6 +58,9 @@ class badges:
     def output_empty(self, message):
         self.io.output(message)
         
+    def output_usage(self, message):
+        self.output_empty("Usage: " + message)
+        
     def output_process(self, message):
         self.output_empty(self.P + message)
 

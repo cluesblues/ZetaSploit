@@ -136,31 +136,18 @@ class jobs():
         if not end_arguments:
             job_end_arguments = False
         if not self.storage.get("jobs"):
-            job_id = 0
-            job_data = {
-                job_id: {
-                    'job_name': job_name,
-                    'module_name': module_name,
-                    'job_process': self.job_process,
-                    'has_end_function': job_end_function,
-                    'has_end_arguments': job_end_arguments,
-                    'end_function': end_function,
-                    'end_arguments': end_arguments
-                }
+            self.storage.set("jobs", dict())
+        job_id = len(self.storage.get("jobs"))
+        job_data = {
+            job_id: {
+                'job_name': job_name,
+                'module_name': module_name,
+                'job_process': self.job_process,
+                'has_end_function': job_end_function,
+                'has_end_arguments': job_end_arguments,
+                'end_function': end_function,
+                'end_arguments': end_arguments
             }
-            self.storage.set("jobs", job_data)
-        else:
-            job_id = len(self.storage.get("jobs"))
-            job_data = {
-                job_id: {
-                    'job_name': job_name,
-                    'module_name': module_name,
-                    'job_process': self.job_process,
-                    'has_end_function': job_end_function,
-                    'has_end_arguments': job_end_arguments,
-                    'end_function': end_function,
-                    'end_arguments': end_arguments
-                }
-            }
-            self.storage.update("jobs", job_data)
+        }
+        self.storage.update("jobs", job_data)
         return job_id
