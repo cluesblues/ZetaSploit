@@ -26,25 +26,20 @@
 
 import os
 
-from core.db import db
 from core.badges import badges
 from core.importer import importer
 from core.storage import storage
-from core.config import config
 from core.modules import modules
 
 class modules_tests:
     def __init__(self):
-        self.db = db()
         self.badges = badges()
         self.importer = importer()
         self.storage = storage()
-        self.config = config()
         self.modules = modules()
         
     def perform_test(self):
         fail = False
-        self.db.add_modules(self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['modules_database'])
         modules = self.storage.get("modules")
         for category in modules.keys():
             for platform in modules[category].keys():
