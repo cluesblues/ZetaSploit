@@ -35,6 +35,7 @@ from tests.plugins_tests import plugins_tests
 class perform_tests:
     def __init__(self):
         self.badges = badges()
+        self.importer = importer()
 
         self.modules_tests = modules_tests()
         self.plugins_tests = plugins_tests()
