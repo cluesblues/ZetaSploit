@@ -45,7 +45,7 @@ class modules:
         
             if category in modules.keys():
                 if platform in modules[category].keys():
-                    module = self.get_name(module)
+                    module = self.get_name(name)
                     if module in modules[category][platform].keys():
                         return True
         return False
