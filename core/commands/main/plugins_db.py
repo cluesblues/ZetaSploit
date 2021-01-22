@@ -24,8 +24,12 @@
 # SOFTWARE.
 #
 
+from core.badges import badges
+
 class ZetaSploitCommand:
     def __init__(self):
+        self.badges = badges()
+        
         self.details = {
             'Category': "database",
             'Name': "plugins_db",
