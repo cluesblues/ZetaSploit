@@ -35,9 +35,8 @@ class db:
         self.storage = storage()
         
     def add_modules(self, name, path):
-        if not self.storage.get("modules"):
-            self.storage.set("modules", dict())
         modules = json.load(open(path))
+        
         data = {
             name: {
                 'type': 'modules',
@@ -47,12 +46,15 @@ class db:
         if not self.storage.get("connected_databases"):
             self.storage.set("connected_databases", dict())
         self.storage.update("connected_databases", data)
-        self.storage.update("modules", modules)
+        
+        if self.storage.get("modules"):
+            self.storage.update("modules", modules)
+        else:
+            self.storage.set("modules", modules)
       
     def add_plugins(self, name, path):
-        if not self.storage.get("plugins"):
-            self.storage.set("plugins", dict())
         plugins = json.load(open(path))
+        
         data = {
             name: {
                 'type': 'plugins',
@@ -62,4 +64,8 @@ class db:
         if not self.storage.get("connected_databases"):
             self.storage.set("connected_databases", dict())
         self.storage.update("connected_databases", data)
-        self.storage.update("plugins", plugins)
+        
+        if self.storage.get("plugins"):
+            self.storage.update("plugins", plugins)
+        else:
+            self.storage.set("plugins", plugins)

@@ -38,16 +38,18 @@ class modules:
         
     def check_exist(self, name):
         if self.check_style(name):
-            modules = self.storage.get("modules")
-            
-            category = self.get_category(name)
-            platform = self.get_platform(name)
+            all_modules = self.storage.get("modules")
+            for database in all_modules.keys()
+                modules = all_modules[database]
+                
+                category = self.get_category(name)
+                platform = self.get_platform(name)
         
-            if category in modules.keys():
-                if platform in modules[category].keys():
-                    module = self.get_name(name)
-                    if module in modules[category][platform].keys():
-                        return True
+                if category in modules.keys():
+                    if platform in modules[category].keys():
+                        module = self.get_name(name)
+                        if module in modules[category][platform].keys():
+                            return True
         return False
 
     def check_imported(self, name):
