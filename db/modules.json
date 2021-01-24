@@ -37,9 +37,9 @@
     },
     "exploit": {
         "iphoneos": {
-            "safari_app/safari_reaper": {
-                "Description": "iOS Safari.app crash.",
-                "Path": "modules/exploit/iphoneos/safari_app/safari_reaper",
+            "mobile_safari_app/webkit_filter_dos": {
+                "Description": "iOS MobileSafari.app WebKit Filter DoS.",
+                "Path": "modules/exploit/iphoneos/mobile_safari_app/webkit_filter_dos",
                 "Dependencies": [
                     ""
                 ]
