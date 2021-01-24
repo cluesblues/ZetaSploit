@@ -82,7 +82,7 @@ class ZetaSploitCommand:
                     for database in plugins.keys():
                         plugins = plugins[database]
                         for plugin in sorted(plugins.keys()):
-                            plugins_data.append((counter, plugin, database, plugins[plugin]['Description']))
+                            plugins_data.append((number, plugin, database, plugins[plugin]['Description']))
                             number += 1
                     self.io.output("")
                     self.formatter.format_table("Plugins", headers, *plugins_data)
