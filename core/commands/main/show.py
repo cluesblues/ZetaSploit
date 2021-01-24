@@ -53,12 +53,11 @@ class ZetaSploitCommand:
     def run(self):
         information = self.details['Args'][0]
         modules = self.storage.get("modules")
-        usage = "Informations: "
+        informations = list()
         for database in sorted(modules.keys()):
             for category in sorted(modules[database].keys()):
-                usage += category + ", "
-        usage += "plugins"
-        if information in usage.split(", "):
+                informations.append(category)
+        if information in informations:
             modules_data = list()
             headers = ("Name", "Database", "Description")
             for database in modules.keys():
@@ -86,4 +85,8 @@ class ZetaSploitCommand:
                 else:
                     self.badges.output_warning("No plugins available!")
             else:
+                usage = "Informations: "
+                for information in informations:
+                    usage += information + ", "
+                usage += "plugins"
                 self.badges.output_information(usage)
