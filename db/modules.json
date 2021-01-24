@@ -38,14 +38,14 @@
     "exploit": {
         "iphoneos": {
             "mobile_safari_app/webkit_filter_dos": {
-                "Description": "iOS MobileSafari.app WebKit Filter DoS.",
+                "Description": "iPhoneOS 9.1 till 12.1 MobileSafari.app WebKit Filter DoS.",
                 "Path": "modules/exploit/iphoneos/mobile_safari_app/webkit_filter_dos",
                 "Dependencies": [
                     ""
                 ]
             },
             "ssh/cydia_default_password": {
-                "Description": "Bypass iOS SSH authorization using Cydia.app default SSH password.",
+                "Description": "Bypass iPhoneOS SSH authorization using Cydia.app default SSH password.",
                 "Path": "modules/exploit/iphoneos/ssh/cydia_default_password",
                 "Dependencies": [
                     "paramiko"
