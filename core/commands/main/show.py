@@ -67,7 +67,7 @@ class ZetaSploitCommand:
                         full_name = self.modules.get_full_name(information, platform, module)
                         modules_data.append((full_name, database, modules[platform][module]['Description']))
             self.io.output("")
-            self.formatter.format_table("Modules", headers, *modules_data)
+            self.formatter.format_table(information.title() + " Modules", headers, *modules_data)
             self.io.output("")
         else:
             if information == "plugins":
