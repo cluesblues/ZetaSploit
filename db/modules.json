@@ -2,6 +2,7 @@
     "auxiliary": {
         "iphoneos": {
             "checker/jailbroken_or_not": {
+                "Risk": "low",
                 "Description": "Check if remote iPhone jailbroken.",
                 "Path": "modules/auxiliary/iphoneos/checker/jailbroken_or_not",
                 "Dependencies": [
@@ -11,6 +12,7 @@
         },
         "net": {
             "scanner/network_scanner": {
+                "Risk": "low",
                 "Description": "Scan local network.",
                 "Path": "modules/auxiliary/net/scanner/network_scanner",
                 "Dependencies": [
@@ -20,6 +22,7 @@
         },
         "web": {
             "scanner/apache_users": {
+                "Risk": "medium",
                 "Description": "Scan website apache users.",
                 "Path": "modules/auxiliary/web/scanner/apache_users",
                 "Dependencies": [
@@ -27,6 +30,7 @@
                 ]
             },
             "scanner/php_my_admin_scan": {
+                "Risk": "medium",
                 "Description": "Scan website PHP My Admin.",
                 "Path": "modules/auxiliary/web/scanner/php_my_admin_scan",
                 "Dependencies": [
@@ -38,6 +42,7 @@
     "exploit": {
         "iphoneos": {
             "mobile_safari_app/webkit_filter_dos": {
+                "Risk": "high",
                 "Description": "iPhoneOS 9.1 till 12.1 MobileSafari.app WebKit Filter DoS.",
                 "Path": "modules/exploit/iphoneos/mobile_safari_app/webkit_filter_dos",
                 "Dependencies": [
@@ -45,6 +50,7 @@
                 ]
             },
             "ssh/cydia_default_password": {
+                "Risk": "medium",
                 "Description": "Bypass iPhoneOS SSH authorization using Cydia.app default SSH password.",
                 "Path": "modules/exploit/iphoneos/ssh/cydia_default_password",
                 "Dependencies": [
@@ -54,6 +60,7 @@
         },
         "linux": {
             "stager/membrane_reverse_tcp": {
+                "Risk": "high",
                 "Description": "Linux reverse TCP shell with full remote functionality.",
                 "Path": "modules/exploit/linux/stager/membrane_reverse_tcp",
                 "Dependencies": [
@@ -63,6 +70,7 @@
         },
         "macos": {
             "safari_app/safari_reaper": {
+                "Risk": "high",
                 "Description": "macOS Safari.app crash.",
                 "Path": "modules/exploit/macos/safari_app/safari_reaper",
                 "Dependencies": [
@@ -70,6 +78,7 @@
                 ]
             },
             "stager/membrane_reverse_tcp": {
+                "Risk": "high",
                 "Description": "macOS reverse TCP shell with full remote functionality.",
                 "Path": "modules/exploit/macos/stager/membrane_reverse_tcp",
                 "Dependencies": [
@@ -79,6 +88,7 @@
         },
         "multi": {
             "citrix_adc_netscaler/cve_2019_19781": {
+                "Risk": "high",
                 "Description": "Remote Code Execution in Citrix Application Delivery Controller and Citrix Gateway.",
                 "Path": "modules/exploit/multi/citrix_adc_netscaler/cve_2019_19781",
                 "Dependencies": [
@@ -86,6 +96,7 @@
                 ]
             },
             "f5_big_ip_tmui/cve_2020_5902": {
+                "Risk": "high",
                 "Description": "Remote Code Execution in F5 BIG-IP Traffic Management User Interface (TMUI).",
                 "Path": "modules/exploit/multi/f5_big_ip_tmui/cve_2020_5902",
                 "Dependencies": [
@@ -93,6 +104,7 @@
                 ]
             },
             "nostromo_httpd/cve_2019_16278": {
+                "Risk": "high",
                 "Description": "Remote Code Execution in Nostromo httpd.",
                 "Path": "modules/exploit/multi/nostromo_httpd/cve_2019_16278",
                 "Dependencies": [
@@ -100,6 +112,7 @@
                 ]
             },
             "vbulletin_widget_php/cve_2019_16759": {
+                "Risk": "high",
                 "Description": "vBulletin 5.0.0 till 5.5.4 widget_php Unauthenticated Remote Code Execution.",
                 "Path": "modules/exploit/multi/vbulletin_widget_php/cve_2019_16759",
                 "Dependencies": [
@@ -107,6 +120,7 @@
                 ]
             },
             "vbulletin_widget_php/cve_2020_7373": {
+                "Risk": "high",
                 "Description": "vBulletin 5.5.4 till 5.6.2 widget_php Unauthenticated Remote Code Execution.",
                 "Path": "modules/exploit/multi/vbulletin_widget_php/cve_2020_7373",
                 "Dependencies": [
@@ -114,6 +128,7 @@
                 ]
             },
             "ssh/cve_2018_10933": {
+                "Risk": "medium",
                 "Description": "SSH LibSSH unauthorized access.",
                 "Path": "modules/exploit/multi/ssh/cve_2018_10933",
                 "Dependencies": [
@@ -125,6 +140,7 @@
     "post": {
         "linux": {
             "membrane/transfer/download": {
+                "Risk": "high",
                 "Description": "Download remote file.",
                 "Path": "modules/post/linux/membrane/transfer/download",
                 "Dependencies": [
@@ -132,6 +148,7 @@
                 ]
             },
             "membrane/transfer/upload": {
+                "Risk": "medium",
                 "Description": "Upload local file.",
                 "Path": "modules/post/linux/membrane/transfer/upload",
                 "Dependencies": [
@@ -141,6 +158,7 @@
         },
         "macos": {
             "membrane/gather/getvol": {
+                "Risk": "medium",
                 "Description": "Get device volume level.",
                 "Path": "modules/post/macos/membrane/gather/getvol",
                 "Dependencies": [
@@ -148,6 +166,7 @@
                 ]
             },
             "membrane/gather/prompt": {
+                "Risk": "high",
                 "Description": "Prompt user to type password.",
                 "Path": "modules/post/macos/membrane/gather/prompt",
                 "Dependencies": [
@@ -155,6 +174,7 @@
                 ]
             },
             "membrane/transfer/download": {
+                "Risk": "high",
                 "Description": "Download remote file.",
                 "Path": "modules/post/macos/membrane/transfer/download",
                 "Dependencies": [
@@ -162,6 +182,7 @@
                 ]
             },
             "membrane/transfer/upload": {
+                "Risk": "medium",
                 "Description": "Upload local file.",
                 "Path": "modules/post/macos/membrane/transfer/upload",
                 "Dependencies": [
@@ -169,6 +190,7 @@
                 ]
             },
             "membrane/trolling/say": {
+                "Risk": "low",
                 "Description": "Say text message on device.",
                 "Path": "modules/post/macos/membrane/trolling/say",
                 "Dependencies": [
