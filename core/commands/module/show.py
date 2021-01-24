@@ -85,8 +85,28 @@ class ZetaSploitCommand:
                 else:
                     self.badges.output_warning("No plugins available!")
             else:
-                usage = "Informations: "
-                for information in informations:
-                    usage += information + ", "
-                usage += "plugins"
-                self.badges.output_information(usage)
+                if information == "options":
+                    if hasattr(current_module, "options"):
+                        options_data = list()
+                        headers = ("Option", "Value", "Required", "Description")
+                        options = current_module.options
+                        for option in sorted(options.keys()):
+                            value, required = options[option]['Value'], options[option]['Required']
+                            if required:
+                                required = "yes"
+                            else:
+                                required = "no"
+                            if not value and value != 0:
+                                value = ""
+                            options_data.append((option, value, required, options[option]['Description']))
+                        self.io.output("")
+                        self.formatter.format_table("Module Options", headers, *options_data)
+                        self.io.output("")
+                    else:
+                        self.badges.output_warning("Module does not have options.")
+                else:
+                    usage = "Informations: "
+                    for information in informations:
+                        usage += information + ", "
+                    usage += "plugins, options"
+                    self.badges.output_information(usage)
