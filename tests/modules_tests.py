@@ -43,6 +43,7 @@ class modules_tests:
         all_modules = self.storage.get("modules")
         if all_modules:
             for database in all_modules.keys():
+                self.badges.output_process("Testing modules from " + database + " database...")
                 modules = all_modules[database]
                 for category in modules.keys():
                     for platform in modules[category].keys():
