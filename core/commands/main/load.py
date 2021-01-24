@@ -78,7 +78,7 @@ class ZetaSploitCommand:
             for dependence in not_installed:
                 self.io.output("    " + dependence)
         
-    def load_plugin(database, plugin):
+    def load_plugin(self, database, plugin):
         plugins = self.storage.get("plugins")[database]
         if plugin in plugins.keys():
             self.add_plugin(plugin)
