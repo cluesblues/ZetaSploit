@@ -60,13 +60,15 @@ class ZetaSploitCommand:
                 informations.append(category)
         if information in informations:
             modules_data = list()
-            headers = ("Name", "Database", "Risk", "Description")
+            counter = 0
+            headers = ("Number", "Name", "Database", "Risk", "Description")
             for database in modules.keys():
                 modules = modules[database][information]
                 for platform in sorted(modules.keys()):
                     for module in sorted(modules[platform].keys()):
                         full_name = self.modules.get_full_name(information, platform, module)
-                        modules_data.append((full_name, database, modules[platform][module]['Risk'], modules[platform][module]['Description']))
+                        modules_data.append((counter, full_name, database, modules[platform][module]['Risk'], modules[platform][module]['Description']))
+                        counter += 1
             self.io.output("")
             self.formatter.format_table(information.title() + " Modules", headers, *modules_data)
             self.io.output("")
@@ -75,11 +77,13 @@ class ZetaSploitCommand:
                 plugins = self.storage.get("plugins")
                 if plugins:
                     plugins_data = list()
-                    headers = ("Name", "Database", "Description")
+                    counter = 0
+                    headers = ("Number", "Name", "Database", "Description")
                     for database in plugins.keys():
                         plugins = plugins[database]
                         for plugin in sorted(plugins.keys()):
-                            plugins_data.append((plugin, database, plugins[plugin]['Description']))
+                            plugins_data.append((counter, plugin, database, plugins[plugin]['Description']))
+                            counter += 1
                     self.io.output("")
                     self.formatter.format_table("Plugins", headers, *plugins_data)
                     self.io.output("")
