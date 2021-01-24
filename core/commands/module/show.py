@@ -53,6 +53,7 @@ class ZetaSploitCommand:
     def run(self):
         information = self.details['Args'][0]
         modules = self.storage.get("modules")
+        current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
         informations = list()
         for database in sorted(modules.keys()):
             for category in sorted(modules[database].keys()):
