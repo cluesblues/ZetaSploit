@@ -41,6 +41,7 @@ class plugins_tests:
         all_plugins = self.storage.get("plugins")
         if all_plugins:
             for database in all_plugins.keys():
+                self.badges.output_process("Testing plugins from " + database + " database...")
                 plugins = all_plugins[database]
                 for plugin in plugins.keys():
                     try:
