@@ -82,7 +82,8 @@ class ZetaSploitCommand:
         plugins = self.storage.get("plugins")[database]
         if plugin in plugins.keys():
             self.add_plugin(database, plugin)
-        self.badges.output_error("Failed to load " + plugin + " plugin!")
+        else:
+            self.badges.output_error("Failed to load " + plugin + " plugin!")
         
     def run(self):
         plugin = self.details['Args'][0]
