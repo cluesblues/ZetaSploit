@@ -54,6 +54,7 @@ class ZetaSploitCommand:
         information = self.details['Args'][0]
         modules = self.storage.get("modules")
         informations = list()
+        
         for database in sorted(modules.keys()):
             for category in sorted(modules[database].keys()):
                 informations.append(category)
