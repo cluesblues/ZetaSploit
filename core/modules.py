@@ -39,7 +39,7 @@ class modules:
     def check_exist(self, name):
         if self.check_style(name):
             all_modules = self.storage.get("modules")
-            for database in all_modules.keys()
+            for database in all_modules.keys():
                 modules = all_modules[database]
                 
                 category = self.get_category(name)
