@@ -48,23 +48,23 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def import_plugin(self, plugin):
+    def import_plugin(self, database, plugin):
         loaded_plugins = dict()
-        plugins = self.storage.get("plugins")
+        plugins = self.storage.get("plugins")[database][plugin]
         try:
-            loaded_plugins[plugin] = self.importer.import_plugin(plugins[plugin]['Path'])
+            loaded_plugins[plugin] = self.importer.import_plugin(plugins['Path'])
         except Exception:
-            return loaded_plugins
+            pass
         return loaded_plugins
         
-    def add_plugin(self, plugin):
-        plugins = self.storage.get("plugins")
+    def add_plugin(self, database, plugin):
+        plugins = self.storage.get("plugins")[database][plugin]
         not_installed = list()
-        for dependence in plugins[plugin]['Dependencies']:
+        for dependence in plugins['Dependencies']:
             if not self.importer.import_check(dependence):
                 not_installed.append(dependence)
         if not not_installed:
-            loaded_plugins = self.import_plugin(plugin)
+            loaded_plugins = self.import_plugin(database, plugin)
             if not loaded_plugins:
                 return
             if self.storage.get("loaded_plugins"):
@@ -78,6 +78,12 @@ class ZetaSploitCommand:
             for dependence in not_installed:
                 self.io.output("    " + dependence)
         
+    def load_plugin(database, plugin):
+        plugins = self.storage.get("plugins")[database]
+        if plugin in plugins.keys():
+            self.add_plugin(plugin)
+        self.badges.output_error("Failed to load " + plugin + " plugin!")
+        
     def run(self):
         plugin = self.details['Args'][0]
         plugins = self.storage.get("plugins")
@@ -87,14 +93,10 @@ class ZetaSploitCommand:
                 if plugin in self.storage.get("loaded_plugins").keys():
                     self.badges.output_error("Already loaded!")
                 else:
-                    if plugin in plugins.keys():
-                        self.add_plugin(plugin)
-                    else:
-                        self.badges.output_error("Failed to load " + plugin + " plugin!")
+                    for database in plugins.keys():
+                        self.load_plugin(database, plugin)
             else:
-                if plugin in plugins.keys():
-                    self.add_plugin(plugin)
-                else:
-                    self.badges.output_error("Failed to load " + plugin + " plugin!")
+                for database in plugins.keys():
+                    self.load_plugin(database, plugin)
         else:
             self.badges.output_error("Failed to load " + plugin + " plugin!")
