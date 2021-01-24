@@ -52,10 +52,10 @@ class ZetaSploitCommand:
             'Args': list()
         }
         
-    def import_module(self, category, platform, module):
-        modules = self.storage.get("modules")
+    def import_module(self, database, category, platform, module):
+        modules = self.storage.get("modules")[database][category][platform][module]
         try:
-            module_object = self.importer.import_module(modules[category][platform][module]['Path'])
+            module_object = self.importer.import_module(modules['Path'])
             if not self.storage.get("imported_modules"):
                 self.storage.set("imported_modules", dict())
             self.storage.update("imported_modules", {self.modules.get_full_name(category, platform, module): module_object})
@@ -64,24 +64,26 @@ class ZetaSploitCommand:
             return None
         return module_object
         
-    def add_module(self, category, platform, module):
-        modules = self.storage.get("modules")
+    def add_module(self, database, category, platform, module):
+        modules = self.storage.get("modules")[database][category][platform][module]
         not_installed = list()
-        for dependence in modules[category][platform][module]['Dependencies']:
+        for dependence in modules['Dependencies']:
             if not self.importer.import_check(dependence):
                 not_installed.append(dependence)
         if not not_installed:
             imported_modules = self.storage.get("imported_modules")
             full_name = self.modules.get_full_name(category, platform, module)
-            if self.modules.check_imported(full_name):
-                module_object = self.import_module(category, platform, module)
+            if not self.modules.check_imported(full_name):
+                module_object = self.import_module(database, category, platform, module)
                 if not module_object:
                     return
             else:
                 module_object = imported_modules[full_name]
+            self.storage.set("current_module", [])
+            self.storage.set("pwd", 0)
             self.storage.add_array("current_module", '')
-            self.storage.set("pwd", self.storage.get("pwd") + 1)
             self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+            self.module.module_menu()
         else:
             self.badges.output_error("Module depends this dependencies which is not installed:")
             for dependence in not_installed:
@@ -89,14 +91,13 @@ class ZetaSploitCommand:
 
     def run(self):
         module = self.details['Args'][0]
-        current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
         
         category = self.modules.get_category(module)
         platform = self.modules.get_platform(module)
         
-        if module != current_module.details['Name']:
-            if self.modules.check_exist(module):
-                module = self.modules.get_name(module)
-                self.add_module(category, platform, module)
-            else:
-                self.badges.output_error("Invalid module!")
+        if self.modules.check_exist(module):
+            module = self.modules.get_name(module)
+            for database in self.storage.get("modules").keys():
+                self.add_module(database, category, platform, module)
+        else:
+            self.badges.output_error("Invalid module!")
