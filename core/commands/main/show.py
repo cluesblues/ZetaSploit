@@ -54,8 +54,9 @@ class ZetaSploitCommand:
         information = self.details['Args'][0]
         modules = self.storage.get("modules")
         usage = "Informations: "
-        for category in sorted(modules.keys()):
-            usage += category + ", "
+        for database in sorted(modules.keys()):
+            for category in sorted(modules[database].keys()):
+                usage += category + ", "
         usage += "plugins"
         if information in modules.keys():
             modules_data = list()
