@@ -58,7 +58,7 @@ class ZetaSploitCommand:
             for category in sorted(modules[database].keys()):
                 usage += category + ", "
         usage += "plugins"
-        if information in modules.keys():
+        if information in usage.split(", "):
             modules_data = list()
             headers = ("Name", "Database", "Description")
             for database in modules.keys():
