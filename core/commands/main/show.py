@@ -59,23 +59,26 @@ class ZetaSploitCommand:
         usage += "plugins"
         if information in modules.keys():
             modules_data = list()
-            headers = ("Name", "Description")
-            modules = modules[information]
-            for platform in sorted(modules.keys()):
-                for module in sorted(modules[platform].keys()):
-                    full_name = self.modules.get_full_name(information, platform, module)
-                    modules_data.append((full_name, modules[platform][module]['Description']))
+            headers = ("Name", "Database", "Description")
+            for database in modules.keys():
+                modules = modules[database][information]
+                for platform in sorted(modules.keys()):
+                    for module in sorted(modules[platform].keys()):
+                        full_name = self.modules.get_full_name(information, platform, module)
+                        modules_data.append((full_name, database, modules[platform][module]['Description']))
             self.io.output("")
             self.formatter.format_table("Modules", headers, *modules_data)
             self.io.output("")
         else:
             if information == "plugins":
-                if self.storage.get("plugins"):
+                plugins = self.storage.get("plugins")
+                if plugins:
                     plugins_data = list()
-                    headers = ("Name", "Description")
-                    plugins = self.storage.get("plugins")
-                    for plugin in sorted(plugins.keys()):
-                        plugins_data.append((plugin, plugins[plugin]['Description']))
+                    headers = ("Name", "Database", "Description")
+                    for database in plugins.keys():
+                        plugins = plugins[database]
+                        for plugin in sorted(plugins.keys()):
+                            plugins_data.append((plugin, database, plugins[plugin]['Description']))
                     self.io.output("")
                     self.formatter.format_table("Plugins", headers, *plugins_data)
                     self.io.output("")
