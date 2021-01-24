@@ -92,10 +92,10 @@ class console:
             modules_total = 0
             
             if plugins:
-                for database in plugins.keys()
+                for database in plugins.keys():
                     plugins_total += len(plugins[database])
             if modules:
-                for database in modules.keys()
+                for database in modules.keys():
                     for module_category in modules[database].keys():
                         for module_platform in modules[database][module_category].keys():
                             modules_total += len(modules[database][module_category][module_platform])
