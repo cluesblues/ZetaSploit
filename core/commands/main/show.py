@@ -60,13 +60,13 @@ class ZetaSploitCommand:
                 informations.append(category)
         if information in informations:
             modules_data = list()
-            headers = ("Name", "Database", "Description")
+            headers = ("Name", "Database", "Risk", "Description")
             for database in modules.keys():
                 modules = modules[database][information]
                 for platform in sorted(modules.keys()):
                     for module in sorted(modules[platform].keys()):
                         full_name = self.modules.get_full_name(information, platform, module)
-                        modules_data.append((full_name, database, modules[platform][module]['Description']))
+                        modules_data.append((full_name, database, modules[platform][module]['Risk'], modules[platform][module]['Description']))
             self.io.output("")
             self.formatter.format_table(information.title() + " Modules", headers, *modules_data)
             self.io.output("")
