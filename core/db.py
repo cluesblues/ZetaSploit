@@ -35,7 +35,9 @@ class db:
         self.storage = storage()
         
     def add_modules(self, name, path):
-        modules = json.load(open(path))
+        modules = {
+            name: json.load(open(path))
+        }
         
         data = {
             name: {
@@ -53,7 +55,9 @@ class db:
             self.storage.set("modules", modules)
       
     def add_plugins(self, name, path):
-        plugins = json.load(open(path))
+        plugins = {
+            name: json.load(open(path))
+        }
         
         data = {
             name: {
