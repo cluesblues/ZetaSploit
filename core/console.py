@@ -85,15 +85,20 @@ class console:
             self.banner.print_random_banner()
         
         if self.config.core_config['console']['header']:
+            plugins = self.storage.get("plugins")
+            modules = self.storage.get("modules")
+            
             plugins_total = 0
             modules_total = 0
-            if self.storage.get("plugins"):
-                plugins_total = len(self.storage.get("plugins"))
-            if self.storage.get("modules"):
-                modules = self.storage.get("modules")
-                for module_category in modules.keys():
-                    for module_platform in modules[module_category].keys():
-                        modules_total += len(modules[module_category][module_platform])
+            
+            if plugins:
+                for database in plugins.keys():
+                    plugins_total += len(plugins[database])
+            if modules:
+                for database in modules.keys():
+                    for module_category in modules[database].keys():
+                        for module_platform in modules[database][module_category].keys():
+                            modules_total += len(modules[database][module_category][module_platform])
 
             header = ""
             header += f"{self.badges.END}\n"

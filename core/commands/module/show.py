@@ -29,6 +29,7 @@ import os
 from core.io import io
 from core.badges import badges
 from core.storage import storage
+from core.modules import modules
 from core.formatter import formatter
 
 class ZetaSploitCommand:
@@ -36,6 +37,7 @@ class ZetaSploitCommand:
         self.io = io()
         self.badges = badges()
         self.storage = storage()
+        self.modules = modules()
         self.formatter = formatter()
 
         self.details = {
@@ -51,30 +53,32 @@ class ZetaSploitCommand:
     def run(self):
         information = self.details['Args'][0]
         modules = self.storage.get("modules")
-        current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
-        usage = "Informations: "
-        for category in sorted(modules.keys()):
-            usage += category + ", "
-        usage += "plugins, options"
-        if information in modules.keys():
+        informations = list()
+        for database in sorted(modules.keys()):
+            for category in sorted(modules[database].keys()):
+                informations.append(category)
+        if information in informations:
             modules_data = list()
-            headers = ("Name", "Description")
-            modules = modules[information]
-            for platform in sorted(modules.keys()):
-                for module in sorted(modules[platform].keys()):
-                    full_name = self.modules.get_full_name(information, platform, module)
-                    modules_data.append((full_name, modules[platform][module]['Description']))
+            headers = ("Name", "Database", "Description")
+            for database in modules.keys():
+                modules = modules[database][information]
+                for platform in sorted(modules.keys()):
+                    for module in sorted(modules[platform].keys()):
+                        full_name = self.modules.get_full_name(information, platform, module)
+                        modules_data.append((full_name, database, modules[platform][module]['Description']))
             self.io.output("")
-            self.formatter.format_table("Modules", headers, *modules_data)
+            self.formatter.format_table(information.title() + " Modules", headers, *modules_data)
             self.io.output("")
         else:
             if information == "plugins":
-                if self.storage.get("plugins"):
+                plugins = self.storage.get("plugins")
+                if plugins:
                     plugins_data = list()
-                    headers = ("Name", "Description")
-                    plugins = self.storage.get("plugins")
-                    for plugin in sorted(plugins.keys()):
-                        plugins_data.append((plugin, plugins[plugin]['Description']))
+                    headers = ("Name", "Database", "Description")
+                    for database in plugins.keys():
+                        plugins = plugins[database]
+                        for plugin in sorted(plugins.keys()):
+                            plugins_data.append((plugin, database, plugins[plugin]['Description']))
                     self.io.output("")
                     self.formatter.format_table("Plugins", headers, *plugins_data)
                     self.io.output("")
@@ -82,6 +86,7 @@ class ZetaSploitCommand:
                     self.badges.output_warning("No plugins available!")
             else:
                 if information == "options":
+                    current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
                     if hasattr(current_module, "options"):
                         options_data = list()
                         headers = ("Option", "Value", "Required", "Description")
@@ -101,4 +106,8 @@ class ZetaSploitCommand:
                     else:
                         self.badges.output_warning("Module does not have options.")
                 else:
+                    usage = "Informations: "
+                    for information in informations:
+                        usage += information + ", "
+                    usage += "plugins, options"
                     self.badges.output_information(usage)

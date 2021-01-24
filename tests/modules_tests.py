@@ -40,15 +40,17 @@ class modules_tests:
         
     def perform_test(self):
         fail = False
-        modules = self.storage.get("modules")
-        if modules:
-            for category in modules.keys():
-                for platform in modules[category].keys():
-                    for module in modules[category][platform].keys():
-                        try:
-                            _ = self.importer.import_module(modules[category][platform][module]['Path'])
-                            self.badges.output_success(self.modules.get_full_name(category, platform, module) + ': OK')
-                        except Exception:
-                            self.badges.output_error(self.modules.get_full_name(category, platform, module) + ': FAIL')
-                            fail = True
+        all_modules = self.storage.get("modules")
+        if all_modules:
+            for database in all_modules.keys():
+                modules = all_modules[database]
+                for category in modules.keys():
+                    for platform in modules[category].keys():
+                        for module in modules[category][platform].keys():
+                            try:
+                                _ = self.importer.import_module(modules[category][platform][module]['Path'])
+                                self.badges.output_success(self.modules.get_full_name(category, platform, module) + ': OK')
+                            except Exception:
+                                self.badges.output_error(self.modules.get_full_name(category, platform, module) + ': FAIL')
+                                fail = True
         return fail

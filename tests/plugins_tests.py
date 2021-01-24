@@ -38,13 +38,15 @@ class plugins_tests:
         
     def perform_test(self):
         fail = False
-        plugins = self.storage.get("plugins")
-        if plugins:
-            for plugin in plugins.keys():
-                try:
-                    _ = self.importer.import_plugin(plugins[plugin]['Path'])
-                    self.badges.output_success(plugin + ': OK')
-                except Exception:
-                    self.badges.output_error(plugin + ': FAIL')
-                    fail = True
+        all_plugins = self.storage.get("plugins")
+        if all_plugins:
+            for database in all_plugins.keys():
+                plugins = all_plugins[database]
+                for plugin in plugins.keys():
+                    try:
+                        _ = self.importer.import_plugin(plugins[plugin]['Path'])
+                        self.badges.output_success(plugin + ': OK')
+                    except Exception:
+                        self.badges.output_error(plugin + ': FAIL')
+                        fail = True
         return fail
