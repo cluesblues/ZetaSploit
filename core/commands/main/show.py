@@ -69,33 +69,35 @@ class ZetaSploitCommand:
         
     def show_modules(self, information):
         modules = self.storage.get("modules")
-        for database in sorted(modules.keys()):
-            for category in sorted(modules[database].keys()):
-                informations.append(category)
-        if information in informations:
-            modules_data = list()
-            number = 0
-            headers = ("Number", "Name", "Database", "Risk", "Description")
-            for database in modules.keys():
-                modules = modules[database][information]
-                for platform in sorted(modules.keys()):
-                    for module in sorted(modules[platform].keys()):
-                        full_name = self.modules.get_full_name(information, platform, module)
-                        modules_data.append((number, full_name, database, modules[platform][module]['Risk'], modules[platform][module]['Description']))
-                        number += 1
-            self.io.output("")
-            self.formatter.format_table(information.title() + " Modules", headers, *modules_data)
-            self.io.output("")
+        modules_data = list()
+        number = 0
+        headers = ("Number", "Name", "Database", "Risk", "Description")
+        for database in modules.keys():
+            modules = modules[database][information]
+            for platform in sorted(modules.keys()):
+                for module in sorted(modules[platform].keys()):
+                    full_name = self.modules.get_full_name(information, platform, module)
+                    modules_data.append((number, full_name, database, modules[platform][module]['Risk'], modules[platform][module]['Description']))
+                    number += 1
+        self.io.output("")
+        self.formatter.format_table(information.title() + " Modules", headers, *modules_data)
+        self.io.output("")
         
     def run(self):
         information = self.details['Args'][0]
         modules = self.storage.get("modules")
+        
         informations = list()
+        for database in sorted(modules.keys()):
+            for category in sorted(modules[database].keys()):
+                informations.append(category)
         
         if information == "plugins":
             self.show_plugins()
         else:
-            if not self.show_modules(information)
+            if information in informations:
+                self.show_modules(information)
+            else:
                 usage = "Informations: "
                 for information in informations:
                     usage += information + ", "
