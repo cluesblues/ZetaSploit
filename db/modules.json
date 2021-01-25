@@ -69,14 +69,6 @@
             }
         },
         "macos": {
-            "safari_app/safari_reaper": {
-                "Risk": "high",
-                "Description": "macOS Safari.app crash.",
-                "Path": "modules/exploit/macos/safari_app/safari_reaper",
-                "Dependencies": [
-                    ""
-                ]
-            },
             "stager/membrane_reverse_tcp": {
                 "Risk": "high",
                 "Description": "macOS reverse TCP shell with full remote functionality.",
