@@ -24,24 +24,37 @@
 # SOFTWARE.
 #
 
+from core.io import io
 from core.badges import badges
 
-class exploit_utils:
+class pseudo_shell:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         
-    def spawn_pseudo_shell(self, exec_function):
-        self.badges.output_process("Spawning Pseudo shell...")
-        self.badges.output_success("Congratulations, you won Pseudo shell!\n")
+        self.prompt = self.badges.BOLD + 'pseudo' + self.badges.END + '% '
         
+    def pseudo_shell_header(self):
         self.badges.output_information(" --=( Welcome to Pseudo shell )=-- ")
         self.badges.output_information("Interface for executing commands on the target.")
         self.badges.output_information("Commands are sent to the target via provided execute method.")
         
-        prompt = self.badges.BOLD + 'pseudo' + self.badges.BOLD + '% '
+    def spawn_pseudo_shell(self, execute_method):
+        self.badges.output_process("Spawning Pseudo shell...")
+        self.badges.output_success("Congratulations, you won Pseudo shell!\n")
         
+        self.pseudo_shell_header()
+        self.launch_pseudo_shell(execute_method)
+        
+    def launch_pseudo_shell(self, execute_method):
         while True:
-            command = self.badges.input_empty(prompt)
-            if command == 'exit':
+            try:
+                command = self.badges.input_empty(self.prompt)
+                if command == 'exit':
+                    break
+                execute_method(command)
+            except (EOFError, KeyboardInterrupt):
+                self.io.output("")
                 break
-            exec_function(command)
+            except Exception as e:
+                pass
