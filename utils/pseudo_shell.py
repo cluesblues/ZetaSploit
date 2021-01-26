@@ -35,13 +35,15 @@ class pseudo_shell:
         self.prompt = self.badges.BOLD + 'pseudo' + self.badges.END + '% '
         
     def pseudo_shell_header(self):
+        self.io.output("")
         self.badges.output_information(" --=( Welcome to Pseudo shell )=-- ")
         self.badges.output_information("Interface for executing commands on the target.")
         self.badges.output_information("Commands are sent to the target via provided execute method.")
+        self.io.output("")
         
     def spawn_pseudo_shell(self, execute_method):
         self.badges.output_process("Spawning Pseudo shell...")
-        self.badges.output_success("Congratulations, you won Pseudo shell!\n")
+        self.badges.output_success("Congratulations, you won Pseudo shell!")
         
         self.pseudo_shell_header()
         self.launch_pseudo_shell(execute_method)
