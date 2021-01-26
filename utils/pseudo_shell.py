@@ -57,4 +57,4 @@ class pseudo_shell:
                 self.io.output("")
                 break
             except Exception as e:
-                pass
+                self.badges.output_error("An error occurred: " + str(e) + "!")
