@@ -32,7 +32,7 @@ class pseudo_shell:
         self.io = io()
         self.badges = badges()
         
-        self.prompt = self.badges.BOLD + 'pseudo' + self.badges.END + '% '
+        self.prompt = 'pseudo % '
         
     def pseudo_shell_header(self):
         self.io.output("")
