@@ -36,7 +36,7 @@ class pseudo_shell:
         
     def pseudo_shell_header(self):
         self.io.output("")
-        self.badges.output_information(" --=( Welcome to Pseudo shell )=-- ")
+        self.badges.output_information("--=( Welcome to Pseudo shell )=--")
         self.badges.output_information("Interface for executing commands on the target.")
         self.badges.output_information("Commands are sent to the target via provided execute method.")
         self.io.output("")
