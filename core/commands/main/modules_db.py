@@ -42,14 +42,15 @@ class ZetaSploitCommand:
 
     def run(self):
         option = self.details['Args'][0]
-        if option == '-l':
+        if option == "-l":
             dbs_data = list()
             number = 0
-            headers = ("Number", "Name", "Type", "Path")
+            headers = ("Number", "Name", "Path")
             dbs = self.storage.get("connected_databases")
             for name in dbs.keys():
-                dbs_data.append((number, name, dbs[name]['type'], dbs[name]['path']))
-                number += 1
+                if dbs[name]['type'] == "module":
+                    dbs_data.append((number, name, dbs[name]['path']))
+                    number += 1
             self.io.output("")
             self.formatter.format_table("Connected Databases", headers, *dbs_data)
             self.io.output("")
