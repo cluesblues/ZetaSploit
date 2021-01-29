@@ -42,5 +42,16 @@ class ZetaSploitCommand:
 
     def run(self):
         option = self.details['Args'][0]
-        if option not in ['-l', '-r', '-a']:
+        if option == '-l':
+            dbs_data = list()
+            number = 0
+            headers = ("Number", "Name", "Type", "Path")
+            dbs = self.storage.get("connected_databases")
+            for name in dbs.keys():
+                dbs_data.append((number, name, dbs[name]['type'], dbs[name]['path']))
+                number += 1
+            self.io.output("")
+            self.formatter.format_table("Connected Databases", headers, *dbs_data)
+            self.io.output("")
+        else:
             self.badges.output_usage(self.details['Usage'])
