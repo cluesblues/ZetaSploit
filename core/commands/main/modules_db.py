@@ -24,11 +24,17 @@
 # SOFTWARE.
 #
 
+from core.io import io
 from core.badges import badges
+from core.storage import storage
+from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
+        self.storage = storage()
+        self.formatter = formatter()
         
         self.details = {
             'Category': "database",
@@ -41,7 +47,9 @@ class ZetaSploitCommand:
         }
 
     def run(self):
-        option = self.details['Args'][0]
+        args = self.details['Args']
+        option = args[0]
+        
         if option == "-l":
             dbs_data = list()
             number = 0
@@ -54,5 +62,10 @@ class ZetaSploitCommand:
             self.io.output("")
             self.formatter.format_table("Connected Databases", headers, *dbs_data)
             self.io.output("")
+        elif option == '-r':
+            if len(args) < 2:
+                self.badges.output_usage(self.details['Usage'])
+            else:
+                self.storage.delete_element("connected_databases", args[1])
         else:
             self.badges.output_usage(self.details['Usage'])
