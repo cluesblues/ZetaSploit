@@ -34,6 +34,14 @@ class db:
         self.badges = badges()
         self.storage = storage()
         
+    def remove_modules(self, name):
+        self.storage.delete_element("connected_databases", name)
+        self.storage.delete_element("modules", name)
+        
+    def remove_plugins(self, name):
+        self.storage.delete_element("connected_databases", name)
+        self.storage.delete_element("plugins", name)
+        
     def add_modules(self, name, path):
         modules = {
             name: json.load(open(path))
