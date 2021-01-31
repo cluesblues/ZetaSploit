@@ -23,5 +23,5 @@
 %comment
 
 %end
-run %greenexec%end to execute system commands
+Run %greenexec%end to execute system commands
 %end

@@ -1,4 +1,7 @@
 {
+    "__database__": {
+        "type": "modules"
+    },
     "auxiliary": {
         "iphoneos": {
             "checker/jailbroken_or_not": {

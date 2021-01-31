@@ -22,12 +22,24 @@
 %comment SOFTWARE.
 %comment
 
+
 %newline
-  %end
-  %red__________%end      __          %blue _________%end      .__         .__  __
-  %red\____    /%end_____/  |______   %blue/   _____/%end_____ |  |   ____ |__|/  |_
-  %red  /     /%end/ __ \   __\__  \  %blue\_____  \%end\____ \|  |  /  _ \|  \   __\
-  %red /     /\%end  ___/|  |  / __ \_%blue/        \%end  |_> >  |_(  <_> )  ||  |
-  %red/_______ \%end___  >__| (____  %blue/_______  /%end   __/|____/\____/|__||__|
-  %red        \/%end   \/          \/        %blue\/%end|__|
+%end
+      (%bold%redZ%end(   )%bold%redE%end)  T%bold%redZ%endAGTAAT%bold%redE%endAGG
+       `.\ /,'
+         `\.
+       ,'/ \`.
+      (%bold%redT%end(   )%bold%redA%end)  ATAGT%bold%redT%endCGAA%bold%redA%endG
+       `.\ /,'
+         ,/'
+       ,'/ \`.
+      (%bold%redS%end(   )%bold%redP%end)  CT%bold%redS%endACAG%bold%redP%endCCAC
+       `.\ /,'
+         `\.
+       ,'/ \`.
+      (%bold%redL%end(   )%bold%redO%end)  T%bold%redL%endCCTATAGG%bold%redO%endG
+       `.\ /,'
+         ,/'
+       ,'/ \`.
+      (%bold%redI%end(   )%bold%redT%end)  ACA%bold%redI%endAAAG%bold%redT%endGAC
 %end

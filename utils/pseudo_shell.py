@@ -24,45 +24,39 @@
 # SOFTWARE.
 #
 
-import os
-
 from core.io import io
 from core.badges import badges
-from core.storage import storage
 
-class ZetaSploitCommand:
+class pseudo_shell:
     def __init__(self):
         self.io = io()
         self.badges = badges()
-        self.storage = storage()
-
-        self.details = {
-            'Category': "module",
-            'Name': "run",
-            'Description': "Run current module.",
-            'Usage': "run",
-            'ArgsCount': 0,
-            'NeedsArgs': False,
-            'Args': list()
-        }
-
-    def run(self):
-        current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
-        count = 0
-        if hasattr(current_module, "options"):
-            for option in current_module.options.keys():
-                current_option = current_module.options[option]
-                if not current_option['Value'] and current_option['Value'] != 0 and current_option['Required']:
-                    count += 1
-            if count > 0:
-                self.badges.output_error("Missed some required options!")
-            else:
-                try:
-                    current_module.run()
-                except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
-        else:
+        
+        self.prompt = 'pseudo % '
+        
+    def pseudo_shell_header(self):
+        self.io.output("")
+        self.badges.output_information("--=( Welcome to Pseudo shell )=--")
+        self.badges.output_information("Interface for executing commands on the target.")
+        self.badges.output_information("Commands are sent to the target via provided execute method.")
+        self.io.output("")
+        
+    def spawn_pseudo_shell(self, execute_method):
+        self.badges.output_process("Spawning Pseudo shell...")
+        self.badges.output_success("Congratulations, you won Pseudo shell!")
+        
+        self.pseudo_shell_header()
+        self.launch_pseudo_shell(execute_method)
+        
+    def launch_pseudo_shell(self, execute_method):
+        while True:
             try:
-                current_module.run()
-            except (KeyboardInterrupt, EOFError):
+                command = self.badges.input_empty(self.prompt)
+                if command == 'exit':
+                    break
+                execute_method(command)
+            except (EOFError, KeyboardInterrupt):
                 self.io.output("")
+                break
+            except Exception as e:
+                self.badges.output_error("An error occurred: " + str(e) + "!")

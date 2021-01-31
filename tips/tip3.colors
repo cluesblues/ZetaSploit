@@ -22,12 +22,6 @@
 %comment SOFTWARE.
 %comment
 
-%newline
-  %end
-  %red__________%end      __          %blue _________%end      .__         .__  __
-  %red\____    /%end_____/  |______   %blue/   _____/%end_____ |  |   ____ |__|/  |_
-  %red  /     /%end/ __ \   __\__  \  %blue\_____  \%end\____ \|  |  /  _ \|  \   __\
-  %red /     /\%end  ___/|  |  / __ \_%blue/        \%end  |_> >  |_(  <_> )  ||  |
-  %red/_______ \%end___  >__| (____  %blue/_______  /%end   __/|____/\____/|__||__|
-  %red        \/%end   \/          \/        %blue\/%end|__|
+%end
+Want to add your modules database? Just use %greenmodules_db -c%end
 %end

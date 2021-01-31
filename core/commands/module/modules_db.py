@@ -24,23 +24,55 @@
 # SOFTWARE.
 #
 
+from core.io import io
+from core.db import db
 from core.badges import badges
+from core.storage import storage
+from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
+        self.db = db()
         self.badges = badges()
+        self.storage = storage()
+        self.formatter = formatter()
         
         self.details = {
             'Category': "database",
             'Name': "modules_db",
             'Description': "Manage modules databases.",
-            'Usage': "modules_db [-l|-r <name>|-a <name> <path>]",
+            'Usage': "modules_db [-l|-d <name>|-c <name> <path>]",
             'ArgsCount': 1,
             'NeedsArgs': True,
             'Args': list()
         }
 
     def run(self):
-        option = self.details['Args'][0]
-        if option not in ['-l', '-r', '-a']:
+        choice = self.details['Args'][0]
+        if choice == "-l":
+            if self.storage.get("connected_modules_databases"):
+                databases_data = list()
+                number = 0
+                headers = ("Number", "Name", "Path")
+                databases = self.storage.get("connected_modules_databases")
+                for name in databases.keys():
+                    databases_data.append((number, name, databases[name]['path']))
+                    number += 1
+                self.io.output("")
+                self.formatter.format_table("Connected Modules Databases", headers, *databases_data)
+                self.io.output("")
+            else:
+                self.badges.output_warning("No modules database connected.")
+        elif choice == '-d':
+            if len(self.details['Args']) < 2:
+                self.badges.output_usage(self.details['Usage'])
+            else:
+                self.db.disconnect_modules_database(self.details['Args'][1])
+        elif choice == '-c':
+            if len(self.details['Args']) < 3:
+                self.badges.output_usage(self.details['Usage'])
+            else:
+                self.db.connect_modules_database(self.details['Args'][1], self.details['Args'][2])
+        else:
             self.badges.output_usage(self.details['Usage'])
