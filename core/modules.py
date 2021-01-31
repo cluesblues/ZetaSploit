@@ -53,9 +53,9 @@ class modules:
         return False
 
     def check_imported(self, name):
-        imported_modules = self.storage.get("imported_modules").keys()
+        imported_modules = self.storage.get("imported_modules")
         if imported_modules:
-            if name in imported_modules:
+            if name in imported_modules.keys():
                 return True
         return False
     
