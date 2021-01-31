@@ -64,11 +64,21 @@ class db:
                 self.bagdes.output_error("Modules database already connected!")
                 return
         if not os.path.exists(path) or not str.endswith(path, "json"):
-            self.badges.output_error("Failed to connect modules database!")
+            self.badges.output_error("Not a database!")
             return
         
+        database = json.load(open(path))
+        
+        if '__database__' not in database.keys():
+            self.badges.output_error("No __database__ section found!")
+            return
+        if database['__database__']['type'] != "modules":
+            self.badges.output_error("Not a modules database!")
+            return
+        del database['__database__']
+        
         modules = {
-            name: json.load(open(path))
+            name: database
         }
         
         data = {
@@ -91,11 +101,21 @@ class db:
                 self.bagdes.output_error("Plugins database already connected!")
                 return
         if not os.path.exists(path) or not str.endswith(path, "json"):
-            self.badges.output_error("Failed to connect plugins database!")
+            self.badges.output_error("Not a database!")
             return
         
+        database = json.load(open(path))
+        
+        if '__database__' not in database.keys():
+            self.badges.output_error("No __database__ section found!")
+            return
+        if database['__database__']['type'] != "plugins":
+            self.badges.output_error("Not a plugins database!")
+            return
+        del database['__database__']
+        
         plugins = {
-            name: json.load(open(path))
+            name: database
         }
         
         data = {
