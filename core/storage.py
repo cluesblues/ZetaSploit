@@ -25,6 +25,9 @@
 #
 
 class storage:
+    def get_all(self):
+        return globals()
+    
     def add(self, name):
         globals()[name] = None
 
