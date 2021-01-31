@@ -51,13 +51,13 @@ class ZetaSploitCommand:
         self.io.output("")
         while True:
             output = self.badges.input_empty(self.prompt)
+            if "exit" in output or "quit" in output:
+                return
             try:
                 exec(output.strip())
             except SystemExit:
                 return
             except (EOFError, KeyboardInterrupt):
-                return
-            except ValueError:
                 return
             except Exception as e:
                 self.badges.output_error(str(e))
