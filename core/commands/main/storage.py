@@ -24,11 +24,15 @@
 # SOFTWARE.
 #
 
-from core.execute import execute
+from core.io import io
+from core.badges import badges
+from core.storage import storage
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.execute = execute()
+        self.io = io()
+        self.badges = badges()
+        self.storage = storage()
 
         self.details = {
             'Category': "developer",
@@ -42,3 +46,30 @@ class ZetaSploitCommand:
 
     def run(self):
         choice = self.details['Args'][0]
+        if choice == "-l":
+            self.badges.output_information("Storage variables:")
+            for variable in self.storage.get_all():
+                self.io.output("* " + variable)
+        elif choice == "-v":
+            if len(self.details['Args']) < 2:
+                self.badges.output_usage(self.details['Usage'])
+            else:
+                if self.details['Args'][1] in self.storage.get_all():
+                    self.badges.output_information(self.details['Args'][1] + " = " + self.storage.get(self.details['Args'][1]))
+                else:
+                    self.badges.output_error("Invalid storage variable name!")
+        elif choice == "-s":
+            if len(self.details['Args']) < 3:
+                self.badges.output_usage(self.details['Usage'])
+            else:
+                self.storage.set(self.details['Args'][1], self.details['Args'][2])
+        elif choice == "-d":
+            if len(self.details['Args']) < 2:
+                self.badges.output_usage(self.details['Usage'])
+            else:
+                if self.details['Args'][1] in self.storage.get_all():
+                    self.storage.delete(self.details['Args'][1])
+                else:
+                    self.badges.output_error("Invalid storage variable name!")
+        else:
+            self.badges.output_usage(self.details['Usage'])
