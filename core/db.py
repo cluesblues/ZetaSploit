@@ -24,6 +24,7 @@
 # SOFTWARE.
 #
 
+import os
 import json
 
 from core.badges import badges
@@ -35,14 +36,30 @@ class db:
         self.storage = storage()
         
     def disconnect_modules_database(self, name):
-        self.storage.delete_element("connected_modules_databases", name)
-        self.storage.delete_element("modules", name)
+        if self.storage.get("connected_modules_databases"):
+            if name in self.storage.get("connected_modules_databases"):
+                self.storage.delete_element("connected_modules_databases", name)
+                self.storage.delete_element("modules", name)
+                return
+        self.badges.output_error("No such modules database connected!")
         
     def disconnect_plugins_database(self, name):
-        self.storage.delete_element("connected_plugins_databases", name)
-        self.storage.delete_element("plugins", name)
+        if self.storage.get("connected_plugins_databases"):
+            if name in self.storage.get("connected_plugins_databases"):
+                self.storage.delete_element("connected_plugins_databases", name)
+                self.storage.delete_element("plugins", name)
+                return
+        self.badges.output_error("No such plugins database connected!")
         
     def connect_modules_database(self, name, path):
+        if self.storage.get("connected_modules_databases"):
+            if name in self.storage.get("connected_modules_databases"):
+                self.bagdes.output_error("Modules database already connected!")
+                return
+        if not os.path.exists(path) or not str.endswith(path, "json"):
+            self.badges.output_error("Failed to connect modules database!")
+            return
+        
         modules = {
             name: json.load(open(path))
         }
@@ -62,6 +79,14 @@ class db:
             self.storage.set("modules", modules)
       
     def connect_plugins_database(self, name, path):
+        if self.storage.get("connected_plugins_databases"):
+            if name in self.storage.get("connected_plugins_databases"):
+                self.bagdes.output_error("Plugins database already connected!")
+                return
+        if not os.path.exists(path) or not str.endswith(path, "json"):
+            self.badges.output_error("Failed to connect plugins database!")
+            return
+        
         plugins = {
             name: json.load(open(path))
         }
