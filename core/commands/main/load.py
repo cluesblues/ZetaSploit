@@ -79,7 +79,7 @@ class ZetaSploitCommand:
         else:
             self.badges.output_error("Plugin depends this dependencies which is not installed:")
             for dependence in not_installed:
-                self.io.output("    " + dependence)
+                self.io.output("    * " + dependence)
         
     def run(self):
         plugin = self.details['Args'][0]
