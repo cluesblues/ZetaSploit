@@ -54,11 +54,10 @@ class modules:
 
     def check_imported(self, name):
         imported_modules = self.storage.get("imported_modules").keys()
-        if not imported_modules:
-            return False
-        if name not in imported_modules:
-            return False
-        return True
+        if imported_modules:
+            if name in imported_modules:
+                return True
+        return False
     
     def check_style(self, name):
         if len(name.split('/')) >= 4:
