@@ -67,10 +67,11 @@ class ZetaSploitCommand:
             editor = "vi"
             
         if self.modules.check_exist(module):
-            if self.modules.check_imported(module):
-                module_path = self.storage.get("modules")[module_category][module_platform][module_name]['Path']
-                edit_mode = editor + " " + module_path
-                self.execute.execute_system(edit_mode)
+            if not self.modules.check_imported(module):
+                for database in self.storage.get("modules").keys():
+                    module_path = self.storage.get("modules")[database][module_category][module_platform][module_name]['Path']
+                    edit_mode = editor + " " + module_path
+                    self.execute.execute_system(edit_mode)
             else:
                 self.badges.output_error("Can not edit already used module!")
         else:
