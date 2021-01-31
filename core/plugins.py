@@ -47,8 +47,9 @@ class plugins:
         
     def get_database(self, name):
         all_plugins = self.storage.get("plugins")
-        for database in all_plugins.keys():
-            plugins = all_plugins[database]
-            if name in plugins.keys():
-                return database
+        if all_plugins:
+            for database in all_plugins.keys():
+                plugins = all_plugins[database]
+                if name in plugins.keys():
+                    return database
         return None
