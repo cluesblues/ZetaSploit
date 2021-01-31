@@ -24,4 +24,24 @@
 # SOFTWARE.
 #
 
+from core.storage import storage
+
 class plugins:
+    def __init__(self):
+        self.storage = storage()
+        
+    def check_exist(self, name):
+        all_plugins = self.storage.get("plugins")
+        for database in all_plugins.keys():
+            plugins = all_plugins[database]
+            if name in plugins.keys():
+                return True
+        return False
+      
+    def get_database(self, name):
+        all_plugins = self.storage.get("plugins")
+        for database in all_plugins.keys():
+            plugins = all_plugins[database]
+            if name in plugins.keys():
+                return database
+        return None
