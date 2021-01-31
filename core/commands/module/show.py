@@ -108,7 +108,7 @@ class ZetaSploitCommand:
             if options:
                 usage += "options"
             else:
-                usage = usage[:-1]
+                usage = usage[:-2]
         self.badges.output_information(usage)
         
     def run(self):
