@@ -34,15 +34,15 @@ class db:
         self.badges = badges()
         self.storage = storage()
         
-    def remove_modules(self, name):
+    def disconnect_modules_database(self, name):
         self.storage.delete_element("connected_databases", name)
         self.storage.delete_element("modules", name)
         
-    def remove_plugins(self, name):
+    def disconnect_plugins_database(self, name):
         self.storage.delete_element("connected_databases", name)
         self.storage.delete_element("plugins", name)
         
-    def add_modules(self, name, path):
+    def connect_modules_database(self, name, path):
         modules = {
             name: json.load(open(path))
         }
@@ -62,7 +62,7 @@ class db:
         else:
             self.storage.set("modules", modules)
       
-    def add_plugins(self, name, path):
+    def connect_plugins_database(self, name, path):
         plugins = {
             name: json.load(open(path))
         }
