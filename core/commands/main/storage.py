@@ -49,7 +49,8 @@ class ZetaSploitCommand:
         if choice == "-l":
             self.badges.output_information("Storage variables:")
             for variable in self.storage.get_all():
-                self.io.output("    * " + variable)
+                if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
+                    self.io.output("    * " + variable)
         elif choice == "-v":
             if len(self.details['Args']) < 2:
                 self.badges.output_usage(self.details['Usage'])
