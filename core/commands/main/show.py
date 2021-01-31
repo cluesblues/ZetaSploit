@@ -52,20 +52,17 @@ class ZetaSploitCommand:
 
     def show_plugins(self):
         plugins = self.storage.get("plugins")
-        if plugins:
-            plugins_data = list()
-            number = 0
-            headers = ("Number", "Name", "Database", "Description")
-            for database in plugins.keys():
-                plugins = plugins[database]
-                for plugin in sorted(plugins.keys()):
-                    plugins_data.append((number, plugin, database, plugins[plugin]['Description']))
-                    number += 1
-            self.io.output("")
-            self.formatter.format_table("Plugins", headers, *plugins_data)
-            self.io.output("")
-        else:
-            self.badges.output_warning("No plugins available!")
+        plugins_data = list()
+        number = 0
+        headers = ("Number", "Name", "Database", "Description")
+        for database in plugins.keys():
+            plugins = plugins[database]
+            for plugin in sorted(plugins.keys()):
+                plugins_data.append((number, plugin, database, plugins[plugin]['Description']))
+                number += 1
+        self.io.output("")
+        self.formatter.format_table("Plugins", headers, *plugins_data)
+        self.io.output("")
         
     def show_modules(self, information):
         modules = self.storage.get("modules")
@@ -83,23 +80,33 @@ class ZetaSploitCommand:
         self.formatter.format_table(information.title() + " Modules", headers, *modules_data)
         self.io.output("")
         
+    def print_usage(self, informations):
+        usage = "Informations: "
+        for information in informations:
+            usage += information + ", "
+        if plugins:
+            usage += "plugins"
+        else:
+            usage = usage[:-1]
+        self.badges.output_information(usage)
+        
     def run(self):
         information = self.details['Args'][0]
+        
         modules = self.storage.get("modules")
+        plugins = self.storage.get("plugins")
         
         informations = list()
-        for database in sorted(modules.keys()):
-            for category in sorted(modules[database].keys()):
-                informations.append(category)
+        if modules:
+            for database in sorted(modules.keys()):
+                for category in sorted(modules[database].keys()):
+                    informations.append(category)
         
-        if information == "plugins":
-            self.show_plugins()
+        if plugins:
+            if information == "plugins":
+                self.show_plugins()
+                return
+        if information in informations:
+            self.show_modules(information)
         else:
-            if information in informations:
-                self.show_modules(information)
-            else:
-                usage = "Informations: "
-                for information in informations:
-                    usage += information + ", "
-                usage += "plugins"
-                self.badges.output_information(usage)
+            self.print_usage(informations)
