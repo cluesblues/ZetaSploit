@@ -49,13 +49,13 @@ class ZetaSploitCommand:
         if choice == "-l":
             self.badges.output_information("Storage variables:")
             for variable in self.storage.get_all():
-                self.io.output("* " + variable)
+                self.io.output("    * " + variable)
         elif choice == "-v":
             if len(self.details['Args']) < 2:
                 self.badges.output_usage(self.details['Usage'])
             else:
                 if self.details['Args'][1] in self.storage.get_all():
-                    self.badges.output_information(self.details['Args'][1] + " = " + self.storage.get(self.details['Args'][1]))
+                    self.badges.output_information(self.details['Args'][1] + " = " + str(self.storage.get(self.details['Args'][1])))
                 else:
                     self.badges.output_error("Invalid storage variable name!")
         elif choice == "-s":
