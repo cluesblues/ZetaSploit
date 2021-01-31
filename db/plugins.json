@@ -8,5 +8,12 @@
         "Dependencies": [
             "nmap3"
         ]
+    },
+    "test": {
+        "Description": "test",
+        "Path": "plugins/test",
+        "Dependencies": [
+            ''
+        ]
     }
 }
