@@ -99,17 +99,20 @@ class ZetaSploitCommand:
         self.io.output("")
         
     def print_usage(self, informations, plugins, options):
-        usage = "Informations: "
-        for information in informations:
-            usage += information + ", "
-        if plugins:
-            usage += "plugins"
-        else:
-            if options:
-                usage += "options"
+        if informations or plugins or options:
+            usage = "Informations: "
+            for information in informations:
+                usage += information + ", "
+            if plugins:
+                usage += "plugins"
             else:
-                usage = usage[:-2]
-        self.badges.output_information(usage)
+                if options:
+                    usage += "options"
+                else:
+                    usage = usage[:-2]
+            self.badges.output_information(usage)
+        else:
+            self.badges.output_warning("No informations available!")
         
     def run(self):
         information = self.details['Args'][0]
