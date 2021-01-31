@@ -38,6 +38,13 @@ class plugins:
                 return True
         return False
       
+    def check_loaded(self, name):
+        loaded_plugins = self.storage.get("loaded_plugins")
+        if loaded_plugins:
+            if name in loaded_plugins:
+                return True
+        return False
+        
     def get_database(self, name):
         all_plugins = self.storage.get("plugins")
         for database in all_plugins.keys():
