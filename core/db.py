@@ -49,13 +49,12 @@ class db:
         
         data = {
             name: {
-                'type': 'modules',
                 'path': path
             }
         }
-        if not self.storage.get("connected_databases"):
-            self.storage.set("connected_databases", dict())
-        self.storage.update("connected_databases", data)
+        if not self.storage.get("connected_modules_databases"):
+            self.storage.set("connected_modules_databases", dict())
+        self.storage.update("connected_modules_databases", data)
         
         if self.storage.get("modules"):
             self.storage.update("modules", modules)
@@ -69,13 +68,12 @@ class db:
         
         data = {
             name: {
-                'type': 'plugins',
                 'path': path
             }
         }
-        if not self.storage.get("connected_databases"):
-            self.storage.set("connected_databases", dict())
-        self.storage.update("connected_databases", data)
+        if not self.storage.get("connected_plugins_databases"):
+            self.storage.set("connected_plugins_databases", dict())
+        self.storage.update("connected_plugins_databases", data)
         
         if self.storage.get("plugins"):
             self.storage.update("plugins", plugins)
