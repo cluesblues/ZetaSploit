@@ -49,8 +49,8 @@ class modules:
                     if platform in modules[category].keys():
                         module = self.get_name(name)
                         if module in modules[category][platform].keys():
-                            return database
-        return None
+                            return True
+        return False
 
     def check_imported(self, name):
         imported_modules = self.storage.get("imported_modules")
@@ -64,6 +64,22 @@ class modules:
             return True
         return False
        
+    def get_database(self, name):
+        if self.check_style(name):
+            all_modules = self.storage.get("modules")
+            for database in all_modules.keys():
+                modules = all_modules[database]
+                
+                category = self.get_category(name)
+                platform = self.get_platform(name)
+        
+                if category in modules.keys():
+                    if platform in modules[category].keys():
+                        module = self.get_name(name)
+                        if module in modules[category][platform].keys():
+                            return database
+        return None
+        
     def get_category(self, name):
         if self.check_style(name):
             return name.split('/')[0]
