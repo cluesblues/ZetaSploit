@@ -22,23 +22,24 @@
 %comment SOFTWARE.
 %comment
 
+
 %newline
 %end
-      (%bold%redZ%end(   )%bold%redE%end)
+      (%bold%redZ%end(   )%bold%redE%end)  T%bold%redZ%endAGTAAT%bold%redE%endAGG
        `.\ /,'
          `\.
        ,'/ \`.
-      (%bold%redT%end(   )%bold%redA%end)
+      (%bold%redT%end(   )%bold%redA%end)  ATAGT%bold%redTCGAA%bold%redA%endG
        `.\ /,'
          ,/'
        ,'/ \`.
-      (%bold%redS%end(   )%bold%redP%end)
+      (%bold%redS%end(   )%bold%redP%end)  CT%bold%redSACAG%bold%redP%endCCAC
        `.\ /,'
          `\.
        ,'/ \`.
-      (%bold%redL%end(   )%bold%redO%end)
+      (%bold%redL%end(   )%bold%redO%end)  T%bold%redL%endCCTATAGG%bold%redO%endG
        `.\ /,'
          ,/'
        ,'/ \`.
-      (%bold%redI%end(   )%bold%redT%end)
+      (%bold%redI%end(   )%bold%redT%end)  ACA%bold%redI%endAAAG%bold%redT%endGAC
 %end
