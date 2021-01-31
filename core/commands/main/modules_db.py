@@ -54,11 +54,10 @@ class ZetaSploitCommand:
             databases_data = list()
             number = 0
             headers = ("Number", "Name", "Path")
-            databases = self.storage.get("connected_databases")
+            databases = self.storage.get("connected_modules_databases")
             for name in databases.keys():
-                if databases[name]['type'] == "modules":
-                    databases_data.append((number, name, databases[name]['path']))
-                    number += 1
+                databases_data.append((number, name, databases[name]['path']))
+                number += 1
             self.io.output("")
             self.formatter.format_table("Connected Modules Databases", headers, *databases_data)
             self.io.output("")
@@ -66,12 +65,15 @@ class ZetaSploitCommand:
             if len(self.details['Args']) < 2:
                 self.badges.output_usage(self.details['Usage'])
             else:
-                self.db.disconnect_modules_database(self.details['Args'][1])
+                if self.details['Args'][1] in self.storage.get("connected_modules_databases"):
+                    self.db.disconnect_modules_database(self.details['Args'][1])
+                else:
+                    self.badges.output_error("No such connected modules database!")
         elif choice == '-a':
             if len(self.details['Args']) < 3:
                 self.badges.output_usage(self.details['Usage'])
             else:
-                if self.details['Args'][1] not in self.storage.get("connected_databases"):
+                if self.details['Args'][1] not in self.storage.get("connected_modules_databases"):
                     self.db.connect_modules_database(self.details['Args'][1], self.details['Args'][2])
                 else:
                     self.badges.output_error("Failed to connect database.")
