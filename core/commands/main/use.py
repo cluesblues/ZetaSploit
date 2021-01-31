@@ -96,8 +96,8 @@ class ZetaSploitCommand:
         platform = self.modules.get_platform(module)
         
         if self.modules.check_exist(module):
+            database = self.modules.get_database(module)
             module = self.modules.get_name(module)
-            for database in self.storage.get("modules").keys():
-                self.add_module(database, category, platform, module)
+            self.add_module(database, category, platform, module)
         else:
             self.badges.output_error("Invalid module!")
