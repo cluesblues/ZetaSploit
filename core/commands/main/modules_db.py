@@ -65,17 +65,11 @@ class ZetaSploitCommand:
             if len(self.details['Args']) < 2:
                 self.badges.output_usage(self.details['Usage'])
             else:
-                if self.details['Args'][1] in self.storage.get("connected_modules_databases"):
-                    self.db.disconnect_modules_database(self.details['Args'][1])
-                else:
-                    self.badges.output_error("No such connected modules database!")
+                self.db.disconnect_modules_database(self.details['Args'][1])
         elif choice == '-a':
             if len(self.details['Args']) < 3:
                 self.badges.output_usage(self.details['Usage'])
             else:
-                if self.details['Args'][1] not in self.storage.get("connected_modules_databases"):
-                    self.db.connect_modules_database(self.details['Args'][1], self.details['Args'][2])
-                else:
-                    self.badges.output_error("Failed to connect database.")
+                self.db.connect_modules_database(self.details['Args'][1], self.details['Args'][2])
         else:
             self.badges.output_usage(self.details['Usage'])
