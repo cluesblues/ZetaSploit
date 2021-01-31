@@ -60,7 +60,6 @@ class ZetaSploitCommand:
                 self.storage.set("imported_modules", dict())
             self.storage.update("imported_modules", {self.modules.get_full_name(category, platform, module): module_object})
         except Exception:
-            self.badges.output_error("Failed to select module from database!")
             return None
         return module_object
         
@@ -73,19 +72,23 @@ class ZetaSploitCommand:
         if not not_installed:
             imported_modules = self.storage.get("imported_modules")
             full_name = self.modules.get_full_name(category, platform, module)
-            if not self.modules.check_imported(full_name):
-                module_object = self.import_module(database, category, platform, module)
-                if not module_object:
-                    return
-            else:
+            
+            if self.modules.check_imported(full_name):
                 module_object = imported_modules[full_name]
-            self.storage.add_array("current_module", '')
-            self.storage.set("pwd", self.storage.get("pwd") + 1)
-            self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+            else:
+                module_object = self.import_module(database, category, platform, module)
+                if module_object:
+                    self.storage.set("current_module", [])
+                    self.storage.set("pwd", 0)
+                    self.storage.add_array("current_module", '')
+                    self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+                    self.module.module_menu()
+                else:
+                    self.badges.output_error("Failed to select module from database!")
         else:
             self.badges.output_error("Module depends this dependencies which is not installed:")
             for dependence in not_installed:
-                self.io.output("    " + dependence)
+                self.io.output("    * " + dependence)
 
     def run(self):
         module = self.details['Args'][0]
