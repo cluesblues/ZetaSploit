@@ -35,6 +35,13 @@ class db:
         self.badges = badges()
         self.storage = storage()
         
+    def identify_database(self, path):
+        database = json.load(open(path))
+        for item in database.keys():
+            if len(database[item]) == 4:
+                return "plugins"
+        return "modules"
+        
     def disconnect_modules_database(self, name):
         if self.storage.get("connected_modules_databases"):
             if name in self.storage.get("connected_modules_databases"):
