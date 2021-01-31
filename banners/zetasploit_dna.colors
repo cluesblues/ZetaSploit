@@ -29,11 +29,11 @@
        `.\ /,'
          `\.
        ,'/ \`.
-      (%bold%redT%end(   )%bold%redA%end)  ATAGT%bold%redTCGAA%bold%redA%endG
+      (%bold%redT%end(   )%bold%redA%end)  ATAGT%bold%redT%endCGAA%bold%redA%endG
        `.\ /,'
          ,/'
        ,'/ \`.
-      (%bold%redS%end(   )%bold%redP%end)  CT%bold%redSACAG%bold%redP%endCCAC
+      (%bold%redS%end(   )%bold%redP%end)  CT%bold%redS%endACAG%bold%redP%endCCAC
        `.\ /,'
          `\.
        ,'/ \`.
