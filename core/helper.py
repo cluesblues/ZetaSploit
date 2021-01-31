@@ -45,6 +45,11 @@ class helper:
             local_host = "127.0.0.1"
         return local_host
 
+    def strip_scheme(self, url):
+        url = url.replace('http://', '', 1)
+        url = url.replace('https://', '', 1)
+        return url.replace('/', '')
+    
     def normalize_url(self, url):
         return url_normalize.url_normalize(url)
     
