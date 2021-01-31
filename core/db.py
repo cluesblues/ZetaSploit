@@ -35,11 +35,11 @@ class db:
         self.storage = storage()
         
     def disconnect_modules_database(self, name):
-        self.storage.delete_element("connected_databases", name)
+        self.storage.delete_element("connected_modules_databases", name)
         self.storage.delete_element("modules", name)
         
     def disconnect_plugins_database(self, name):
-        self.storage.delete_element("connected_databases", name)
+        self.storage.delete_element("connected_plugins_databases", name)
         self.storage.delete_element("plugins", name)
         
     def connect_modules_database(self, name, path):
