@@ -78,11 +78,9 @@ class ZetaSploitCommand:
             else:
                 module_object = self.import_module(database, category, platform, module)
                 if module_object:
-                    self.storage.set("current_module", [])
-                    self.storage.set("pwd", 0)
                     self.storage.add_array("current_module", '')
+                    self.storage.set("pwd", self.storage.get("pwd") + 1)
                     self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
-                    self.module.module_menu()
                 else:
                     self.badges.output_error("Failed to select module from database!")
         else:
