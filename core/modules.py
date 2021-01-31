@@ -49,8 +49,8 @@ class modules:
                     if platform in modules[category].keys():
                         module = self.get_name(name)
                         if module in modules[category][platform].keys():
-                            return True
-        return False
+                            return database
+        return None
 
     def check_imported(self, name):
         imported_modules = self.storage.get("imported_modules")
