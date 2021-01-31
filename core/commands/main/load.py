@@ -56,7 +56,7 @@ class ZetaSploitCommand:
         try:
             loaded_plugins[plugin] = self.importer.import_plugin(plugins['Path'])
         except Exception:
-            pass
+            return None
         return loaded_plugins
         
     def add_plugin(self, database, plugin):
