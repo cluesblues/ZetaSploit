@@ -26,7 +26,7 @@
 
 class storage:
     def get_all(self):
-        return globals()
+        return globals().keys()
     
     def add(self, name):
         globals()[name] = None
