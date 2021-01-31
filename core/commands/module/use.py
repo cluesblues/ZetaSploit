@@ -75,18 +75,22 @@ class ZetaSploitCommand:
             
             if self.modules.check_imported(full_name):
                 module_object = imported_modules[full_name]
+                self.add_to_global(module_object)
             else:
                 module_object = self.import_module(database, category, platform, module)
                 if module_object:
-                    self.storage.add_array("current_module", '')
-                    self.storage.set("pwd", self.storage.get("pwd") + 1)
-                    self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+                    self.add_to_global(module_object)
                 else:
                     self.badges.output_error("Failed to select module from database!")
         else:
             self.badges.output_error("Module depends this dependencies which is not installed:")
             for dependence in not_installed:
                 self.io.output("    * " + dependence)
+                
+    def add_to_global(self, module_object):
+        self.storage.add_array("current_module", '')
+        self.storage.set("pwd", self.storage.get("pwd") + 1)
+        self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
 
     def run(self):
         module = self.details['Args'][0]
