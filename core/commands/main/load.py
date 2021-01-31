@@ -66,12 +66,12 @@ class ZetaSploitCommand:
             if not self.importer.import_check(dependence):
                 not_installed.append(dependence)
         if not not_installed:
-            loaded_plugins = self.import_plugin(database, plugin)
-            if loaded_plugins:
+            plugin_object = self.import_plugin(database, plugin)
+            if plugin_object:
                 if self.storage.get("loaded_plugins"):
-                    self.storage.update("loaded_plugins", loaded_plugins)
+                    self.storage.update("loaded_plugins", plugin_object)
                 else:
-                    self.storage.set("loaded_plugins", loaded_plugins)
+                    self.storage.set("loaded_plugins", plugin_object)
                 self.storage.get("loaded_plugins")[plugin].run()
                 self.badges.output_success("Successfully loaded " + plugin + " plugin!")
             else:
