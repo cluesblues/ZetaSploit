@@ -25,6 +25,7 @@
 #
 
 from core.io import io
+from core.db import db
 from core.badges import badges
 from core.storage import storage
 from core.formatter import formatter
@@ -32,6 +33,7 @@ from core.formatter import formatter
 class ZetaSploitCommand:
     def __init__(self):
         self.io = io()
+        self.db = db()
         self.badges = badges()
         self.storage = storage()
         self.formatter = formatter()
@@ -60,12 +62,20 @@ class ZetaSploitCommand:
                     dbs_data.append((number, name, dbs[name]['path']))
                     number += 1
             self.io.output("")
-            self.formatter.format_table("Connected Databases", headers, *dbs_data)
+            self.formatter.format_table("Connected Modules Databases", headers, *dbs_data)
             self.io.output("")
         elif option == '-r':
             if len(args) < 2:
                 self.badges.output_usage(self.details['Usage'])
             else:
-                self.storage.delete_element("connected_databases", args[1])
+                self.db.remove_modules(args[1])
+        elif option == '-a':
+            if len(args) < 3:
+                self.badges.output_usage(self.details['Usage'])
+            else:
+                if args[1] not in self.storage.get("connected_databases"):
+                    self.db.add_modules(args[1], args[2])
+                else:
+                    self.badges.output_error("Failed to connect database.")
         else:
             self.badges.output_usage(self.details['Usage'])
