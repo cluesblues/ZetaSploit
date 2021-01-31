@@ -80,6 +80,7 @@ class ZetaSploitCommand:
         current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
         if hasattr(current_module, "commands"):
             commands_data = list()
+            headers = ("Command", "Description")
             commands = current_module.commands
             for command in sorted(commands.keys()):
                 commands_data.append((command, commands[command]['Description']))
