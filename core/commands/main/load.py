@@ -67,25 +67,19 @@ class ZetaSploitCommand:
                 not_installed.append(dependence)
         if not not_installed:
             loaded_plugins = self.import_plugin(database, plugin)
-            if not loaded_plugins:
-                return
-            if self.storage.get("loaded_plugins"):
-                self.storage.update("loaded_plugins", loaded_plugins)
-            else:
-                self.storage.set("loaded_plugins", loaded_plugins)
+            if loaded_plugins:
+                if self.storage.get("loaded_plugins"):
+                    self.storage.update("loaded_plugins", loaded_plugins)
+                else:
+                    self.storage.set("loaded_plugins", loaded_plugins)
                 self.storage.get("loaded_plugins")[plugin].run()
                 self.badges.output_success("Successfully loaded " + plugin + " plugin!")
+            else:
+                self.badges.output_error("Failed to load plugin!")
         else:
             self.badges.output_error("Plugin depends this dependencies which is not installed:")
             for dependence in not_installed:
                 self.io.output("    " + dependence)
-        
-    def load_plugin(self, database, plugin):
-        plugins = self.storage.get("plugins")[database]
-        if plugin in plugins.keys():
-            self.add_plugin(database, plugin)
-        else:
-            self.badges.output_error("Failed to load " + plugin + " plugin!")
         
     def run(self):
         plugin = self.details['Args'][0]
@@ -94,7 +88,7 @@ class ZetaSploitCommand:
         if not self.plugins.check_loaded(plugin):
             if self.plugins.check_exist(plugin):
                 database = self.plugins.get_database(plugin)
-                self.load_plugin(database, plugin)
+                self.add_plugin(database, plugin)
             else:
                 self.badges.output_error("Invalid plugin!")
         else:
