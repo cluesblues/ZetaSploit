@@ -75,14 +75,11 @@ class ZetaSploitCommand:
             
             if self.modules.check_imported(full_name):
                 module_object = imported_modules[full_name]
+                self.add_to_global(module_object)
             else:
                 module_object = self.import_module(database, category, platform, module)
                 if module_object:
-                    self.storage.set("current_module", [])
-                    self.storage.set("pwd", 0)
-                    self.storage.add_array("current_module", '')
-                    self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
-                    self.module.module_menu()
+                    self.add_to_global(module_object)
                 else:
                     self.badges.output_error("Failed to select module from database!")
         else:
@@ -90,6 +87,13 @@ class ZetaSploitCommand:
             for dependence in not_installed:
                 self.io.output("    * " + dependence)
 
+    def add_to_global(self, module_object):
+        self.storage.set("current_module", [])
+        self.storage.set("pwd", 0)
+        self.storage.add_array("current_module", '')
+        self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+        self.module.module_menu()
+                
     def run(self):
         module = self.details['Args'][0]
         
