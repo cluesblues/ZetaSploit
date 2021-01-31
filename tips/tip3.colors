@@ -23,5 +23,5 @@
 %comment
 
 %end
-want to add your modules database? Just use %greenmodules_db -a%end
+Want to add your modules database? Just use %greenmodules_db -a%end
 %end
