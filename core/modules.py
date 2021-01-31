@@ -39,30 +39,49 @@ class modules:
     def check_exist(self, name):
         if self.check_style(name):
             all_modules = self.storage.get("modules")
-            for database in all_modules.keys():
-                modules = all_modules[database]
+            if all_modules:
+                for database in all_modules.keys():
+                    modules = all_modules[database]
                 
-                category = self.get_category(name)
-                platform = self.get_platform(name)
+                    category = self.get_category(name)
+                    platform = self.get_platform(name)
         
-                if category in modules.keys():
-                    if platform in modules[category].keys():
-                        module = self.get_name(name)
-                        if module in modules[category][platform].keys():
-                            return True
+                    if category in modules.keys():
+                        if platform in modules[category].keys():
+                            module = self.get_name(name)
+                            if module in modules[category][platform].keys():
+                                return True
         return False
 
     def check_imported(self, name):
         imported_modules = self.storage.get("imported_modules")
-        if not imported_modules or name not in imported_modules:
-            return False
-        return True
+        if imported_modules:
+            if name in imported_modules.keys():
+                return True
+        return False
     
     def check_style(self, name):
         if len(name.split('/')) >= 4:
             return True
         return False
        
+    def get_database(self, name):
+        if self.check_style(name):
+            all_modules = self.storage.get("modules")
+            if all_modules:
+                for database in all_modules.keys():
+                    modules = all_modules[database]
+                
+                    category = self.get_category(name)
+                    platform = self.get_platform(name)
+        
+                    if category in modules.keys():
+                        if platform in modules[category].keys():
+                            module = self.get_name(name)
+                            if module in modules[category][platform].keys():
+                                return database
+        return None
+        
     def get_category(self, name):
         if self.check_style(name):
             return name.split('/')[0]

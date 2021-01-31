@@ -51,6 +51,8 @@ class ZetaSploitCommand:
         self.io.output("")
         while True:
             output = self.badges.input_empty(self.prompt)
+            if "exit" in output or "quit" in output:
+                return
             try:
                 exec(output.strip())
             except SystemExit:

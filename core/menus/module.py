@@ -49,7 +49,8 @@ class module:
         while True:
             try:
                 current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
-                prompt = '(zsf: ' + self.modules.get_category(current_module.details['Name']) + ': \033[1;31m' + self.modules.get_name(current_module.details['Name']) + '\033[0m)> '
+                name = self.modules.get_platform(current_module.details['Name']) + '/' + self.modules.get_name(current_module.details['Name'])
+                prompt = '(zsf: ' + self.modules.get_category(current_module.details['Name']) + ': \033[1;31m' + name + '\033[0m)> '
                 commands, arguments = self.io.input(prompt)
                 if commands == list():
                     continue

@@ -24,42 +24,32 @@
 # SOFTWARE.
 #
 
-import platform
+from core.storage import storage
 
-from core.io import io
-from core.badges import badges
-
-class ZetaSploitCommand:
+class plugins:
     def __init__(self):
-        self.io = io()
-        self.badges = badges()
+        self.storage = storage()
         
-        self.prompt = self.badges.BOLD + ">>> " + self.badges.END
+    def check_exist(self, name):
+        all_plugins = self.storage.get("plugins")
+        for database in all_plugins.keys():
+            plugins = all_plugins[database]
+            if name in plugins.keys():
+                return True
+        return False
+      
+    def check_loaded(self, name):
+        loaded_plugins = self.storage.get("loaded_plugins")
+        if loaded_plugins:
+            if name in loaded_plugins:
+                return True
+        return False
         
-        self.details = {
-            'Category': "developer",
-            'Name': "pyshell",
-            'Description': "Open Python shell.",
-            'Usage': "pyshell",
-            'ArgsCount': 0,
-            'NeedsArgs': False,
-            'Args': list()
-        }
-
-    def run(self):
-        self.badges.output_information(f"Python {platform.python_version()} console")
-        self.io.output("")
-        while True:
-            output = self.badges.input_empty(self.prompt)
-            if "exit" in output or "quit" in output:
-                return
-            try:
-                exec(output.strip())
-            except SystemExit:
-                return
-            except (EOFError, KeyboardInterrupt):
-                return
-            except ValueError:
-                return
-            except Exception as e:
-                self.badges.output_error(str(e))
+    def get_database(self, name):
+        all_plugins = self.storage.get("plugins")
+        if all_plugins:
+            for database in all_plugins.keys():
+                plugins = all_plugins[database]
+                if name in plugins.keys():
+                    return database
+        return None
