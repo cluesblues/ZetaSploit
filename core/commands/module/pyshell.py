@@ -57,5 +57,7 @@ class ZetaSploitCommand:
                 return
             except (EOFError, KeyboardInterrupt):
                 return
+            except ValueError:
+                return
             except Exception as e:
                 self.badges.output_error(str(e))
