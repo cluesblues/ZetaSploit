@@ -25,7 +25,6 @@
 #
 
 import os
-import subprocess
 
 from core.badges import badges
 from core.storage import storage
