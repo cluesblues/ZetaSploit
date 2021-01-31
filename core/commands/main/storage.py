@@ -63,13 +63,17 @@ class ZetaSploitCommand:
             if len(self.details['Args']) < 3:
                 self.badges.output_usage(self.details['Usage'])
             else:
-                self.storage.set(self.details['Args'][1], self.details['Args'][2])
+                self.badges.output_warning("This action may harm ZetaSploit Framework.")
+                if self.badges.input_question("Continue anyway? [y/N] ").lower in ['yes', 'y']:
+                    self.storage.set(self.details['Args'][1], self.details['Args'][2])
         elif choice == "-d":
             if len(self.details['Args']) < 2:
                 self.badges.output_usage(self.details['Usage'])
             else:
                 if self.details['Args'][1] in self.storage.get_all():
-                    self.storage.delete(self.details['Args'][1])
+                    self.badges.output_warning("This action may harm ZetaSploit Framework.")
+                    if self.badges.input_question("Continue anyway? [y/N] ").lower in ['yes', 'y']:
+                        self.storage.delete(self.details['Args'][1])
                 else:
                     self.badges.output_error("Invalid storage variable name!")
         else:
