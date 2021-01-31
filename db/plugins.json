@@ -13,7 +13,7 @@
         "Description": "test",
         "Path": "plugins/test",
         "Dependencies": [
-            ''
+            ""
         ]
     }
 }
