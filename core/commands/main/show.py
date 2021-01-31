@@ -87,7 +87,7 @@ class ZetaSploitCommand:
         if plugins:
             usage += "plugins"
         else:
-            usage = usage[:-1]
+            usage = usage[:-2]
         self.badges.output_information(usage)
         
     def run(self):
