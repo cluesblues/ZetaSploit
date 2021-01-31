@@ -1,4 +1,7 @@
 {
+    "__database__": {
+        "type": "modules"
+    },
     "nmap": {
         "Description": "Nmap scan plugin for ZetaSploit.",
         "Path": "plugins/nmap",
