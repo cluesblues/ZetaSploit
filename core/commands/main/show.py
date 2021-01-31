@@ -80,7 +80,7 @@ class ZetaSploitCommand:
         self.formatter.format_table(information.title() + " Modules", headers, *modules_data)
         self.io.output("")
         
-    def print_usage(self, informations):
+    def print_usage(self, informations, plugins):
         usage = "Informations: "
         for information in informations:
             usage += information + ", "
@@ -109,4 +109,4 @@ class ZetaSploitCommand:
         if information in informations:
             self.show_modules(information)
         else:
-            self.print_usage(informations)
+            self.print_usage(informations, plugins)
