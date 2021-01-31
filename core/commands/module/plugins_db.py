@@ -24,11 +24,19 @@
 # SOFTWARE.
 #
 
+from core.io import io
+from core.db import db
 from core.badges import badges
+from core.storage import storage
+from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
+        self.db = db()
         self.badges = badges()
+        self.storage = storage()
+        self.formatter = formatter()
         
         self.details = {
             'Category': "database",
@@ -41,6 +49,33 @@ class ZetaSploitCommand:
         }
 
     def run(self):
-        option = self.details['Args'][0]
-        if option not in ['-l', '-r', '-a']:
+        choice = self.details['Args'][0]
+        if choice == "-l":
+            databases_data = list()
+            number = 0
+            headers = ("Number", "Name", "Path")
+            databases = self.storage.get("connected_plugins_databases")
+            for name in databases.keys():
+                databases_data.append((number, name, databases[name]['path']))
+                number += 1
+            self.io.output("")
+            self.formatter.format_table("Connected Plugins Databases", headers, *databases_data)
+            self.io.output("")
+        elif choice == '-r':
+            if len(self.details['Args']) < 2:
+                self.badges.output_usage(self.details['Usage'])
+            else:
+                if self.details['Args'][1] in self.storage.get("connected_plugins_databases"):
+                    self.db.disconnect_plugins_database(self.details['Args'][1])
+                else:
+                    self.badges.output_error("No such connected plugins database!")
+        elif choice == '-a':
+            if len(self.details['Args']) < 3:
+                self.badges.output_usage(self.details['Usage'])
+            else:
+                if self.details['Args'][1] not in self.storage.get("connected_plugins_databases"):
+                    self.db.connect_plugins_database(self.details['Args'][1], self.details['Args'][2])
+                else:
+                    self.badges.output_error("Failed to connect database.")
+        else:
             self.badges.output_usage(self.details['Usage'])
