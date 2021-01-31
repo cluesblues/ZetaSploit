@@ -51,16 +51,16 @@ class ZetaSploitCommand:
     def run(self):
         choice = self.details['Args'][0]
         if choice == "-l":
-            dbs_data = list()
+            databases_data = list()
             number = 0
             headers = ("Number", "Name", "Path")
-            dbs = self.storage.get("connected_databases")
-            for name in dbs.keys():
-                if dbs[name]['type'] == "module":
-                    dbs_data.append((number, name, dbs[name]['path']))
+            databases = self.storage.get("connected_databases")
+            for name in databases.keys():
+                if databases[name]['type'] == "modules":
+                    databases_data.append((number, name, databases[name]['path']))
                     number += 1
             self.io.output("")
-            self.formatter.format_table("Connected Modules Databases", headers, *dbs_data)
+            self.formatter.format_table("Connected Modules Databases", headers, *databases_data)
             self.io.output("")
         elif choice == '-r':
             if len(self.details['Args']) < 2:
