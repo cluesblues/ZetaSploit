@@ -56,14 +56,7 @@ class main:
                 if not commands:
                     continue
                 else:
-                    if not self.execute.execute_core_command(commands, arguments):
-                        if self.modules.check_module():
-                            if not self.execute.execute_module_command(commands, arguments):
-                                if not self.execute_plugin_command(commands, arguments):
-                                    self.badges.output_error("Unrecognized command!")
-                        else:
-                            if not self.execute_plugin_command(commands, arguments):
-                                self.badges.output_error("Unrecognized command!")
+                    self.execute.execute_command(commands, arguments)
 
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
