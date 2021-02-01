@@ -60,4 +60,4 @@ class ZetaSploitCommand:
             else:
                 self.badges.output_error("Empty command not allowed!")
         else:
-            self.badges.output_error("Seconds expected!")
+            self.badges.output_error("Times expected!")
