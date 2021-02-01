@@ -46,6 +46,11 @@ class ZetaSploitCommand:
         times = self.details['Args'][0]
         command = self.details['Args'][1]
         
+        commands = command.split()
+        arguments = ""
+        if commands:
+            arguments = command.replace(commands[0], "", 1).strip()
+        
         for time in range(times):
             if not self.execute.execute_core_command(commands, arguments, "main"):
                 if not self.execute.execute_plugin_command(commands, arguments):
