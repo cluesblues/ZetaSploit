@@ -53,11 +53,11 @@ class ZetaSploitCommand:
                 arguments = command.replace(commands[0], "", 1).strip()
         
             if commands:
-                for time in range(1, int(times)):
+                for time in range(int(times)):
                     if not self.execute.execute_core_command(commands, arguments, "main"):
                         if not self.execute.execute_plugin_command(commands, arguments):
                             self.badges.output_error("Unrecognized command!")
             else:
                 self.badges.output_error("Empty command not allowed!")
         else:
-            self.badges.output_error("Seconds expected!")
+            self.badges.output_error("Times expected!")
