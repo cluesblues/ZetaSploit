@@ -24,10 +24,12 @@
 # SOFTWARE.
 #
 
+from core.badges import badges
 from core.execute import execute
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.badges = badges()
         self.execute = execute()
 
         self.details = {
@@ -45,4 +47,6 @@ class ZetaSploitCommand:
         command = self.details['Args'][1]
         
         for time in range(times):
-            pass
+            if not self.execute.execute_core_command(commands, arguments, "main"):
+                if not self.execute.execute_plugin_command(commands, arguments):
+                    self.badges.output_error("Unrecognized command!")
