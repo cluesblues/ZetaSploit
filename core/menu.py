@@ -50,7 +50,7 @@ class main:
                 else:
                     module = self.modules.get_current_module_name()
                     name = self.modules.get_platform(module) + '/' + self.modules.get_name(module)
-                    prompt = '(zsf: ' + self.modules.get_category(module) + ': \033[1;31m' + name + '\033[0m)> '
+                    prompt = '(zsf: ' + self.modules.get_category(module) + ': ' + self.badges.RED + self.badges.BOLD + name + self.badges.END + ')> '
                 commands, arguments = self.io.input(prompt)
                 
                 if not commands:
