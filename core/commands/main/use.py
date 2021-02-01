@@ -94,15 +94,24 @@ class ZetaSploitCommand:
         self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
         self.module.module_menu()
                 
+    def check_if_already_used(self, module):
+        if self.storage.get("current_module"):
+            if self.storage.get("pwd"):
+                current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
+                if module == current_module.details['Name']:
+                    return True
+        return False
+            
     def run(self):
         module = self.details['Args'][0]
         
         category = self.modules.get_category(module)
         platform = self.modules.get_platform(module)
         
-        if self.modules.check_exist(module):
-            database = self.modules.get_database(module)
-            module = self.modules.get_name(module)
-            self.add_module(database, category, platform, module)
-        else:
-            self.badges.output_error("Invalid module!")
+        if not self.check_if_already_used(module):
+            if self.modules.check_exist(module):
+                database = self.modules.get_database(module)
+                module = self.modules.get_name(module)
+                self.add_module(database, category, platform, module)
+            else:
+                self.badges.output_error("Invalid module!")
