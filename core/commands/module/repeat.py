@@ -52,7 +52,7 @@ class ZetaSploitCommand:
             arguments = command.replace(commands[0], "", 1).strip()
         
         if commands:
-            for time in range(times):
+            for time in range(1, int(times)):
                 if not self.execute.execute_core_command(commands, arguments, "module"):
                     if not self.execute.execute_module_command(commands, arguments):
                         if not self.execute.execute_plugin_command(commands, arguments):
