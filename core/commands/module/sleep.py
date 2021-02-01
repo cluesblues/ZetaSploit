@@ -24,6 +24,8 @@
 # SOFTWARE.
 #
 
+import time
+
 from core.badges import badges
 from core.execute import execute
 
@@ -34,30 +36,18 @@ class ZetaSploitCommand:
 
         self.details = {
             'Category': "developer",
-            'Name': "repeat",
-            'Description': "Repeat specified command.",
-            'Usage': "repeat <times> <command>",
-            'ArgsCount': 2,
+            'Name': "sleep",
+            'Description': "Sleep for specified seconds.",
+            'Usage': "sleep <seconds>",
+            'ArgsCount': 1,
             'NeedsArgs': True,
             'Args': list()
         }
 
     def run(self):
-        times = self.details['Args'][0]
-        command = self.details['Args'][1]
+        seconds = self.details['Args'][0]
         
-        if times.isdigit():
-            commands = command.split()
-            arguments = ""
-            if commands:
-                arguments = command.replace(commands[0], "", 1).strip()
-        
-            if commands:
-                for time in range(1, int(times)):
-                    if not self.execute.execute_core_command(commands, arguments, "main"):
-                        if not self.execute.execute_plugin_command(commands, arguments):
-                            self.badges.output_error("Unrecognized command!")
-            else:
-                self.badges.output_error("Empty command not allowed!")
+        if seconds.replace('.', '', 1).isdigit():
+            time.sleep(float(seconds))
         else:
             self.badges.output_error("Seconds expected!")
