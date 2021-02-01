@@ -64,6 +64,22 @@ class modules:
         if len(name.split('/')) >= 4:
             return True
         return False
+    
+    def check_module(self):
+        if self.storage.get("current_module"):
+            if self.storage.get("pwd"):
+                return True
+        return False
+    
+    def get_current_module_object(self):
+        if self.check_module():
+            return self.storage.get_array("current_module", self.storage.get("pwd"))
+        return None
+    
+    def get_current_module_name(self):
+        if self.check_module():
+            return self.storage.get_array("current_module", self.storage.get("pwd")).details['Name']
+        return None
        
     def get_database(self, name):
         if self.check_style(name):
