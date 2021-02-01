@@ -42,6 +42,12 @@ class execute:
         self.formatter = formatter()
         self.modules = modules()
 
+    def execute_command(self, commands, arguments):
+        if not self.execute_core_command(commands, arguments):
+            if not self.execute_module_command(commands, arguments):
+                if not self.execute_plugin_command(commands, arguments):
+                    self.badges.output_error("Unrecognized command!")
+        
     def execute_system(self, commands):
         subprocess.call(self.formatter.format_arguments(commands))
         
