@@ -118,4 +118,4 @@ class console:
     def shell(self):
         self.start_zsf()
         self.launch_shell()
-        self.main.main_menu()
+        self.main.launch()
