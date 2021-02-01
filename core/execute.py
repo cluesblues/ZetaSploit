@@ -32,7 +32,7 @@ from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.formatter import formatter
-from core.modules import modules()
+from core.modules import modules
 
 class execute:
     def __init__(self):
