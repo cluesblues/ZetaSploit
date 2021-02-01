@@ -46,7 +46,7 @@ class execute:
         if not self.execute_core_command(commands, arguments):
             if not self.execute_module_command(commands, arguments):
                 if not self.execute_plugin_command(commands, arguments):
-                    self.badges.output_error("Unrecognized command!")
+                    self.badges.output_error("Unrecognized command: " + commands[0] + "!")
         
     def execute_system(self, commands):
         subprocess.call(self.formatter.format_arguments(commands))
