@@ -31,6 +31,7 @@ import re
 from core.badges import badges
 from core.execute import execute
 from core.exceptions import exceptions
+from core.modules import modules
 from core.io import io
 
 class main:
@@ -38,19 +39,31 @@ class main:
         self.badges = badges()
         self.execute = execute()
         self.exceptions = exceptions()
+        self.modules = modules()
         self.io = io()
         
-    def main_menu(self):
+    def launch(self):
         while True:
             try:
-                prompt = '(zsf)> '
+                if not self.modules.check_module():
+                    prompt = '(zsf)> '
+                else:
+                    module = self.modules.get_current_module_name()
+                    name = self.modules.get_platform(module) + '/' + self.modules.get_name(module)
+                    prompt = '(zsf: ' + self.modules.get_category(module) + ': \033[1;31m' + name + '\033[0m)> '
                 commands, arguments = self.io.input(prompt)
-                if commands == list():
+                
+                if not commands:
                     continue
                 else:
-                    if not self.execute.execute_core_command(commands, arguments, "main"):
-                        if not self.execute.execute_plugin_command(commands, arguments):
-                            self.badges.output_error("Unrecognized command!")
+                    if not self.execute.execute_core_command(commands, arguments):
+                        if self.modules.check_module():
+                            if not self.execute.execute_module_command(commands, arguments):
+                                if not self.execute_plugin_command(commands, arguments):
+                                    self.badges.output_error("Unrecognized command!")
+                        else:
+                            if not self.execute_plugin_command(commands, arguments):
+                                self.badges.output_error("Unrecognized command!")
 
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
