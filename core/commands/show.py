@@ -104,12 +104,11 @@ class ZetaSploitCommand:
             for information in informations:
                 usage += information + ", "
             if plugins:
-                usage += "plugins"
+                usage += "plugins, "
+            if options:
+                usage += "options"
             else:
-                if options:
-                    usage += "options"
-                else:
-                    usage = usage[:-2]
+                usage = usage[:-2]
             self.badges.output_information(usage)
         else:
             self.badges.output_warning("No informations available!")
