@@ -54,7 +54,7 @@ class ZetaSploitCommand:
             current_module = self.modules.get_current_module_object()
             if option in current_module.options.keys():
                 self.badges.output_information(option + " ==> " + value)
-                self.storage.set_module_option("current_module", self.storage.get("pwd"), option, value)
+                self.storage.set_module_option("current_module", self.storage.get("current_module_number"), option, value)
             else:
                 self.badges.output_error("Unrecognized option!")
         else:

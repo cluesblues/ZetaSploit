@@ -88,13 +88,13 @@ class ZetaSploitCommand:
     def add_to_global(self, module_object):
         if self.modules.check_current_module():
             self.storage.add_array("current_module", '')
-            self.storage.set("pwd", self.storage.get("pwd") + 1)
-            self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+            self.storage.set("current_module_number", self.storage.get("current_module_number") + 1)
+            self.storage.set_array("current_module", self.storage.get("current_module_number"), module_object)
         else:
             self.storage.set("current_module", [])
-            self.storage.set("pwd", 0)
+            self.storage.set("current_module_number", 0)
             self.storage.add_array("current_module", '')
-            self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+            self.storage.set_array("current_module", self.storage.get("current_module_number"), module_object)
 
     def check_if_already_used(self, module):
         if self.modules.check_current_module():

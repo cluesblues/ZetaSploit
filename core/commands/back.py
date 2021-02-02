@@ -51,7 +51,7 @@ class ZetaSploitCommand:
 
     def run(self):
         if self.modules.check_current_module():
-            self.storage.set("pwd", self.storage.get("pwd") - 1)
+            self.storage.set("current_module_number", self.storage.get("current_module_number") - 1)
             self.storage.set("current_module", self.storage.get("current_module")[0:-1])
             if not self.storage.get("current_module"):
-                self.storage.set("pwd", 0)
+                self.storage.set("current_module_number", 0)
