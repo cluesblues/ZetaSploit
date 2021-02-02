@@ -60,8 +60,6 @@ class main:
 
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
-            except self.exceptions.ExitMenuException:
-                break
             except self.exceptions.GlobalException:
                 pass
             except Exception as e:
