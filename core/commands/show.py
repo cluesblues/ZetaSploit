@@ -123,7 +123,7 @@ class ZetaSploitCommand:
             options = False
             if hasattr(current_module, "options"):
                 options = True
-       else:
+        else:
             options = False
         
         modules = self.storage.get("modules")
