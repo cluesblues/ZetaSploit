@@ -108,17 +108,16 @@ class importer:
         commands = dict()
         command_path = self.config.path_config['base_paths']['commands_path']
         try:
-            for path, sub, files in os.walk(command_path):
-                for file in files:
-                    if file.endswith('py'):
-                        command_file_path = path + '/' + file[:-3]
-                        try:
-                            command_directory = command_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
-                            command_object = self.import_command(command_directory)
-                            command_name = command_object.details['Name']
-                            commands[command_name] = command_object
-                        except Exception:
-                            self.badges.output_error("Failed to load " + file[:-3] + " command!")
+            for file in os.listdir(command_path):
+                if file.endswith('py'):
+                    command_file_path = file[:-3]
+                    try:
+                        command_directory = command_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
+                        command_object = self.import_command(command_directory)
+                        command_name = command_object.details['Name']
+                        commands[command_name] = command_object
+                    except Exception:
+                        self.badges.output_error("Failed to load " + file[:-3] + " command!")
         except Exception:
             pass
         self.storage.set("commands", commands)
