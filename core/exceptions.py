@@ -28,5 +28,5 @@ class exceptions:
     class GlobalException(Exception):
         pass
 
-    class ExitMenuException(Exception):
+    class LocalException(Exception):
         pass
