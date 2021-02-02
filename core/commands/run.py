@@ -26,30 +26,48 @@
 
 import os
 
+from core.io import io
 from core.badges import badges
 from core.storage import storage
+from core.modules import modules
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         self.storage = storage()
+        self.modules = modules()
 
         self.details = {
             'Category': "module",
-            'Name': "set",
-            'Description': "Set an option value.",
-            'Usage': "set <option> <value>",
-            'ArgsCount': 2,
-            'NeedsArgs': True,
+            'Name': "run",
+            'Description': "Run current module.",
+            'Usage': "run",
+            'ArgsCount': 0,
+            'NeedsArgs': False,
             'Args': list()
         }
 
     def run(self):
-        option = self.details['Args'][0].upper()
-        value = self.details['Args'][1]
-        current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
-        if option in current_module.options.keys():
-            self.badges.output_information(option + " ==> " + value)
-            self.storage.set_module_option("current_module", self.storage.get("pwd"), option, value)
+        if self.modules.check_current_module():
+            current_module = self.modules.get_current_module_object()
+            count = 0
+            if hasattr(current_module, "options"):
+                for option in current_module.options.keys():
+                    current_option = current_module.options[option]
+                    if not current_option['Value'] and current_option['Value'] != 0 and current_option['Required']:
+                        count += 1
+                if count > 0:
+                    self.badges.output_error("Missed some required options!")
+                else:
+                    try:
+                        current_module.run()
+                    except (KeyboardInterrupt, EOFError):
+                        self.io.output("")
+            else:
+                try:
+                    current_module.run()
+                except (KeyboardInterrupt, EOFError):
+                    self.io.output("")
         else:
-            self.badges.output_error("Unrecognized option!")
+            self.badges.output_warning("No module selected.")

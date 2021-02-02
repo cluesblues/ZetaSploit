@@ -32,6 +32,7 @@ from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.formatter import formatter
+from core.modules import modules
 
 class execute:
     def __init__(self):
@@ -39,13 +40,20 @@ class execute:
         self.badges = badges()
         self.storage = storage()
         self.formatter = formatter()
+        self.modules = modules()
 
+    def execute_command(self, commands, arguments):
+        if not self.execute_core_command(commands, arguments):
+            if not self.execute_module_command(commands, arguments):
+                if not self.execute_plugin_command(commands, arguments):
+                    self.badges.output_error("Unrecognized command: " + commands[0] + "!")
+        
     def execute_system(self, commands):
         subprocess.call(self.formatter.format_arguments(commands))
         
-    def execute_core_command(self, commands, arguments, menu):
-        if commands[0] in self.storage.get("commands")[menu].keys():
-            command = self.storage.get("commands")[menu][commands[0]]
+    def execute_core_command(self, commands, arguments):
+        if commands[0] in self.storage.get("commands").keys():
+            command = self.storage.get("commands")[commands[0]]
             if command.details['NeedsArgs']:
                 if (len(commands) - 1) < command.details['ArgsCount']:
                     self.badges.output_usage(command.details['Usage'])
@@ -64,11 +72,12 @@ class execute:
         return False
         
     def execute_module_command(self, commands, arguments):
-        if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
-            if commands[0] in self.storage.get_array("current_module", self.storage.get("pwd")).commands.keys():
-                command = self.storage.get_array("current_module", self.storage.get("pwd")).commands[commands[0]]
-                self.parse_and_execute_command(commands, command, arguments)
-                return True
+        if self.modules.check_current_module():
+            if hasattr(self.modules.get_current_module_object(), "commands"):
+                if commands[0] in self.modules.get_current_module_object().commands.keys():
+                    command = self.modules.get_current_module_object().commands[commands[0]]
+                    self.parse_and_execute_command(commands, command, arguments)
+                    return True
         return False
         
     def execute_plugin_command(self, commands, arguments):

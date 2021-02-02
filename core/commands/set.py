@@ -27,53 +27,35 @@
 import os
 
 from core.badges import badges
-from core.config import config
 from core.storage import storage
 from core.modules import modules
-from core.execute import execute
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
-        self.config = config()
         self.storage = storage()
         self.modules = modules()
-        self.execute = execute()
-        
+
         self.details = {
-            'Category': "developer",
-            'Name': "edit",
-            'Description': "Open module in editor.",
-            'Usage': "edit <module>",
-            'ArgsCount': 1,
+            'Category': "module",
+            'Name': "set",
+            'Description': "Set an option value.",
+            'Usage': "set <option> <value>",
+            'ArgsCount': 2,
             'NeedsArgs': True,
             'Args': list()
         }
 
     def run(self):
-        module = self.details['Args'][0]
+        option = self.details['Args'][0].upper()
+        value = self.details['Args'][1]
         
-        module_category = self.modules.get_category(module)
-        module_platform = self.modules.get_platform(module)
-        module_name = self.modules.get_name(module)
-        
-        try:
-            if not os.environ['EDITOR']:
-                self.badges.output_warning("Shell variable EDITOR not set.")
-                editor = "vi"
+        if self.modules.check_current_module():
+            current_module = self.modules.get_current_module_object()
+            if option in current_module.options.keys():
+                self.badges.output_information(option + " ==> " + value)
+                self.storage.set_module_option("current_module", self.storage.get("current_module_number"), option, value)
             else:
-                editor = os.environ['EDITOR']
-        except KeyError:
-            self.badges.output_warning("Shell variable EDITOR not set.")
-            editor = "vi"
-            
-        if self.modules.check_exist(module):
-            if not self.modules.check_imported(module):
-                database = self.modules.get_database(module)
-                module_path = self.storage.get("modules")[database][module_category][module_platform][module_name]['Path']
-                edit_mode = editor + " " + self.config.path_config['root_path'] + module_path
-                self.execute.execute_system(edit_mode)
-            else:
-                self.badges.output_error("Can not edit already used module!")
+                self.badges.output_error("Unrecognized option!")
         else:
-            self.badges.output_error("Invalid module!")
+            self.badges.output_warning("No module selected.")

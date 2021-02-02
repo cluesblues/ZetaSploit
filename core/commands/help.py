@@ -28,12 +28,14 @@ import os
 
 from core.io import io
 from core.formatter import formatter
+from core.modules import modules
 from core.storage import storage
 
 class ZetaSploitCommand:
     def __init__(self):
         self.io = io()
         self.formatter = formatter()
+        self.modules = modules()
         self.storage = storage()
 
         self.details = {
@@ -49,7 +51,7 @@ class ZetaSploitCommand:
     def format_base_commands(self):
         commands_data = dict()
         headers = ("Command", "Description")
-        commands = self.storage.get("commands")['main']
+        commands = self.storage.get("commands")
         for command in sorted(commands.keys()):
             label = commands[command].details['Category']
             commands_data[label] = list()
@@ -75,8 +77,21 @@ class ZetaSploitCommand:
                 for label in sorted(commands_data.keys()):
                     self.formatter.format_table(label.title() + " Commands", headers, *commands_data[label])
                     self.io.output("")
+                    
+    def format_custom_commands(self):
+        current_module = self.modules.get_current_module_object()
+        if hasattr(current_module, "commands"):
+            commands_data = list()
+            headers = ("Command", "Description")
+            commands = current_module.commands
+            for command in sorted(commands.keys()):
+                commands_data.append((command, commands[command]['Description']))
+            self.formatter.format_table("Custom Commands", headers, *commands_data)
+            self.io.output("")
         
     def run(self):
         self.format_base_commands()
+        if self.modules.check_current_module():
+            self.format_custom_commands()
         if self.storage.get("loaded_plugins"):
             self.format_plugin_commands()

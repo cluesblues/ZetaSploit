@@ -31,7 +31,7 @@ sys.stdout.write("\033]0;ZetaSploit Framework\007")
 import os
 import readline
 
-from core.menus.main import main
+from core.menu import menu
 
 from core.io import io
 from core.tip import tip
@@ -46,7 +46,7 @@ readline.parse_and_bind("tab: complete")
 
 class console:
     def __init__(self):
-        self.main = main()
+        self.menu = menu()
         self.io = io()
         self.tip = tip()
         self.execute = execute()
@@ -118,4 +118,4 @@ class console:
     def shell(self):
         self.start_zsf()
         self.launch_shell()
-        self.main.main_menu()
+        self.menu.launch()

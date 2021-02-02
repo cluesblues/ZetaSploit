@@ -25,44 +25,33 @@
 #
 
 import os
+import sys
 
-from core.io import io
-from core.badges import badges
+from core.jobs import jobs
 from core.storage import storage
+from core.modules import modules
+from core.exceptions import exceptions
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
-        self.badges = badges()
+        self.jobs = jobs()
         self.storage = storage()
+        self.modules = modules()
+        self.exceptions = exceptions()
 
         self.details = {
             'Category': "module",
-            'Name': "run",
-            'Description': "Run current module.",
-            'Usage': "run",
+            'Name': "back",
+            'Description': "Return to the previous module.",
+            'Usage': "back",
             'ArgsCount': 0,
             'NeedsArgs': False,
             'Args': list()
         }
 
     def run(self):
-        current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
-        count = 0
-        if hasattr(current_module, "options"):
-            for option in current_module.options.keys():
-                current_option = current_module.options[option]
-                if not current_option['Value'] and current_option['Value'] != 0 and current_option['Required']:
-                    count += 1
-            if count > 0:
-                self.badges.output_error("Missed some required options!")
-            else:
-                try:
-                    current_module.run()
-                except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
-        else:
-            try:
-                current_module.run()
-            except (KeyboardInterrupt, EOFError):
-                self.io.output("")
+        if self.modules.check_current_module():
+            self.storage.set("current_module_number", self.storage.get("current_module_number") - 1)
+            self.storage.set("current_module", self.storage.get("current_module")[0:-1])
+            if not self.storage.get("current_module"):
+                self.storage.set("current_module_number", 0)

@@ -27,43 +27,39 @@
 import os
 import sys
 import re
-import readline
 
 from core.badges import badges
 from core.execute import execute
 from core.exceptions import exceptions
-from core.storage import storage
-from core.io import io
 from core.modules import modules
+from core.io import io
 
-class module:
+class menu:
     def __init__(self):
         self.badges = badges()
         self.execute = execute()
         self.exceptions = exceptions()
-        self.storage = storage()
-        self.io = io()
         self.modules = modules()
-
-    def module_menu(self):
+        self.io = io()
+        
+    def launch(self):
         while True:
             try:
-                current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
-                name = self.modules.get_platform(current_module.details['Name']) + '/' + self.modules.get_name(current_module.details['Name'])
-                prompt = '(zsf: ' + self.modules.get_category(current_module.details['Name']) + ': \033[1;31m' + name + '\033[0m)> '
+                if not self.modules.check_current_module():
+                    prompt = '(zsf)> '
+                else:
+                    module = self.modules.get_current_module_name()
+                    name = self.modules.get_platform(module) + '/' + self.modules.get_name(module)
+                    prompt = '(zsf: ' + self.modules.get_category(module) + ': ' + self.badges.RED + self.badges.BOLD + name + self.badges.END + ')> '
                 commands, arguments = self.io.input(prompt)
-                if commands == list():
+                
+                if not commands:
                     continue
                 else:
-                    if not self.execute.execute_core_command(commands, arguments, "module"):
-                        if not self.execute.execute_module_command(commands, arguments):
-                            if not self.execute_plugin_command(commands, arguments):
-                                self.badges.output_error("Unrecognized command!")
+                    self.execute.execute_command(commands, arguments)
 
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
-            except self.exceptions.ExitMenuException:
-                break
             except self.exceptions.GlobalException:
                 pass
             except Exception as e:

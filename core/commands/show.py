@@ -81,7 +81,7 @@ class ZetaSploitCommand:
         self.io.output("")
         
     def show_options(self):
-        current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
+        current_module = self.modules.get_current_module_object()
         options_data = list()
         headers = ("Option", "Value", "Required", "Description")
         options = current_module.options
@@ -104,23 +104,26 @@ class ZetaSploitCommand:
             for information in informations:
                 usage += information + ", "
             if plugins:
-                usage += "plugins"
+                usage += "plugins, "
+            if options:
+                usage += "options"
             else:
-                if options:
-                    usage += "options"
-                else:
-                    usage = usage[:-2]
+                usage = usage[:-2]
             self.badges.output_information(usage)
         else:
             self.badges.output_warning("No informations available!")
         
     def run(self):
         information = self.details['Args'][0]
-        current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
         
-        options = False
-        if hasattr(current_module, "options"):
-            options = True
+        if self.modules.check_current_module():
+            current_module = self.modules.get_current_module_object()
+        
+            options = False
+            if hasattr(current_module, "options"):
+                options = True
+        else:
+            options = False
         
         modules = self.storage.get("modules")
         plugins = self.storage.get("plugins")

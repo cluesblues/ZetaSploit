@@ -27,7 +27,6 @@
 import os
 
 from core.io import io
-from core.menus.module import module
 from core.importer import importer
 from core.badges import badges
 from core.storage import storage
@@ -36,7 +35,6 @@ from core.modules import modules
 class ZetaSploitCommand:
     def __init__(self):
         self.io = io()
-        self.module = module()
         self.importer = importer()
         self.badges = badges()
         self.storage = storage()
@@ -86,23 +84,34 @@ class ZetaSploitCommand:
             self.badges.output_error("Module depends this dependencies which is not installed:")
             for dependence in not_installed:
                 self.io.output("    * " + dependence)
-
-    def add_to_global(self, module_object):
-        self.storage.set("current_module", [])
-        self.storage.set("pwd", 0)
-        self.storage.add_array("current_module", '')
-        self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
-        self.module.module_menu()
                 
+    def add_to_global(self, module_object):
+        if self.modules.check_current_module():
+            self.storage.add_array("current_module", '')
+            self.storage.set("current_module_number", self.storage.get("current_module_number") + 1)
+            self.storage.set_array("current_module", self.storage.get("current_module_number"), module_object)
+        else:
+            self.storage.set("current_module", [])
+            self.storage.set("current_module_number", 0)
+            self.storage.add_array("current_module", '')
+            self.storage.set_array("current_module", self.storage.get("current_module_number"), module_object)
+
+    def check_if_already_used(self, module):
+        if self.modules.check_current_module():
+            if module == self.modules.get_current_module_name():
+                return True
+        return False
+
     def run(self):
         module = self.details['Args'][0]
         
         category = self.modules.get_category(module)
         platform = self.modules.get_platform(module)
         
-        if self.modules.check_exist(module):
-            database = self.modules.get_database(module)
-            module = self.modules.get_name(module)
-            self.add_module(database, category, platform, module)
-        else:
-            self.badges.output_error("Invalid module!")
+        if not self.check_if_already_used(module):
+            if self.modules.check_exist(module):
+                database = self.modules.get_database(module)
+                module = self.modules.get_name(module)
+                self.add_module(database, category, platform, module)
+            else:
+                self.badges.output_error("Invalid module!")
