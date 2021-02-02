@@ -51,7 +51,7 @@ class ZetaSploitCommand:
         
         if os.path.exists(input_file):
             with open(input_file) as file:
-                line = file.readlines():
+                line = file.readlines()
                 while line:
                     self.execute.execute_command(line.strip())
             self.badges.output_success("Program execution completed!")
