@@ -67,8 +67,7 @@ class modules:
     
     def check_current_module(self):
         if self.storage.get("current_module"):
-            if self.storage.get("pwd"):
-                return True
+            return True
         return False
     
     def get_current_module_object(self):
