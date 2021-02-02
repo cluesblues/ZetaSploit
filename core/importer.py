@@ -110,7 +110,7 @@ class importer:
         try:
             for file in os.listdir(command_path):
                 if file.endswith('py'):
-                    command_file_path = file[:-3]
+                    command_file_path = command_path + file[:-3]
                     try:
                         command_directory = command_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
                         command_object = self.import_command(command_directory)
