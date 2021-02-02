@@ -67,7 +67,7 @@ class modules:
     
     def check_current_module(self):
         if self.storage.get("current_module"):
-            if len(self.storage.get("current_module")) > 1:
+            if len(self.storage.get("current_module")) > 0:
                 return True
         return False
     
