@@ -91,7 +91,7 @@ class ZetaSploitCommand:
         
     def run(self):
         self.format_base_commands()
-        if self.modules.check_module():
+        if self.modules.check_current_module():
             self.format_custom_commands()
         if self.storage.get("loaded_plugins"):
             self.format_plugin_commands()

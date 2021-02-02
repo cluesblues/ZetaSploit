@@ -117,7 +117,7 @@ class ZetaSploitCommand:
     def run(self):
         information = self.details['Args'][0]
         
-        if self.modules.check_module():
+        if self.modules.check_current_module():
             current_module = self.modules.get_current_module_object()
         
             options = False

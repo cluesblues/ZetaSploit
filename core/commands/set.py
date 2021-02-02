@@ -50,7 +50,7 @@ class ZetaSploitCommand:
         option = self.details['Args'][0].upper()
         value = self.details['Args'][1]
         
-        if self.modules.check_module():
+        if self.modules.check_current_module():
             current_module = self.modules.get_current_module_object()
             if option in current_module.options.keys():
                 self.badges.output_information(option + " ==> " + value)

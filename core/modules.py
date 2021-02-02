@@ -65,19 +65,19 @@ class modules:
             return True
         return False
     
-    def check_module(self):
+    def check_current_module(self):
         if self.storage.get("current_module"):
             if self.storage.get("pwd"):
                 return True
         return False
     
     def get_current_module_object(self):
-        if self.check_module():
+        if self.check_current_module():
             return self.storage.get_array("current_module", self.storage.get("pwd"))
         return None
     
     def get_current_module_name(self):
-        if self.check_module():
+        if self.check_current_module():
             return self.storage.get_array("current_module", self.storage.get("pwd")).details['Name']
         return None
        

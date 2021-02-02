@@ -72,10 +72,10 @@ class execute:
         return False
         
     def execute_module_command(self, commands, arguments):
-        if self.modules.check_module():
-            if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
-                if commands[0] in self.storage.get_array("current_module", self.storage.get("pwd")).commands.keys():
-                    command = self.storage.get_array("current_module", self.storage.get("pwd")).commands[commands[0]]
+        if self.modules.check_current_module():
+            if hasattr(self.modules.get_current_module_object(), "commands"):
+                if commands[0] in self.modules.get_current_module_object().commands.keys():
+                    command = self.modules.get_current_module_object().commands[commands[0]]
                     self.parse_and_execute_command(commands, command, arguments)
                     return True
         return False

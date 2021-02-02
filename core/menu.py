@@ -45,7 +45,7 @@ class menu:
     def launch(self):
         while True:
             try:
-                if not self.modules.check_module():
+                if not self.modules.check_current_module():
                     prompt = '(zsf)> '
                 else:
                     module = self.modules.get_current_module_name()
