@@ -34,7 +34,7 @@ from core.exceptions import exceptions
 from core.modules import modules
 from core.io import io
 
-class main:
+class menu:
     def __init__(self):
         self.badges = badges()
         self.execute = execute()
