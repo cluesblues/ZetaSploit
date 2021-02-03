@@ -87,10 +87,7 @@ class console:
                     prompt = '(zsf: ' + self.modules.get_category(module) + ': ' + self.badges.RED + self.badges.BOLD + name + self.badges.END + ')> '
                 commands, arguments = self.io.input(prompt)
                 
-                if not commands:
-                    continue
-                else:
-                    self.execute.execute_command(commands, arguments)
+                self.execute.execute_command(commands, arguments)
 
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
