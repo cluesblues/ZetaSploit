@@ -31,8 +31,6 @@ sys.stdout.write("\033]0;ZetaSploit Framework\007")
 import os
 import readline
 
-from core.menu import menu
-
 from core.io import io
 from core.tip import tip
 from core.execute import execute
@@ -41,12 +39,13 @@ from core.config import config
 from core.badges import badges
 from core.banner import banner
 from core.storage import storage
+from core.modules import modules
+from core.exceptions import exceptions
 
 readline.parse_and_bind("tab: complete")
 
 class console:
     def __init__(self):
-        self.menu = menu()
         self.io = io()
         self.tip = tip()
         self.execute = execute()
@@ -55,6 +54,8 @@ class console:
         self.badges = badges()
         self.banner = banner()
         self.storage = storage()
+        self.modules = modules()
+        self.exceptions = exceptions()
 
     def check_root(self):
         if os.getuid() == 0:
@@ -75,6 +76,29 @@ class console:
         except Exception:
             sys.exit(1)
 
+    def launch_menu(self):
+        while True:
+            try:
+                if not self.modules.check_current_module():
+                    prompt = '(zsf)> '
+                else:
+                    module = self.modules.get_current_module_name()
+                    name = self.modules.get_platform(module) + '/' + self.modules.get_name(module)
+                    prompt = '(zsf: ' + self.modules.get_category(module) + ': ' + self.badges.RED + self.badges.BOLD + name + self.badges.END + ')> '
+                commands, arguments = self.io.input(prompt)
+                
+                if not commands:
+                    continue
+                else:
+                    self.execute.execute_command(commands, arguments)
+
+            except (KeyboardInterrupt, EOFError):
+                self.io.output("")
+            except self.exceptions.GlobalException:
+                pass
+            except Exception as e:
+                self.badges.output_error("An error occurred: " + str(e) + "!")
+            
     def launch_shell(self):
         version = self.config.core_config['details']['version']
         codename = self.config.core_config['details']['codename']
@@ -118,4 +142,4 @@ class console:
     def shell(self):
         self.start_zsf()
         self.launch_shell()
-        self.menu.launch()
+        self.launch_menu()
