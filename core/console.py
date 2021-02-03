@@ -31,8 +31,6 @@ sys.stdout.write("\033]0;ZetaSploit Framework\007")
 import os
 import readline
 
-from core.menu import menu
-
 from core.io import io
 from core.tip import tip
 from core.execute import execute
@@ -47,7 +45,6 @@ readline.parse_and_bind("tab: complete")
 
 class console:
     def __init__(self):
-        self.menu = menu()
         self.io = io()
         self.tip = tip()
         self.execute = execute()
