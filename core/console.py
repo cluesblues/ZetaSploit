@@ -40,6 +40,7 @@ from core.badges import badges
 from core.banner import banner
 from core.storage import storage
 from core.modules import modules
+from core.exceptions import exceptions
 
 readline.parse_and_bind("tab: complete")
 
@@ -54,6 +55,7 @@ class console:
         self.banner = banner()
         self.storage = storage()
         self.modules = modules()
+        self.exceptions = exceptions()
 
     def check_root(self):
         if os.getuid() == 0:
