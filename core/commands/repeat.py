@@ -52,10 +52,7 @@ class ZetaSploitCommand:
             if commands:
                 arguments = command.replace(commands[0], "", 1).strip()
         
-            if commands:
-                for time in range(int(times)):
-                    self.execute.execute_command(commands, arguments)
-            else:
-                self.badges.output_error("Empty command not allowed!")
+            for time in range(int(times)):
+                self.execute.execute_command(commands, arguments)
         else:
             self.badges.output_error("Times expected!")
