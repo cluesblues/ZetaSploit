@@ -1,2 +1,5 @@
-- name: autopep8
+name: autopep8
+on: [pull_request]
+
+jobs:
   uses: peter-evans/autopep8@v1.2.1
