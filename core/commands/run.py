@@ -54,7 +54,7 @@ class ZetaSploitCommand:
 
     def entry_to_module(self, current_module, create_job=False):
         if create_job:
-            job_id = self.jobs.create_job(current_module.details['Name'], current_module.run)
+            job_id = self.jobs.create_job(current_module.details['Name'], current_module.details['Name'], current_module.run)
             self.badges.output_process("Running module as background job " + str(job_id) + "...")
         else:
             current_module.run()
