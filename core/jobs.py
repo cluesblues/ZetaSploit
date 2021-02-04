@@ -58,6 +58,14 @@ class jobs():
         if not self.storage.get("jobs"):
             return True
         return False
+    
+    def check_module_job(self, module_name):
+        jobs = self.storage.get("jobs")
+        if jobs:
+            for job_id in jobs.keys():
+                if jobs[job_id]['module_name'] == module_name:
+                    return True
+        return False
 
     def exit_jobs(self):
         if self.check_jobs():
@@ -103,7 +111,7 @@ class jobs():
         else:
             self.badges.output_error("Invalid job id!")
 
-    def create_job(self, job_name, job_function, job_arguments=()):
+    def create_job(self, job_name, module_name, job_function, job_arguments=()):
         self.start_job(job_function, job_arguments)
         if not self.storage.get("jobs"):
             self.storage.set("jobs", dict())
@@ -111,6 +119,7 @@ class jobs():
         job_data = {
             job_id: {
                 'job_name': job_name,
+                'module_name': module_name,
                 'job_process': self.job_process
             }
         }
