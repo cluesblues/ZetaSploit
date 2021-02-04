@@ -31,12 +31,16 @@ from core.badges import badges
 from core.storage import storage
 from core.modules import modules
 
+from core.jobs import jobs # <- experiment
+
 class ZetaSploitCommand:
     def __init__(self):
         self.io = io()
         self.badges = badges()
         self.storage = storage()
         self.modules = modules()
+        
+        self.jobs = jobs() # <- experiment
 
         self.details = {
             'Category': "module",
@@ -61,12 +65,12 @@ class ZetaSploitCommand:
                     self.badges.output_error("Missed some required options!")
                 else:
                     try:
-                        current_module.run()
+                        self.jobs.create_job(current_module.details['Name'], current_module.details['Name'], current_module.run(), ()) # <- experiment
                     except (KeyboardInterrupt, EOFError):
                         self.io.output("")
             else:
                 try:
-                    current_module.run()
+                    self.jobs.create_job(current_module.details['Name'], current_module.details['Name'], current_module.run(), ()) # <- experiment
                 except (KeyboardInterrupt, EOFError):
                     self.io.output("")
         else:
