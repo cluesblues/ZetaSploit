@@ -26,11 +26,13 @@
 
 from core.io import io
 from core.badges import badges
+from core.jobs import jobs
 
 class pseudo_shell:
     def __init__(self):
         self.io = io()
         self.badges = badges()
+        self.jobs = jobs()
         
         self.prompt = 'pseudo % '
         
@@ -41,12 +43,17 @@ class pseudo_shell:
         self.badges.output_information("Commands are sent to the target via provided execute method.")
         self.io.output("")
         
-    def spawn_pseudo_shell(self, execute_method):
+    def spawn_pseudo_shell(self, module_name, execute_method):
         self.badges.output_process("Spawning Pseudo shell...")
-        self.badges.output_success("Congratulations, you won Pseudo shell!")
         
-        self.pseudo_shell_header()
-        self.launch_pseudo_shell(execute_method)
+        if self.jobs.check_module_job(module_name):
+            self.badges.output_error("Failed to spawn Pseudo shell!")
+            self.badges.output_warning("Pseudo shell can not be background job.")
+        else:
+            self.badges.output_success("Congratulations, you won Pseudo shell!")
+        
+            self.pseudo_shell_header()
+            self.launch_pseudo_shell(execute_method)
         
     def launch_pseudo_shell(self, execute_method):
         while True:
