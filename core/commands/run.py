@@ -44,7 +44,7 @@ class ZetaSploitCommand:
             'Category': "module",
             'Name': "run",
             'Description': "Run current module.",
-            'Usage': "run [-j]",
+            'Usage': "run [-h|-j]",
             'ArgsCount': 0,
             'NeedsArgs': True,
             'Args': list()
@@ -60,6 +60,11 @@ class ZetaSploitCommand:
         current_module.run()
         
     def run(self):
+        if len(self.details['Args']) > 0:
+            if self.details['Args'][0] == "-h":
+                self.badges.output_usage(self.details['Usage'])
+                return
+
         if self.modules.check_current_module():
             current_module = self.modules.get_current_module_object()
             count = 0
