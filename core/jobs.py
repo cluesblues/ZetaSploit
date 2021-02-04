@@ -89,11 +89,11 @@ class jobs():
         if not job.is_alive():
             raise ValueError("nonexistent thread id")
         exc = ctypes.py_object(SystemExit)
-        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(thread.ident), exc)
+        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(job.ident), exc)
         if res == 0:
             raise ValueError("nonexistent thread id")
         elif res > 1:
-            ctypes.pythonapi.PyThreadState_SetAsyncExc(thread.ident, None)
+            ctypes.pythonapi.PyThreadState_SetAsyncExc(job.ident, None)
             raise ValueError("nonexistent thread id")
 
     def start_job(self, job_function, job_arguments):
