@@ -69,7 +69,7 @@ class jobs():
 
     def stop_job(self, job):
         if not job.is_alive():
-            raise self.exceptions.GlobalException
+            pass
         exc = ctypes.py_object(SystemExit)
         res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(job.ident), exc)
         if res == 0:
