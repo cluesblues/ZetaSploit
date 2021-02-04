@@ -75,29 +75,14 @@ class jobs():
         if not self.check_jobs():
             job_id = int(job_id)
             if job_id in list(self.storage.get("jobs").keys()):
-                try:
-                    if self.storage.get("jobs")[job_id]['has_end_function']:
-                        if self.storage.get("jobs")[job_id]['has_end_arguments']:
-                            self.storage.get("jobs")[job_id]['end_function'](*self.storage.get("jobs")[job_id]['end_arguments'])
-                        else:
-                            self.storage.get("jobs")[job_id]['end_function']()
-                except Exception:
-                    self.badges.output_error("Failed to stop job!")
                 self.storage.delete_element("jobs", job_id)
             else:
                 self.badges.output_error("Invalid job id!")
-                raise self.exceptions.GlobalException
         else:
             self.badges.output_error("Invalid job id!")
-            raise self.exceptions.GlobalException
 
-    def create_job(self, job_name, module_name, job_function, job_arguments=(), end_function=None, end_arguments=None):
+    def create_job(self, job_name, job_function, job_arguments=()):
         self.start_job(job_function, job_arguments)
-        job_end_function, job_end_arguments = True, True
-        if not end_function:
-            job_end_function = False
-        if not end_arguments:
-            job_end_arguments = False
         if not self.storage.get("jobs"):
             self.storage.set("jobs", dict())
         job_id = len(self.storage.get("jobs"))
@@ -105,11 +90,7 @@ class jobs():
             job_id: {
                 'job_name': job_name,
                 'module_name': module_name,
-                'job_process': self.job_process,
-                'has_end_function': job_end_function,
-                'has_end_arguments': job_end_arguments,
-                'end_function': end_function,
-                'end_arguments': end_arguments
+                'job_process': self.job_process
             }
         }
         self.storage.update("jobs", job_data)
