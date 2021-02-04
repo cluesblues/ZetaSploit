@@ -81,7 +81,6 @@ class console:
     def launch_menu(self):
         while True:
             try:
-                self.jobs.stop_dead()
                 if not self.modules.check_current_module():
                     prompt = '(zsf)> '
                 else:
@@ -90,6 +89,7 @@ class console:
                     prompt = '(zsf: ' + self.modules.get_category(module) + ': ' + self.badges.RED + self.badges.BOLD + name + self.badges.END + ')> '
                 commands, arguments = self.io.input(prompt)
                 
+                self.jobs.stop_dead()
                 self.execute.execute_command(commands, arguments)
 
             except (KeyboardInterrupt, EOFError):
