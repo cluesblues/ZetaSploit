@@ -26,7 +26,6 @@
 
 import os
 import sys
-import ctypes
 import threading
 
 from core.exceptions import exceptions
@@ -46,24 +45,6 @@ class jobs():
         self.modules = modules()
 
         self.job_process = None
-
-    def check_alive(self, job_id):
-        if not self.check_jobs():
-            job_id = int(job_id)
-            if job_id in list(self.storage.get("jobs").keys()):
-                if not self.storage.get("jobs")[job_id]['job_process'].is_alive():
-                    return False
-                return True
-            self.badges.output_error("Invalid job id!")
-            raise self.exceptions.GlobalException
-        self.badges.output_error("Invalid job id!")
-        raise self.exceptions.GlobalException
-        
-    def remove_dead(self):
-        if not self.check_jobs():
-            for job_id in self.storage.get("jobs").keys():
-                if not self.check_alive(job_id):
-                    self.storage.delete_element("jobs", job_id)
         
     def check_jobs(self):
         if not self.storage.get("jobs"):
@@ -85,29 +66,15 @@ class jobs():
             for job_id in list(self.storage.get("jobs").keys()):
                 self.delete_job(job_id)
 
-    def stop_job(self, job):
-        if not job.is_alive():
-            raise ValueError("nonexistent thread id")
-        exc = ctypes.py_object(SystemExit)
-        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(job.ident), exc)
-        if res == 0:
-            raise ValueError("nonexistent thread id")
-        elif res > 1:
-            ctypes.pythonapi.PyThreadState_SetAsyncExc(job.ident, None)
-            raise ValueError("nonexistent thread id")
-
     def start_job(self, job_function, job_arguments):
         self.job_process = threading.Thread(target=job_function, args=job_arguments)
+        self.job_process.setDaemon(True)
         self.job_process.start()
 
     def delete_job(self, job_id):
         if not self.check_jobs():
             job_id = int(job_id)
             if job_id in list(self.storage.get("jobs").keys()):
-                try:
-                    self.stop_job(self.storage.get("jobs")[job_id]['job_process'])
-                except Exception as e:
-                    print(str(e))
                 try:
                     if self.storage.get("jobs")[job_id]['has_end_function']:
                         if self.storage.get("jobs")[job_id]['has_end_arguments']:
@@ -124,7 +91,7 @@ class jobs():
             self.badges.output_error("Invalid job id!")
             raise self.exceptions.GlobalException
 
-    def create_job(self, job_name, module_name, job_function, job_arguments, end_function=None, end_arguments=None):
+    def create_job(self, job_name, module_name, job_function, job_arguments=(), end_function=None, end_arguments=None):
         self.start_job(job_function, job_arguments)
         job_end_function, job_end_arguments = True, True
         if not end_function:
