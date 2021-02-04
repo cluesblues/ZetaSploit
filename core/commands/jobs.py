@@ -52,7 +52,6 @@ class ZetaSploitCommand:
 
     def run(self):
         choice = self.details['Args'][0]
-        self.jobs.remove_dead()
         if choice == '-l':
             if self.storage.get("jobs"):
                 jobs_data = list()
