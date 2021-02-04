@@ -68,9 +68,6 @@ class ZetaSploitCommand:
             if len(self.details['Args']) < 2:
                 self.badges.output_usage(self.details['Usage'])
             else:
-                try:
-                    self.jobs.delete_job(self.details['Args'][1])
-                except Exception:
-                    pass
+                self.jobs.delete_job(self.details['Args'][1])
         else:
             self.badges.output_usage(self.details['Usage'])
