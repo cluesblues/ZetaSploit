@@ -105,7 +105,6 @@ class jobs():
         job_data = {
             job_id: {
                 'job_name': job_name,
-                'module_name': module_name,
                 'job_process': self.job_process
             }
         }
