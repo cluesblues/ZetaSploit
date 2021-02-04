@@ -26,7 +26,8 @@
 
 import os
 import sys
-import multiprocessing
+import ctypes
+import threading
 
 from core.exceptions import exceptions
 from core.formatter import formatter
@@ -85,10 +86,18 @@ class jobs():
                 self.delete_job(job_id)
 
     def stop_job(self, job):
-        job.terminate()
+        if not job.is_alive():
+            raise ValueError("nonexistent thread id")
+        exc = ctypes.py_object(SystemExit)
+        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(thread.ident), exc)
+        if res == 0:
+            raise ValueError("nonexistent thread id")
+        elif res > 1:
+            ctypes.pythonapi.PyThreadState_SetAsyncExc(thread.ident, None)
+            raise ValueError("nonexistent thread id")
 
     def start_job(self, job_function, job_arguments):
-        self.job_process = multiprocessing.Process(target=job_function, args=job_arguments)
+        self.job_process = threading.Thread(target=job_function, args=job_arguments)
         self.job_process.start()
 
     def delete_job(self, job_id):
@@ -97,8 +106,8 @@ class jobs():
             if job_id in list(self.storage.get("jobs").keys()):
                 try:
                     self.stop_job(self.storage.get("jobs")[job_id]['job_process'])
-                except Exception:
-                    pass
+                except Exception as e:
+                    print(str(e))
                 try:
                     if self.storage.get("jobs")[job_id]['has_end_function']:
                         if self.storage.get("jobs")[job_id]['has_end_arguments']:
