@@ -47,6 +47,13 @@ class jobs():
 
         self.job_process = None
         
+    def stop_dead(self):
+        jobs = self.storage.get("jobs")
+        if jobs:
+            for job_id in list(jobs):
+                if not jobs[job_id]['job_process'].is_alive():
+                    self.delete_job(job_id)
+        
     def check_jobs(self):
         if not self.storage.get("jobs"):
             return True
