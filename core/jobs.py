@@ -87,20 +87,10 @@ class jobs():
                 self.delete_job(job_id)
 
     def stop_job(self, job):
-        thread = job
-        if not thread.is_alive():
-            raise self.exceptions.GlobalException
-        exc = ctypes.py_object(SystemExit)
-        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(thread.ident), exc)
-        if res == 0:
-            raise self.exceptions.GlobalException
-        if res > 1:
-            ctypes.pythonapi.PyThreadState_SetAsyncExc(thread.ident, None)
-            raise self.exceptions.GlobalException
+        job.terminate()
 
     def start_job(self, job_function, job_arguments):
-        self.job_process = threading.Thread(target=job_function, args=job_arguments)
-        self.job_process.setDaemon(False)
+        self.job_process = multiprocessing.Process(target=job_function, args=job_arguments)
         self.job_process.start()
 
     def delete_job(self, job_id):
