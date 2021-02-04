@@ -52,6 +52,13 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
+    def entry_to_module(self, current_module, create_job=False):
+        if create_job:
+            job_id = self.jobs.create_job(current_module.details['Name'], current_module.run)
+            self.badges.output_process("Running module as background job " + str(job_id) + "...")
+        else:
+            current_module.run()
+        
     def run(self):
         if self.modules.check_current_module():
             current_module = self.modules.get_current_module_object()
@@ -65,22 +72,12 @@ class ZetaSploitCommand:
                     self.badges.output_error("Missed some required options!")
                 else:
                     try:
-                        if len(self.details['Args']) > 0:
-                            if self.details['Args'][0] == "-j":
-                                job_id = self.jobs.create_job(current_module.details['Name'], current_module.run)
-                                self.badges.output_process("Running module as background job " + str(job_id) + "...")
-                                return
-                        current_module.run()
+                        self.entry_to_module(current_module, True)
                     except (KeyboardInterrupt, EOFError):
                         self.io.output("")
             else:
                 try:
-                    if len(self.details['Args']) > 0:
-                         if self.details['Args'][0] == "-j":
-                            job_id = self.jobs.create_job(current_module.details['Name'], current_module.run)
-                            self.badges.output_process("Running module as background job " + str(job_id) + "...")
-                            return
-                    current_module.run()
+                    self.entry_to_module(current_module, True)
                 except (KeyboardInterrupt, EOFError):
                     self.io.output("")
         else:
