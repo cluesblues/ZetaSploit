@@ -26,6 +26,7 @@
 
 import os
 import sys
+import ctypes
 import threading
 
 from core.exceptions import exceptions
@@ -66,6 +67,17 @@ class jobs():
             for job_id in list(self.storage.get("jobs").keys()):
                 self.delete_job(job_id)
 
+    def stop_job(self, job):
+        if not job.is_alive():
+            raise self.exceptions.GlobalException
+        exc = ctypes.py_object(SystemExit)
+        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(job.ident), exc)
+        if res == 0:
+            raise self.exceptions.GlobalException
+        elif res > 1:
+            ctypes.pythonapi.PyThreadState_SetAsyncExc(job.ident, None)
+            raise self.exceptions.GlobalException
+                
     def start_job(self, job_function, job_arguments):
         self.job_process = threading.Thread(target=job_function, args=job_arguments)
         self.job_process.setDaemon(True)
@@ -75,7 +87,11 @@ class jobs():
         if not self.check_jobs():
             job_id = int(job_id)
             if job_id in list(self.storage.get("jobs").keys()):
-                self.storage.delete_element("jobs", job_id)
+                try:
+                    self.stop_job(self.storage.get("jobs")[job_id]['job_process'])
+                    self.storage.delete_element("jobs", job_id)
+                except Exception:
+                    self.badges.output_error("Failed to stop job!")
             else:
                 self.badges.output_error("Invalid job id!")
         else:
