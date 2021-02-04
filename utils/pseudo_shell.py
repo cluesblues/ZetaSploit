@@ -26,12 +26,15 @@
 
 from core.io import io
 from core.badges import badges
+from core.storage import storage
 
 class pseudo_shell:
     def __init__(self):
         self.io = io()
         self.badges = badges()
+        self.storage = storage()
         
+        self.execute_method = self.storage.get("pseudo_execute_method")
         self.prompt = 'pseudo % '
         
     def pseudo_shell_header(self):
@@ -46,17 +49,13 @@ class pseudo_shell:
         self.badges.output_success("Congratulations, you won Pseudo shell!")
         
         self.pseudo_shell_header()
-        self.launch_pseudo_shell(execute_method)
+        self.storage.set("pseudo_execute_method", execute_method)
         
-    def launch_pseudo_shell(self, execute_method):
-        while True:
+    def execute_pseudo_command(self, command):
+        if command == "exit":
+            self.storage.delete("pseudo_execute_method")
+        else:
             try:
-                command = self.badges.input_empty(self.prompt)
-                if command == 'exit':
-                    break
-                execute_method(command)
-            except (EOFError, KeyboardInterrupt):
-                self.io.output("")
-                break
-            except Exception as e:
-                self.badges.output_error("An error occurred: " + str(e) + "!")
+                self.execute_method(command)
+            except Exception:
+                self.badges.output_error("Failed to use given execute method!")
