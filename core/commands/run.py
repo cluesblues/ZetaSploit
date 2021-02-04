@@ -30,7 +30,6 @@ from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.modules import modules
-
 from core.jobs import jobs
 
 class ZetaSploitCommand:
@@ -39,7 +38,6 @@ class ZetaSploitCommand:
         self.badges = badges()
         self.storage = storage()
         self.modules = modules()
-        
         self.jobs = jobs()
 
         self.details = {
@@ -57,7 +55,7 @@ class ZetaSploitCommand:
             if self.details['Args'][0] == "-j":
                 self.badges.output_process("Running module as a background job...")
                 job_id = self.jobs.create_job(current_module.details['Name'], current_module.details['Name'], current_module.run)
-                self.badges.output_information("Module started as a background job " + job_id + ".")
+                self.badges.output_information("Module started as a background job " + str(job_id) + ".")
                 return
         current_module.run()
         
