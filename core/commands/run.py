@@ -65,18 +65,22 @@ class ZetaSploitCommand:
                     self.badges.output_error("Missed some required options!")
                 else:
                     try:
-                        if len(self.details['Args']) == 1:
+                        if len(self.details['Args']) > 0:
                             if self.details['Args'][0] == "-j":
                                 job_id = self.jobs.create_job(current_module.details['Name'], current_module.run)
                                 self.badges.output_process("Running module as background job " + str(job_id) + "...")
+                                return
+                        current_module.run()
                     except (KeyboardInterrupt, EOFError):
                         self.io.output("")
             else:
                 try:
-                    if len(self.details['Args']) == 1:
+                    if len(self.details['Args']) > 0:
                          if self.details['Args'][0] == "-j":
                             job_id = self.jobs.create_job(current_module.details['Name'], current_module.run)
                             self.badges.output_process("Running module as background job " + str(job_id) + "...")
+                            return
+                    current_module.run()
                 except (KeyboardInterrupt, EOFError):
                     self.io.output("")
         else:
