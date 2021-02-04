@@ -55,10 +55,10 @@ class ZetaSploitCommand:
         if choice == '-l':
             if self.storage.get("jobs"):
                 jobs_data = list()
-                headers = ("ID", "Name", "Module")
+                headers = ("ID", "Name")
                 jobs = self.storage.get("jobs")
                 for job_id in jobs.keys():
-                    jobs_data.append((job_id, jobs[job_id]['job_name'], jobs[job_id]['module_name']))
+                    jobs_data.append((job_id, jobs[job_id]['job_name']))
                 self.io.output("")
                 self.formatter.format_table("Active Jobs", headers, *jobs_data)
                 self.io.output("")
