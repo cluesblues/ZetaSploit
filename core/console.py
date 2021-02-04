@@ -33,6 +33,7 @@ import readline
 
 from core.io import io
 from core.tip import tip
+from core.jobs import jobs
 from core.execute import execute
 from core.loader import loader
 from core.config import config
@@ -48,6 +49,7 @@ class console:
     def __init__(self):
         self.io = io()
         self.tip = tip()
+        self.jobs = jobs()
         self.execute = execute()
         self.loader = loader()
         self.config = config()
@@ -79,6 +81,7 @@ class console:
     def launch_menu(self):
         while True:
             try:
+                self.jobs.stop_dead()
                 if not self.modules.check_current_module():
                     prompt = '(zsf)> '
                 else:
