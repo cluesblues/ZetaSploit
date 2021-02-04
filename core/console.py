@@ -43,6 +43,8 @@ from core.storage import storage
 from core.modules import modules
 from core.exceptions import exceptions
 
+from utils.pseudo_shell import pseudo_shell
+
 readline.parse_and_bind("tab: complete")
 
 class console:
@@ -58,6 +60,8 @@ class console:
         self.storage = storage()
         self.modules = modules()
         self.exceptions = exceptions()
+        
+        self.pseudo_shell = pseudo_shell()
 
     def check_root(self):
         if os.getuid() == 0:
@@ -84,13 +88,22 @@ class console:
                 self.jobs.stop_dead()
                 if not self.modules.check_current_module():
                     prompt = '(zsf)> '
+                    commands, arguments = self.io.input(prompt)
+
+                    self.execute.execute_command(commands, arguments)
                 else:
-                    module = self.modules.get_current_module_name()
-                    name = self.modules.get_platform(module) + '/' + self.modules.get_name(module)
-                    prompt = '(zsf: ' + self.modules.get_category(module) + ': ' + self.badges.RED + self.badges.BOLD + name + self.badges.END + ')> '
-                commands, arguments = self.io.input(prompt)
-                
-                self.execute.execute_command(commands, arguments)
+                    if not self.pseudo_shell.execute_method:
+                        module = self.modules.get_current_module_name()
+                        name = self.modules.get_platform(module) + '/' + self.modules.get_name(module)
+                        prompt = '(zsf: ' + self.modules.get_category(module) + ': ' + self.badges.RED + self.badges.BOLD + name + self.badges.END + ')> '
+                        commands, arguments = self.io.input(prompt)
+
+                        self.execute.execute_command(commands, arguments)
+                    else:
+                        prompt = self.pseudo_shell.prompt
+                        command = self.io.input(prompt)[0][0]
+                        
+                        self.pseudo_shell.execute_pseudo_command(command)
 
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
