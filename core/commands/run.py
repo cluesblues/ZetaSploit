@@ -31,7 +31,7 @@ from core.badges import badges
 from core.storage import storage
 from core.modules import modules
 
-from core.jobs import jobs # <- experiment
+from core.jobs import jobs
 
 class ZetaSploitCommand:
     def __init__(self):
@@ -40,7 +40,7 @@ class ZetaSploitCommand:
         self.storage = storage()
         self.modules = modules()
         
-        self.jobs = jobs() # <- experiment
+        self.jobs = jobs()
 
         self.details = {
             'Category': "module",
@@ -65,12 +65,18 @@ class ZetaSploitCommand:
                     self.badges.output_error("Missed some required options!")
                 else:
                     try:
-                        self.jobs.create_job(current_module.details['Name'], current_module.details['Name'], current_module.run, ()) # <- experiment
+                        if len(self.details['Args']) == 1:
+                            if self.details['Args'][0] == "-j":
+                                job_id = self.jobs.create_job(current_module.details['Name'], current_module.run)
+                                self.badges.output_process("Running module as background job " + str(job_id) + "...")
                     except (KeyboardInterrupt, EOFError):
                         self.io.output("")
             else:
                 try:
-                    self.jobs.create_job(current_module.details['Name'], current_module.details['Name'], current_module.run, ()) # <- experiment
+                    if len(self.details['Args']) == 1:
+                         if self.details['Args'][0] == "-j":
+                            job_id = self.jobs.create_job(current_module.details['Name'], current_module.run)
+                            self.badges.output_process("Running module as background job " + str(job_id) + "...")
                 except (KeyboardInterrupt, EOFError):
                     self.io.output("")
         else:
