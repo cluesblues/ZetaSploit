@@ -26,9 +26,7 @@
 
 import os
 import sys
-import signal
-import threading
-import ctypes
+import multiprocessing
 
 from core.exceptions import exceptions
 from core.formatter import formatter
