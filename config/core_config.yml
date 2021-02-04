@@ -24,7 +24,7 @@
 
 details:
     codename: "MATE"
-    version: "v4.0.0-beta"
+    version: "v5.0.0-beta-efc264e6eefc5d71"
 
 console:
     clear: true
