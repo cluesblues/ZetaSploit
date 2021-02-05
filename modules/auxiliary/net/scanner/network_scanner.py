@@ -29,14 +29,12 @@ import sys
 
 import scapy.all
 
-from core.io import io
 from core.badges import badges
 from core.parser import parser
 from core.formatter import formatter
 
 class ZetaSploitModule:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.parser = parser()
         self.formatter = formatter()
@@ -72,6 +70,6 @@ class ZetaSploitModule:
         headers = ("Host", "MAC")
         for _, received in result:
             net_data.append((received.psrc, received.hwsrc))
-        self.io.output("")
+        self.badges.output_empty("")
         self.formatter.format_table("Network Devices", headers, *net_data)
-        self.io.output("")
+        self.badges.output_empty("")

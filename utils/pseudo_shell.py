@@ -24,24 +24,22 @@
 # SOFTWARE.
 #
 
-from core.io import io
 from core.badges import badges
 from core.jobs import jobs
 
 class pseudo_shell:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.jobs = jobs()
         
         self.prompt = 'pseudo % '
         
     def pseudo_shell_header(self):
-        self.io.output("")
+        self.badges.output_empty("")
         self.badges.output_information("--=( Welcome to Pseudo shell )=--")
         self.badges.output_information("Interface for executing commands on the target.")
         self.badges.output_information("Commands are sent to the target via provided execute method.")
-        self.io.output("")
+        self.badges.output_empty("")
         
     def spawn_pseudo_shell(self, module_name, execute_method):
         self.badges.output_process("Spawning Pseudo shell...")
@@ -63,7 +61,7 @@ class pseudo_shell:
                     break
                 execute_method(command)
             except (EOFError, KeyboardInterrupt):
-                self.io.output("")
+                self.badges.output_empty("")
                 break
             except Exception as e:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
