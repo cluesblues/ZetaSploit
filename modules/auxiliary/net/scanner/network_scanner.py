@@ -71,7 +71,7 @@ class ZetaSploitModule:
         net_data = list()
         headers = ("Host", "MAC")
         for _, received in result:
-            net_data.append((f"{received.psrc:<20}", f"{received.hwsrc:^18}"))
+            net_data.append((received.psrc, received.hwsrc))
         self.io.output("")
         self.formatter.format_table("Network Devices", headers, *net_data)
         self.io.output("")
