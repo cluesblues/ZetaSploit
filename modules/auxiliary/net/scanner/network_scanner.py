@@ -61,5 +61,11 @@ class ZetaSploitModule:
         arp = scapy.all.ARP(pdst=ip_range)
         ether = scapy.all.Ether(dst="ff:ff:ff:ff:ff:ff")
         result = scapy.all.srp(ether/arp, timeout=10, verbose=False)[0]
+        
+        net_data = list()
+        headers = ("Host", "MAC")
         for _, received in result:
-            self.badges.output_information(f"{received.psrc:<20} {received.hwsrc:^18}")
+            net_data.append((f"{received.psrc:<20}", f"{received.hwsrc:^18}"))
+        self.io.output("")
+        self.formatter.format_table("Network Devices", headers, *net_data)
+        self.io.output("")
