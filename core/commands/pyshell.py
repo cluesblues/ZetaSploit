@@ -26,12 +26,10 @@
 
 import platform
 
-from core.io import io
 from core.badges import badges
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         
         self.prompt = self.badges.BOLD + ">>> " + self.badges.END
@@ -48,7 +46,7 @@ class ZetaSploitCommand:
 
     def run(self):
         self.badges.output_information(f"Python {platform.python_version()} console")
-        self.io.output("")
+        self.badges.output_empty("")
         while True:
             output = self.badges.input_empty(self.prompt)
             if "exit" in output or "quit" in output:

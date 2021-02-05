@@ -26,13 +26,11 @@
 
 import os
 
-from core.io import io
 from core.badges import badges
 from core.storage import storage
 
 class modules:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.storage = storage()
         

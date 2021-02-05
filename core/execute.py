@@ -28,7 +28,6 @@ import os
 import sys
 import subprocess
 
-from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.formatter import formatter
@@ -36,7 +35,6 @@ from core.modules import modules
 
 class execute:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.storage = storage()
         self.formatter = formatter()
@@ -63,12 +61,12 @@ class execute:
                     try:
                         command.run()
                     except (KeyboardInterrupt, EOFError):
-                        self.io.output("")
+                        self.badges.output_empty("")
             else:
                 try:
                     command.run()
                 except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
+                    self.badges.output_empty("")
             return True
         return False
         
@@ -101,9 +99,9 @@ class execute:
                 try:
                     command['Run']()
                 except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
+                    self.badges.output_empty("")
         else:
             try:
                 command['Run']()
             except (KeyboardInterrupt, EOFError):
-                self.io.output("")
+                self.badges.output_empty("")

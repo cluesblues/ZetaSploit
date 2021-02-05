@@ -26,7 +26,6 @@
 
 import os
 
-from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.modules import modules
@@ -34,7 +33,6 @@ from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.storage = storage()
         self.modules = modules()
@@ -60,9 +58,9 @@ class ZetaSploitCommand:
             for plugin in sorted(plugins.keys()):
                 plugins_data.append((number, plugin, database, plugins[plugin]['Description']))
                 number += 1
-        self.io.output("")
+        self.badges.output_empty("")
         self.formatter.format_table("Plugins", headers, *plugins_data)
-        self.io.output("")
+        self.badges.output_empty("")
         
     def show_modules(self, information):
         modules = self.storage.get("modules")
@@ -76,9 +74,9 @@ class ZetaSploitCommand:
                     full_name = self.modules.get_full_name(information, platform, module)
                     modules_data.append((number, full_name, database, modules[platform][module]['Risk'], modules[platform][module]['Description']))
                     number += 1
-        self.io.output("")
+        self.badges.output_empty("")
         self.formatter.format_table(information.title() + " Modules", headers, *modules_data)
-        self.io.output("")
+        self.badges.output_empty("")
         
     def show_options(self):
         current_module = self.modules.get_current_module_object()
@@ -94,9 +92,9 @@ class ZetaSploitCommand:
             if not value and value != 0:
                 value = ""
             options_data.append((option, value, required, options[option]['Description']))
-        self.io.output("")
+        self.badges.output_empty("")
         self.formatter.format_table("Module Options", headers, *options_data)
-        self.io.output("")
+        self.badges.output_empty("")
         
     def print_usage(self, informations, plugins, options):
         if informations or plugins or options:

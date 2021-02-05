@@ -93,7 +93,7 @@ class console:
                 self.execute.execute_command(commands, arguments)
 
             except (KeyboardInterrupt, EOFError):
-                self.io.output("")
+                self.badges.output_empty("")
             except self.exceptions.GlobalException:
                 pass
             except Exception as e:
@@ -133,11 +133,11 @@ class console:
             header += f"--==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})\n"
             header += f"    --=( {modules_total} modules loaded | {plugins_total} plugins available\n"
             header += f"{self.badges.END}"
-            self.io.output(header)
+            self.badges.output_empty(header)
             
         if self.config.core_config['console']['tip']:
             self.tip.print_random_tip()
-            self.io.output("")
+            self.badges.output_empty("")
 
     def shell(self):
         self.start_zsf()

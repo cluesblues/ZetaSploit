@@ -26,7 +26,6 @@
 
 import os
 
-from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.modules import modules
@@ -34,7 +33,6 @@ from core.jobs import jobs
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.storage = storage()
         self.modules = modules()
@@ -79,11 +77,11 @@ class ZetaSploitCommand:
                     try:
                         self.entry_to_module(current_module)
                     except (KeyboardInterrupt, EOFError):
-                        self.io.output("")
+                        self.badges.output_empty("")
             else:
                 try:
                     self.entry_to_module(current_module)
                 except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
+                    self.badges.output_empty("")
         else:
             self.badges.output_warning("No module selected.")

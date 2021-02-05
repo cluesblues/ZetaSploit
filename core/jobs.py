@@ -33,7 +33,6 @@ from core.exceptions import exceptions
 from core.formatter import formatter
 from core.badges import badges
 from core.storage import storage
-from core.io import io
 from core.modules import modules
 
 class jobs():
@@ -42,7 +41,6 @@ class jobs():
         self.formatter = formatter()
         self.badges = badges()
         self.storage = storage()
-        self.io = io()
         self.modules = modules()
 
         self.job_process = None
