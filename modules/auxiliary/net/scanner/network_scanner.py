@@ -29,14 +29,18 @@ import sys
 
 import scapy.all
 
+from core.io import io
 from core.badges import badges
 from core.parser import parser
+from core.formatter import formatter
 
 class ZetaSploitModule:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         self.parser = parser()
-
+        self.formatter = formatter()
+        
         self.details = {
             'Name': "auxiliary/net/scanner/network_scanner",
             'Authors': [
@@ -57,6 +61,8 @@ class ZetaSploitModule:
         }
 
     def run(self):
+        self.badges.output_process("Scanning network...")
+        
         ip_range = self.parser.parse_options(self.options)
         arp = scapy.all.ARP(pdst=ip_range)
         ether = scapy.all.Ether(dst="ff:ff:ff:ff:ff:ff")
