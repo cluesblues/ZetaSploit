@@ -26,14 +26,14 @@
 
 import os
 
-from core.io import io
+from core.badges import badges
 from core.formatter import formatter
 from core.modules import modules
 from core.storage import storage
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
+        self.badges = badges()
         self.formatter = formatter()
         self.modules = modules()
         self.storage = storage()
@@ -58,11 +58,11 @@ class ZetaSploitCommand:
         for command in sorted(commands.keys()):
             label = commands[command].details['Category']
             commands_data[label].append((command, commands[command].details['Description']))
-        self.io.output("")
+        self.badges.output_empty("")
         for label in sorted(commands_data.keys()):
             self.formatter.format_table(label.title() + " Commands", headers, *commands_data[label])
-            self.io.output("")
-        
+            self.badges.output_empty("")
+
     def format_plugin_commands(self):
         for plugin in self.storage.get("loaded_plugins").keys():
             loaded_plugin = self.storage.get("loaded_plugins")[plugin]
@@ -76,7 +76,7 @@ class ZetaSploitCommand:
                         commands_data[label].append((command, commands[label][command]['Description']))
                 for label in sorted(commands_data.keys()):
                     self.formatter.format_table(label.title() + " Commands", headers, *commands_data[label])
-                    self.io.output("")
+                    self.badges.output_empty("")
                     
     def format_custom_commands(self):
         current_module = self.modules.get_current_module_object()
@@ -87,7 +87,7 @@ class ZetaSploitCommand:
             for command in sorted(commands.keys()):
                 commands_data.append((command, commands[command]['Description']))
             self.formatter.format_table("Custom Commands", headers, *commands_data)
-            self.io.output("")
+            self.badges.output_empty("")
         
     def run(self):
         self.format_base_commands()

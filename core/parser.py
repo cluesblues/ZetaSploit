@@ -24,12 +24,7 @@
 # SOFTWARE.
 #
 
-from core.io import io
-
 class parser:
-    def __init__(self):
-        self.io = io()
-    
     def parse_options(self, options, option=None):
         if not option:
             values = list()

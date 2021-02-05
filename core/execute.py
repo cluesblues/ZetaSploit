@@ -28,7 +28,6 @@ import os
 import sys
 import subprocess
 
-from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.formatter import formatter
@@ -36,17 +35,17 @@ from core.modules import modules
 
 class execute:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.storage = storage()
         self.formatter = formatter()
         self.modules = modules()
 
     def execute_command(self, commands, arguments):
-        if not self.execute_core_command(commands, arguments):
-            if not self.execute_module_command(commands, arguments):
-                if not self.execute_plugin_command(commands, arguments):
-                    self.badges.output_error("Unrecognized command: " + commands[0] + "!")
+        if commands:
+            if not self.execute_core_command(commands, arguments):
+                if not self.execute_module_command(commands, arguments):
+                    if not self.execute_plugin_command(commands, arguments):
+                        self.badges.output_error("Unrecognized command: " + commands[0] + "!")
         
     def execute_system(self, commands):
         subprocess.call(self.formatter.format_arguments(commands))
@@ -62,12 +61,12 @@ class execute:
                     try:
                         command.run()
                     except (KeyboardInterrupt, EOFError):
-                        self.io.output("")
+                        self.badges.output_empty("")
             else:
                 try:
                     command.run()
                 except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
+                    self.badges.output_empty("")
             return True
         return False
         
@@ -100,9 +99,9 @@ class execute:
                 try:
                     command['Run']()
                 except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
+                    self.badges.output_empty("")
         else:
             try:
                 command['Run']()
             except (KeyboardInterrupt, EOFError):
-                self.io.output("")
+                self.badges.output_empty("")

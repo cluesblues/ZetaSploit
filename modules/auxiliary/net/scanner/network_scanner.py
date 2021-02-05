@@ -31,12 +31,14 @@ import scapy.all
 
 from core.badges import badges
 from core.parser import parser
+from core.formatter import formatter
 
 class ZetaSploitModule:
     def __init__(self):
         self.badges = badges()
         self.parser = parser()
-
+        self.formatter = formatter()
+        
         self.details = {
             'Name': "auxiliary/net/scanner/network_scanner",
             'Authors': [
@@ -57,9 +59,17 @@ class ZetaSploitModule:
         }
 
     def run(self):
+        self.badges.output_process("Scanning network...")
+        
         ip_range = self.parser.parse_options(self.options)
         arp = scapy.all.ARP(pdst=ip_range)
         ether = scapy.all.Ether(dst="ff:ff:ff:ff:ff:ff")
         result = scapy.all.srp(ether/arp, timeout=10, verbose=False)[0]
+        
+        net_data = list()
+        headers = ("Host", "MAC")
         for _, received in result:
-            self.badges.output_information(f"{received.psrc:<20} {received.hwsrc:^18}")
+            net_data.append((received.psrc, received.hwsrc))
+        self.badges.output_empty("")
+        self.formatter.format_table("Network Devices", headers, *net_data)
+        self.badges.output_empty("")

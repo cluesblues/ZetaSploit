@@ -26,7 +26,6 @@
 
 import os
 
-from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.plugins import plugins
@@ -34,7 +33,6 @@ from core.importer import importer
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.storage = storage()
         self.plugins = plugins()
@@ -79,7 +77,7 @@ class ZetaSploitCommand:
         else:
             self.badges.output_error("Plugin depends this dependencies which is not installed:")
             for dependence in not_installed:
-                self.io.output("    * " + dependence)
+                self.badges.output_empty("    * " + dependence)
         
     def run(self):
         plugin = self.details['Args'][0]

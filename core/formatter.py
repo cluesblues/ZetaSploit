@@ -26,11 +26,11 @@
 
 import re
 
-from core.io import io
+from core.badges import badges
 
 class formatter:
     def __init__(self):
-        self.io = io()
+        self.badges = badges()
 
     def format_arguments(self, arguments):
         arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
@@ -44,7 +44,7 @@ class formatter:
         header_separator = kwargs.get("header_separator", "-")
 
         if not all(map(lambda x: len(x) == len(headers), args)):
-            self.io.output("Headers and table rows tuples should be the same length.")
+            self.badges.output_empty("Headers and table rows tuples should be the same length.")
             return
 
         def custom_len(x):
@@ -68,11 +68,11 @@ class formatter:
                 "{:<{}}".format(header_separator * len(header), current_line_fill)
             ))
 
-        self.io.output(name.title())
-        self.io.output("="*len(name.title()))
-        self.io.output("")
-        self.io.output(headers_line)
-        self.io.output(headers_separator_line)
+        self.badges.output_empty(name.title())
+        self.badges.output_empty("="*len(name.title()))
+        self.badges.output_empty("")
+        self.badges.output_empty(headers_line)
+        self.badges.output_empty(headers_separator_line)
         for arg in args:
             content_line = "    "
             for idx, element in enumerate(arg):
@@ -80,4 +80,4 @@ class formatter:
                     content_line,
                     "{:<{}}".format(element, fill[idx])
                 ))
-            self.io.output(content_line)
+            self.badges.output_empty(content_line)

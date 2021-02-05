@@ -33,6 +33,7 @@ import readline
 
 from core.io import io
 from core.tip import tip
+from core.jobs import jobs
 from core.execute import execute
 from core.loader import loader
 from core.config import config
@@ -48,6 +49,7 @@ class console:
     def __init__(self):
         self.io = io()
         self.tip = tip()
+        self.jobs = jobs()
         self.execute = execute()
         self.loader = loader()
         self.config = config()
@@ -87,13 +89,11 @@ class console:
                     prompt = '(zsf: ' + self.modules.get_category(module) + ': ' + self.badges.RED + self.badges.BOLD + name + self.badges.END + ')> '
                 commands, arguments = self.io.input(prompt)
                 
-                if not commands:
-                    continue
-                else:
-                    self.execute.execute_command(commands, arguments)
+                self.jobs.stop_dead()
+                self.execute.execute_command(commands, arguments)
 
             except (KeyboardInterrupt, EOFError):
-                self.io.output("")
+                self.badges.output_empty("")
             except self.exceptions.GlobalException:
                 pass
             except Exception as e:
@@ -133,11 +133,11 @@ class console:
             header += f"--==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})\n"
             header += f"    --=( {modules_total} modules loaded | {plugins_total} plugins available\n"
             header += f"{self.badges.END}"
-            self.io.output(header)
+            self.badges.output_empty(header)
             
         if self.config.core_config['console']['tip']:
             self.tip.print_random_tip()
-            self.io.output("")
+            self.badges.output_empty("")
 
     def shell(self):
         self.start_zsf()

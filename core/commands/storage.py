@@ -24,13 +24,11 @@
 # SOFTWARE.
 #
 
-from core.io import io
 from core.badges import badges
 from core.storage import storage
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.storage = storage()
 
@@ -50,7 +48,7 @@ class ZetaSploitCommand:
             self.badges.output_information("Storage variables:")
             for variable in self.storage.get_all():
                 if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
-                    self.io.output("    * " + variable)
+                    self.badges.output_empty("    * " + variable)
         elif choice == "-v":
             if len(self.details['Args']) < 2:
                 self.badges.output_usage(self.details['Usage'])

@@ -26,7 +26,6 @@
 
 import os
 
-from core.io import io
 from core.importer import importer
 from core.badges import badges
 from core.storage import storage
@@ -34,7 +33,6 @@ from core.modules import modules
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
         self.importer = importer()
         self.badges = badges()
         self.storage = storage()
@@ -83,7 +81,7 @@ class ZetaSploitCommand:
         else:
             self.badges.output_error("Module depends this dependencies which is not installed:")
             for dependence in not_installed:
-                self.io.output("    * " + dependence)
+                self.badges.output_empty("    * " + dependence)
                 
     def add_to_global(self, module_object):
         if self.modules.check_current_module():

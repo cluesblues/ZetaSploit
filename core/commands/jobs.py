@@ -26,7 +26,6 @@
 
 import os
 
-from core.io import io
 from core.jobs import jobs
 from core.badges import badges
 from core.storage import storage
@@ -34,7 +33,6 @@ from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
         self.jobs = jobs()
         self.badges = badges()
         self.storage = storage()
@@ -52,7 +50,6 @@ class ZetaSploitCommand:
 
     def run(self):
         choice = self.details['Args'][0]
-        self.jobs.remove_dead()
         if choice == '-l':
             if self.storage.get("jobs"):
                 jobs_data = list()
@@ -60,18 +57,15 @@ class ZetaSploitCommand:
                 jobs = self.storage.get("jobs")
                 for job_id in jobs.keys():
                     jobs_data.append((job_id, jobs[job_id]['job_name'], jobs[job_id]['module_name']))
-                self.io.output("")
+                self.badges.output_empty("")
                 self.formatter.format_table("Active Jobs", headers, *jobs_data)
-                self.io.output("")
+                self.badges.output_empty("")
             else:
                 self.badges.output_warning("No running jobs available.")
         elif choice == '-k':
             if len(self.details['Args']) < 2:
                 self.badges.output_usage(self.details['Usage'])
             else:
-                try:
-                    self.jobs.delete_job(self.details['Args'][1])
-                except Exception:
-                    pass
+                self.jobs.delete_job(self.details['Args'][1])
         else:
             self.badges.output_usage(self.details['Usage'])

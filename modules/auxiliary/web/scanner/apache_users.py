@@ -29,7 +29,6 @@ import sys
 
 import http.client
 
-from core.io import io
 from core.badges import badges
 from core.parser import parser
 from core.helper import helper
@@ -38,7 +37,6 @@ from data.modules.auxiliary.web.scanner.apache_users.dictionary import dictionar
 
 class ZetaSploitModule:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
         self.parser = parser()
         self.helper = helper()
@@ -80,6 +78,6 @@ class ZetaSploitModule:
                 else:
                     self.badges.output_warning("[%s] ... [%s %s]" % (path, response.status, response.reason))
         except (KeyboardInterrupt, EOFError):
-            self.io.output("")
+            self.badges.output_empty("")
         except Exception:
             self.badges.output_error("Host is down!")

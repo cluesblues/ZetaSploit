@@ -26,15 +26,13 @@
 
 import os
 import sys
-import signal
-import threading
 import ctypes
+import threading
 
 from core.exceptions import exceptions
 from core.formatter import formatter
 from core.badges import badges
 from core.storage import storage
-from core.io import io
 from core.modules import modules
 
 class jobs():
@@ -43,32 +41,28 @@ class jobs():
         self.formatter = formatter()
         self.badges = badges()
         self.storage = storage()
-        self.io = io()
         self.modules = modules()
 
         self.job_process = None
-
-    def check_alive(self, job_id):
-        if not self.check_jobs():
-            job_id = int(job_id)
-            if job_id in list(self.storage.get("jobs").keys()):
-                if not self.storage.get("jobs")[job_id]['job_process'].is_alive():
-                    return False
-                return True
-            self.badges.output_error("Invalid job id!")
-            raise self.exceptions.GlobalException
-        self.badges.output_error("Invalid job id!")
-        raise self.exceptions.GlobalException
         
-    def remove_dead(self):
-        if not self.check_jobs():
-            for job_id in self.storage.get("jobs").keys():
-                if not self.check_alive(job_id):
-                    self.storage.delete_element("jobs", job_id)
+    def stop_dead(self):
+        jobs = self.storage.get("jobs")
+        if jobs:
+            for job_id in list(jobs):
+                if not jobs[job_id]['job_process'].is_alive():
+                    self.delete_job(job_id)
         
     def check_jobs(self):
         if not self.storage.get("jobs"):
             return True
+        return False
+    
+    def check_module_job(self, module_name):
+        jobs = self.storage.get("jobs")
+        if jobs:
+            for job_id in jobs.keys():
+                if jobs[job_id]['module_name'] == module_name:
+                    return True
         return False
 
     def exit_jobs(self):
@@ -87,20 +81,18 @@ class jobs():
                 self.delete_job(job_id)
 
     def stop_job(self, job):
-        thread = job
-        if not thread.is_alive():
-            raise self.exceptions.GlobalException
-        exc = ctypes.py_object(SystemExit)
-        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(thread.ident), exc)
-        if res == 0:
-            raise self.exceptions.GlobalException
-        if res > 1:
-            ctypes.pythonapi.PyThreadState_SetAsyncExc(thread.ident, None)
-            raise self.exceptions.GlobalException
-
+        if job.is_alive():
+            exc = ctypes.py_object(SystemExit)
+            res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(job.ident), exc)
+            if res == 0:
+                raise self.exceptions.GlobalException
+            if res > 1:
+                ctypes.pythonapi.PyThreadState_SetAsyncExc(job.ident, None)
+                raise self.exceptions.GlobalException
+                
     def start_job(self, job_function, job_arguments):
         self.job_process = threading.Thread(target=job_function, args=job_arguments)
-        self.job_process.setDaemon(False)
+        self.job_process.setDaemon(True)
         self.job_process.start()
 
     def delete_job(self, job_id):
@@ -109,31 +101,16 @@ class jobs():
             if job_id in list(self.storage.get("jobs").keys()):
                 try:
                     self.stop_job(self.storage.get("jobs")[job_id]['job_process'])
-                except Exception:
-                    pass
-                try:
-                    if self.storage.get("jobs")[job_id]['has_end_function']:
-                        if self.storage.get("jobs")[job_id]['has_end_arguments']:
-                            self.storage.get("jobs")[job_id]['end_function'](*self.storage.get("jobs")[job_id]['end_arguments'])
-                        else:
-                            self.storage.get("jobs")[job_id]['end_function']()
+                    self.storage.delete_element("jobs", job_id)
                 except Exception:
                     self.badges.output_error("Failed to stop job!")
-                self.storage.delete_element("jobs", job_id)
             else:
                 self.badges.output_error("Invalid job id!")
-                raise self.exceptions.GlobalException
         else:
             self.badges.output_error("Invalid job id!")
-            raise self.exceptions.GlobalException
 
-    def create_job(self, job_name, module_name, job_function, job_arguments, end_function=None, end_arguments=None):
+    def create_job(self, job_name, module_name, job_function, job_arguments=()):
         self.start_job(job_function, job_arguments)
-        job_end_function, job_end_arguments = True, True
-        if not end_function:
-            job_end_function = False
-        if not end_arguments:
-            job_end_arguments = False
         if not self.storage.get("jobs"):
             self.storage.set("jobs", dict())
         job_id = len(self.storage.get("jobs"))
@@ -141,11 +118,7 @@ class jobs():
             job_id: {
                 'job_name': job_name,
                 'module_name': module_name,
-                'job_process': self.job_process,
-                'has_end_function': job_end_function,
-                'has_end_arguments': job_end_arguments,
-                'end_function': end_function,
-                'end_arguments': end_arguments
+                'job_process': self.job_process
             }
         }
         self.storage.update("jobs", job_data)
