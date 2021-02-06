@@ -48,7 +48,8 @@ class ZetaSploitCommand:
             'Args': list()
         }
         
-    def import_module(self, modules):
+    def import_module(self, category, platform, name):
+        modules = self.modules.get_module_object(category, platform, name)
         try:
             module_object = self.importer.import_module(modules['Path'])
             if not self.storage.get("imported_modules"):
@@ -58,7 +59,9 @@ class ZetaSploitCommand:
             return None
         return module_object
         
-    def add_module(self, modules):
+    def add_module(self, category, platform, name):
+        modules = self.modules.get_module_object(category, platform, name)
+        
         not_installed = list()
         for dependence in modules['Dependencies']:
             if not self.importer.import_check(dependence):
@@ -71,7 +74,7 @@ class ZetaSploitCommand:
                 module_object = imported_modules[full_name]
                 self.add_to_global(module_object)
             else:
-                module_object = self.import_module(modules)
+                module_object = self.import_module(category, platform, name)
                 if module_object:
                     self.add_to_global(module_object)
                 else:
@@ -107,7 +110,6 @@ class ZetaSploitCommand:
         
         if not self.check_if_already_used(module):
             if self.modules.check_exist(module):
-                modules = self.modules.get_module_object(category, platform, name)
-                self.add_module(modules)
+                self.add_module(category, platform, name)
             else:
                 self.badges.output_error("Invalid module!")
