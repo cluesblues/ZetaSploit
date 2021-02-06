@@ -24,4 +24,8 @@
 
 %newline
 %end
+    Welcome to Simons's Calculator!
+    Type your name please:
+    >
+    Segmentation fault (core dumped)
 %end
