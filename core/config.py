@@ -27,10 +27,12 @@
 import yaml
 import json
 
+from core.badges import badges
 from core.storage import storage
 
 class config:
     def __init__(self):
+        self.badges = badges()
         self.storage = storage()
         
         self.base_path = '/opt/zsf/'
