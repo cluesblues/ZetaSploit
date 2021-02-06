@@ -56,6 +56,8 @@ class console:
         self.storage = storage()
         self.modules = modules()
         self.exceptions = exceptions()
+        
+        self.history = self.config.path_config['base_paths']['history_path']
 
     def check_root(self):
         if os.getuid() == 0:
@@ -89,6 +91,7 @@ class console:
                 
                 self.jobs.stop_dead()
                 self.execute.execute_command(commands, arguments)
+                readline.write_history_file(self.history)
 
             except (KeyboardInterrupt, EOFError):
                 self.badges.output_empty("")
@@ -98,8 +101,9 @@ class console:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
     
     def enable_tab_completion(self):
-        readline.write_history_file(self.config.path_config['base_paths']['history_path'])
-        readline.read_history_file(self.config.path_config['base_paths']['history_path'])
+        if not os.path.exists(self.history):
+            open(self.history, 'w').close()
+        readline.read_history_file(self.history)
         readline.parse_and_bind("tab: complete")
 
     def launch_shell(self):
