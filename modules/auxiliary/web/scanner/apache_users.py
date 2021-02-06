@@ -51,7 +51,8 @@ class ZetaSploitModule:
             'Description': "Scan website apache users.",
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "medium"
         }
 
         self.options = {
