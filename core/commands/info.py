@@ -26,11 +26,13 @@
 
 from core.badges import badges
 from core.modules import modules
+from core.storage import storage
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
         self.modules = modules()
+        self.storage = storage()
         
         self.details = {
             'Category': "module",
@@ -42,7 +44,7 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def get_current_module_information(self, current_module):
+    def format_module_information(self, current_module):
         authors = ""
         for author in current_module['Authors']:
             authors += author + ", "
@@ -82,15 +84,16 @@ class ZetaSploitCommand:
             database = self.modules.get_database(module)
             category = self.modules.get_category(module)
             platform = self.modules.get_platform(module)
-            name = self.modules.get_name(module)
+            module = self.modules.get_name(module)
             
-            pass
+            module = self.storage.get("modules")[database][category][platform][module]
+            self.format_module_information(module)
         else:
             self.badges.output_error("Invalid module!")
         
     def run(self):
         if self.modules.check_current_module():
-            self.get_current_module_information(self.modules.get_current_module_object().details)
+            self.format_module_information(self.modules.get_current_module_object().details)
         else:
             if len(self.details['Args']) > 0:
                 self.get_module_information(self.details['Args'][0])
