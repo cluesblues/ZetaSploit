@@ -51,6 +51,11 @@ class ZetaSploitCommand:
                 authors += author + ", "
             authors = authors[:-2]
             
+            dependencies = ""
+            for dependence in current_module.details['Dependencies']:
+                dependencies += dependence + ", "
+            dependencies = dependencies[:-2]
+            
             comments = ""
             for line in current_module.details['Comments']:
                 comments += line + "\n" + (" " * 13)
@@ -58,12 +63,19 @@ class ZetaSploitCommand:
             
             self.badges.output_information("Current module information:")
             self.badges.output_empty("")
-            self.badges.output_empty("        Name: " + current_module.details['Name'])
-            self.badges.output_empty("     Authors: " + authors)
-            self.badges.output_empty(" Description: " + current_module.details['Description'])
-            self.badges.output_empty("    Comments: ")
-            self.badges.output_empty("             ")
-            self.badges.output_empty("        Risk: " + current_module.details['Risk'])
+            if current_module.details['Name']:
+                self.badges.output_empty("         Name: " + current_module.details['Name'])
+            if authors:
+                self.badges.output_empty("      Authors: " + authors)
+            if description:
+                self.badges.output_empty("  Description: " + current_module.details['Description'])
+            if dependencies:
+                self.badges.output_emtpy(" Dependencies: " + dependencies)
+            if comments:
+                self.badges.output_empty("     Comments: ")
+                self.badges.output_empty("             ")
+            if risk:
+                self.badges.output_empty("         Risk: " + current_module.details['Risk'])
             self.badges.output_empty("")
         else:
             self.badges.output_warning("No module selected.")
