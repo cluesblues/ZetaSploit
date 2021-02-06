@@ -58,7 +58,7 @@ class execute:
                     self.badges.output_usage(command.details['Usage'])
                 else:
                     args = self.formatter.format_arguments(arguments)
-                    if args:
+                    if args[0]:
                         command.details['Args'] = args
                     try:
                         command.run()
@@ -98,7 +98,7 @@ class execute:
                 self.badges.output_usage(command['Usage'])
             else:
                 args = self.formatter.format_arguments(arguments)
-                if args:
+                if args[0]:
                     command['Args'] = args
                 try:
                     command['Run']()
