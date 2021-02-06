@@ -44,7 +44,8 @@ class ZetaSploitModule:
             'Description': "Prompt user to type password.",
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "high"
         }
 
         self.options = {
