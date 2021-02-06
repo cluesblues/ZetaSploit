@@ -58,9 +58,6 @@ class ZetaSploitCommand:
             self.storage.set("history", False)
             self.config.set_storage_variable("history", False)
             self.badges.output_information("ZetaSploit history: off")
-        elif option == "-c":
-            if os.path.exists(self.history):
-                os.remove(self.history)
         elif option == "-l":
             using_history = self.storage.get("history")
             if using_history:
