@@ -45,7 +45,7 @@ class ZetaSploitPlugin:
             'Description': "Nmap scan plugin for ZetaSploit.",
             'Dependencies': [
                 'nmap3'
-            ]
+            ],
             'Comments': [
                 ''
             ]
