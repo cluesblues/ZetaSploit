@@ -24,6 +24,8 @@
 # SOFTWARE.
 #
 
+import os
+
 from core.badges import badges
 from core.storage import storage
 from core.config import config
@@ -50,8 +52,13 @@ class ZetaSploitCommand:
         option = self.details['Args'][0]
         if option == "on":
             self.storage.set("history", True)
+            self.badges.output_information("ZetaSploit history: on")
         elif option == "off":
             self.storage.set("history", False)
+            self.badges.output_information("ZetaSploit history: off")
+        elif option == "-c":
+            if os.path.exists(self.history):
+                os.remove(self.history)
         elif option == "-l":
             self.badges.output_information("ZetaSploit history:")
             history_file = open(self.history, 'r')
