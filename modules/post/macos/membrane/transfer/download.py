@@ -44,7 +44,8 @@ class ZetaSploitModule:
             'Description': "Download remote file.",
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "high"
         }
 
         self.options = {
