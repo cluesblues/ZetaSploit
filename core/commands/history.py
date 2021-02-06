@@ -24,8 +24,18 @@
 # SOFTWARE.
 #
 
+from core.badges import badges
+from core.storage import storage
+from core.config import config
+
 class ZetaSploitCommand:
     def __init__(self):
+        self.badges = badges()
+        self.storage = storage()
+        self.config = config()
+        
+        self.history = self.config.path_config['base_paths']['history_path']
+
         self.details = {
             'Category': "developer",
             'Name': "history",
@@ -37,4 +47,17 @@ class ZetaSploitCommand:
         }
 
     def run(self):
-        options = self.details['Args'][0]
+        option = self.details['Args'][0]
+        if option == "on":
+            self.storage.set("history", True)
+        elif option == "off":
+            self.storage.set("history", False)
+        elif option == "-l":
+            self.badges.output_information("ZetaSploit history:")
+            history_file = open(self.history, 'r')
+            history = [x.strip() for x in history_file.readlines()]
+            history_file.close()
+            for line in history:
+                self.badges.output_empty("    * " + line)
+        else:
+            self.badges.output_usage(self.details['Usage'])
