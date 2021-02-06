@@ -44,7 +44,8 @@ class ZetaSploitModule:
             'Description': "Get device volume level.",
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "medium"
         }
 
         self.options = {
