@@ -35,47 +35,62 @@ class ZetaSploitCommand:
         self.details = {
             'Category': "module",
             'Name': "info",
-            'Description': "Show current module information.",
-            'Usage': "info",
+            'Description': "Show module information.",
+            'Usage': "info [<module>]",
             'ArgsCount': 0,
-            'NeedsArgs': False,
+            'NeedsArgs': True,
             'Args': list()
         }
 
+    def get_current_module_information(self, current_module):
+        authors = ""
+        for author in current_module['Authors']:
+            authors += author + ", "
+        authors = authors[:-2]
+
+        dependencies = ""
+        for dependence in current_module['Dependencies']:
+            dependencies += dependence + ", "
+        dependencies = dependencies[:-2]
+
+        comments = ""
+        for line in current_module['Comments']:
+            comments += line + "\n" + (" " * 13)
+        comments = comments[:-14]
+
+        self.badges.output_information("Current module information:")
+        self.badges.output_empty("")
+
+        if current_module.details['Name']:
+            self.badges.output_empty("         Name: " + current_module['Name'])
+        if authors:
+            self.badges.output_empty("      Authors: " + authors)
+        if description:
+            self.badges.output_empty("  Description: " + current_module['Description'])
+        if dependencies:
+            self.badges.output_emtpy(" Dependencies: " + dependencies)
+        if comments:
+            self.badges.output_empty("     Comments: ")
+            self.badges.output_empty("             ")
+        if risk:
+            self.badges.output_empty("         Risk: " + current_module['Risk'])
+
+        self.badges.output_empty("")
+        
+    def get_module_information(self, module):
+        if self.modules.check_exist(module):
+            database = self.modules.get_database(module)
+            category = self.modules.get_category(module)
+            platform = self.modules.get_platform(module)
+            name = self.modules.get_name(module)
+            
+            pass
+        else:
+            self.badges.output_error("Invalid module!")
+        
     def run(self):
         if self.modules.check_current_module():
-            current_module = self.modules.get_current_module_object()
-            
-            authors = ""
-            for author in current_module.details['Authors']:
-                authors += author + ", "
-            authors = authors[:-2]
-            
-            dependencies = ""
-            for dependence in current_module.details['Dependencies']:
-                dependencies += dependence + ", "
-            dependencies = dependencies[:-2]
-            
-            comments = ""
-            for line in current_module.details['Comments']:
-                comments += line + "\n" + (" " * 13)
-            comments = comments[:-14]
-            
-            self.badges.output_information("Current module information:")
-            self.badges.output_empty("")
-            if current_module.details['Name']:
-                self.badges.output_empty("         Name: " + current_module.details['Name'])
-            if authors:
-                self.badges.output_empty("      Authors: " + authors)
-            if description:
-                self.badges.output_empty("  Description: " + current_module.details['Description'])
-            if dependencies:
-                self.badges.output_emtpy(" Dependencies: " + dependencies)
-            if comments:
-                self.badges.output_empty("     Comments: ")
-                self.badges.output_empty("             ")
-            if risk:
-                self.badges.output_empty("         Risk: " + current_module.details['Risk'])
-            self.badges.output_empty("")
+            self.get_current_module_information(self.modules.get_current_module_object().details)
         else:
-            self.badges.output_warning("No module selected.")
+            if len(self.details['Args']) > 0:
+                self.get_module_information(self.details['Args'][0])
