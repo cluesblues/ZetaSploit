@@ -44,7 +44,8 @@ class ZetaSploitModule:
             'Description': "Say text message on device.",
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "low"
         }
 
         self.options = {
