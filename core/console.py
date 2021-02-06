@@ -43,6 +43,8 @@ from core.storage import storage
 from core.modules import modules
 from core.exceptions import exceptions
 
+readline.read_history_file(self.config.path_config['base_paths']['history_path'])
+readline.write_history_file(self.config.path_config['base_paths']['history_path'])
 readline.parse_and_bind("tab: complete")
 
 class console:
