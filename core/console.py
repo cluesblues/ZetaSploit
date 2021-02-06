@@ -101,15 +101,15 @@ class console:
             except Exception as e:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
     
-    def enable_tab_completion(self):
+    def enable_history_file(self):
         if not os.path.exists(self.history):
             open(self.history, 'w').close()
         readline.read_history_file(self.history)
-        readline.parse_and_bind("tab: complete")
 
     def launch_shell(self):
         if self.storage.get("history"):
-            self.enable_tab_completion()
+            self.enable_history_file()
+        readline.parse_and_bind("tab: complete")
         
         version = self.config.core_config['details']['version']
         codename = self.config.core_config['details']['codename']
