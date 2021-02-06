@@ -49,6 +49,9 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Scan website apache users.",
+            'Dependencies': [
+                ''
+            ],
             'Comments': [
                 ''
             ],
