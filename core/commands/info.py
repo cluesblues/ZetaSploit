@@ -60,7 +60,7 @@ class ZetaSploitCommand:
             comments += line + "\n" + (" " * 14)
         comments = comments[:-15]
 
-        self.badges.output_information("Current module information:")
+        self.badges.output_information("Module information:")
         self.badges.output_empty("")
 
         if current_module['Name']:
