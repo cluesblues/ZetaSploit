@@ -69,6 +69,13 @@ class modules:
                 return True
         return False
     
+    def get_module_object(self, category, platform, name):
+        module_full_name = self.get_full_name(category, platform, name)
+        if self.check_exist(module_full_name):
+            database = self.get_database(module_full_name)
+            return self.storage.get("modules")[database][category][platform][name]
+        return None
+    
     def get_current_module_object(self):
         if self.check_current_module():
             return self.storage.get_array("current_module", self.storage.get("current_module_number"))
