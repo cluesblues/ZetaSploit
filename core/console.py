@@ -98,8 +98,8 @@ class console:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
     
     def enable_tab_completion(self):
-        readline.read_history_file(self.config.path_config['base_paths']['history_path'])
         readline.write_history_file(self.config.path_config['base_paths']['history_path'])
+        readline.read_history_file(self.config.path_config['base_paths']['history_path'])
         readline.parse_and_bind("tab: complete")
 
     def launch_shell(self):
