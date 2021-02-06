@@ -108,7 +108,7 @@ class console:
 
     def launch_shell(self):
         using_history = self.storage.get("history")
-        if using_history or using_history == None:
+        if using_history:
             self.enable_history_file()
         readline.parse_and_bind("tab: complete")
         
