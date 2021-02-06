@@ -44,7 +44,8 @@ class ZetaSploitModule:
             'Description': "Upload local file.",
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "medium"
         }
 
         self.options = {
