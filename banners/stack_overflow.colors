@@ -26,6 +26,6 @@
 %end
     Welcome to Simons's Calculator!
     Type your name please:
-    >
-    Segmentation fault (core dumped)
+    > \x00\x00\x00\x00\xz3\xt4\xsp\xl0\x1t\xfr\x4m\x3w\xor\xk!\xv3\xr5\xi0\xn1\x00\x00\x00\x00
+    %redSegmentation fault (core dumped)%end
 %end
