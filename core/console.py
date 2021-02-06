@@ -43,10 +43,6 @@ from core.storage import storage
 from core.modules import modules
 from core.exceptions import exceptions
 
-readline.read_history_file(self.config.path_config['base_paths']['history_path'])
-readline.write_history_file(self.config.path_config['base_paths']['history_path'])
-readline.parse_and_bind("tab: complete")
-
 class console:
     def __init__(self):
         self.io = io()
@@ -102,6 +98,10 @@ class console:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
             
     def launch_shell(self):
+        readline.read_history_file(self.config.path_config['base_paths']['history_path'])
+        readline.write_history_file(self.config.path_config['base_paths']['history_path'])
+        readline.parse_and_bind("tab: complete")
+        
         version = self.config.core_config['details']['version']
         codename = self.config.core_config['details']['codename']
         if self.config.core_config['console']['clear']:
