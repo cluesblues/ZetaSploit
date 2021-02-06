@@ -47,7 +47,8 @@ class ZetaSploitModule:
             'Description': "Scan local network.",
             'Comments': [
                 'Uses Python scapy module to scan local network.'
-            ]
+            ],
+            'Risk': "low"
         }
 
         self.options = {
