@@ -57,6 +57,14 @@ class config:
                 variable_value = self.storage_variables[variable]
             self.storage.set(variable, variable_value)
         
+    def set_storage_variable(self, variable, value):
+        old_storage = self.storage_variables
+        new_storage = open(self.path_config['base_paths']['storage_path'], 'w')
+        
+        old_storage[variable] = str(value)
+        new_storage.write(str(old_storage).replace("'", '"'))
+        new_storage.close()
+        
     def configure(self):
         db_config = self.get_config_file(open(self.db_config_file))
         path_config = self.get_config_file(open(self.path_config_file))
