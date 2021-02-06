@@ -60,11 +60,15 @@ class ZetaSploitCommand:
             if os.path.exists(self.history):
                 os.remove(self.history)
         elif option == "-l":
-            self.badges.output_information("ZetaSploit history:")
-            history_file = open(self.history, 'r')
-            history = [x.strip() for x in history_file.readlines()]
-            history_file.close()
-            for line in history:
-                self.badges.output_empty("    * " + line)
+            using_history = self.storage.get("history")
+            if using_history or using_history == None:
+                self.badges.output_information("ZetaSploit history:")
+                history_file = open(self.history, 'r')
+                history = [x.strip() for x in history_file.readlines()]
+                history_file.close()
+                for line in history:
+                    self.badges.output_empty("    * " + line)
+            else:
+                self.badges.output_warning("No history detected.")
         else:
             self.badges.output_usage(self.details['Usage'])
