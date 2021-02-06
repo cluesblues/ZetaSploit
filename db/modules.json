@@ -139,52 +139,94 @@
         },
         "multi": {
             "citrix_adc_netscaler/cve_2019_19781": {
-                "Risk": "high",
-                "Description": "Remote Code Execution in Citrix Application Delivery Controller and Citrix Gateway.",
                 "Path": "modules/exploit/multi/citrix_adc_netscaler/cve_2019_19781",
+                "Name": "exploit/multi/citrix_adc_netscaler/cve_2019_19781",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Remote Code Execution in Citrix Application Delivery Controller and Citrix Gateway.",
                 "Dependencies": [
                     "requests"
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "high"
             },
             "f5_big_ip_tmui/cve_2020_5902": {
-                "Risk": "high",
-                "Description": "Remote Code Execution in F5 BIG-IP Traffic Management User Interface (TMUI).",
                 "Path": "modules/exploit/multi/f5_big_ip_tmui/cve_2020_5902",
+                "Name": "exploit/multi/f5_big_ip_tmui/cve_2020_5902",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Remote Code Execution in F5 BIG-IP Traffic Management User Interface (TMUI).",
                 "Dependencies": [
                     "requests"
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "high"
             },
             "nostromo_httpd/cve_2019_16278": {
-                "Risk": "high",
-                "Description": "Remote Code Execution in Nostromo httpd.",
                 "Path": "modules/exploit/multi/nostromo_httpd/cve_2019_16278",
+                "Name": "exploit/multi/nostromo_httpd/cve_2019_16278",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Remote Code Execution in Nostromo httpd.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "high"
             },
             "vbulletin_widget_php/cve_2019_16759": {
-                "Risk": "high",
-                "Description": "vBulletin 5.0.0 till 5.5.4 widget_php Unauthenticated Remote Code Execution.",
                 "Path": "modules/exploit/multi/vbulletin_widget_php/cve_2019_16759",
+                "Name": "exploit/multi/vbulletin_widget_php/cve_2019_16759",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "vBulletin 5.0.0 till 5.5.4 widget_php Unauthenticated Remote Code Execution.",
                 "Dependencies": [
                     "requests"
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "high"
             },
             "vbulletin_widget_php/cve_2020_7373": {
-                "Risk": "high",
-                "Description": "vBulletin 5.5.4 till 5.6.2 widget_php Unauthenticated Remote Code Execution.",
                 "Path": "modules/exploit/multi/vbulletin_widget_php/cve_2020_7373",
+                "Name": "exploit/multi/vbulletin_widget_php/cve_2020_7373",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "vBulletin 5.5.4 till 5.6.2 widget_php Unauthenticated Remote Code Execution.",
                 "Dependencies": [
                     "requests"
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "high"
             },
             "ssh/cve_2018_10933": {
-                "Risk": "medium",
-                "Description": "SSH LibSSH unauthorized access.",
                 "Path": "modules/exploit/multi/ssh/cve_2018_10933",
+                "Name": "exploit/multi/ssh/cve_2018_10933",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "SSH LibSSH unauthorized access.",
                 "Dependencies": [
                     "paramiko"
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "medium"
             }
         }
     },
