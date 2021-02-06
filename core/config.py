@@ -52,8 +52,10 @@ class config:
     def set_storage_variables(self):
         storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
         for variable in storage_variables.keys():
-            if storage_variables[variable] in ['True', 'False']:
-                variable_value = bool(storage_variables[variable])
+            if storage_variables[variable] == "True":
+                variable_value = True
+            elif storage_variables[variable] == "False":
+                variable_value = False
             else:
                 variable_value = storage_variables[variable]
             self.storage.set(variable, variable_value)
