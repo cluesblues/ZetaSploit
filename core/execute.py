@@ -64,6 +64,7 @@ class execute:
                         command.run()
                     except (KeyboardInterrupt, EOFError):
                         self.badges.output_empty("")
+                    command.details['Args'].clear()
             else:
                 try:
                     command.run()
@@ -104,6 +105,7 @@ class execute:
                     command['Run']()
                 except (KeyboardInterrupt, EOFError):
                     self.badges.output_empty("")
+                command['Args'].clear()
         else:
             try:
                 command['Run']()
