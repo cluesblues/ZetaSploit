@@ -96,11 +96,14 @@ class console:
                 pass
             except Exception as e:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
-            
-    def launch_shell(self):
+    
+    def enable_tab_completion(self):
         readline.read_history_file(self.config.path_config['base_paths']['history_path'])
         readline.write_history_file(self.config.path_config['base_paths']['history_path'])
         readline.parse_and_bind("tab: complete")
+
+    def launch_shell(self):
+        self.enable_tab_completion()
         
         version = self.config.core_config['details']['version']
         codename = self.config.core_config['details']['codename']
