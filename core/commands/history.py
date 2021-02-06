@@ -61,7 +61,7 @@ class ZetaSploitCommand:
                 os.remove(self.history)
         elif option == "-l":
             using_history = self.storage.get("history")
-            if using_history or using_history == None:
+            if using_history:
                 self.badges.output_information("ZetaSploit history:")
                 history_file = open(self.history, 'r')
                 history = [x.strip() for x in history_file.readlines()]
