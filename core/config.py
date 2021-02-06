@@ -45,22 +45,22 @@ class config:
         self.db_config = self.storage.get("db_config")
         self.path_config = self.storage.get("path_config")
         self.core_config = self.storage.get("core_config")
-        
-        self.storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
 
     def get_config_file(self, content):
         return yaml.safe_load(content)
     
     def set_storage_variables(self):
-        for variable in self.storage_variables.keys():
-            if self.storage_variables[variable] in ['True', 'False']:
-                variable_value = bool(self.storage_variables[variable])
+        storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
+        for variable in storage_variables.keys():
+            if storage_variables[variable] in ['True', 'False']:
+                variable_value = bool(storage_variables[variable])
             else:
-                variable_value = self.storage_variables[variable]
+                variable_value = storage_variables[variable]
             self.storage.set(variable, variable_value)
         
     def set_storage_variable(self, variable, value):
-        old_storage = self.storage_variables
+        storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
+        old_storage = storage_variables
         new_storage = open(self.path_config['base_paths']['storage_path'], 'w')
         
         old_storage[variable] = str(value)
