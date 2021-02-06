@@ -5,40 +5,68 @@
     "auxiliary": {
         "iphoneos": {
             "checker/jailbroken_or_not": {
-                "Risk": "low",
-                "Description": "Check if remote iPhone jailbroken.",
                 "Path": "modules/auxiliary/iphoneos/checker/jailbroken_or_not",
+                "Name": "auxiliary/iphoneos/checker/jailbroken_or_not",
+                "Authors": [
+                    "enty8080"
+                ]
+                "Description": "Check if remote iPhone jailbroken.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "low"
             }
         },
         "net": {
             "scanner/network_scanner": {
-                "Risk": "low",
-                "Description": "Scan local network.",
                 "Path": "modules/auxiliary/net/scanner/network_scanner",
+                "Name": "auxiliary/net/scanner/network_scanner",
+                "Authors": [
+                    "enty8080"
+                ]
+                "Description": "Scan local network.",
                 "Dependencies": [
                     "scapy"
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "low"
             }
         },
         "web": {
             "scanner/apache_users": {
-                "Risk": "medium",
-                "Description": "Scan website apache users.",
                 "Path": "modules/auxiliary/web/scanner/apache_users",
+                "Name": "auxiliary/web/scanner/apache_users",
+                "Authors": [
+                    "enty8080"
+                ]
+                "Description": "Scan website apache users.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "medium"
             },
             "scanner/php_my_admin_scan": {
-                "Risk": "medium",
-                "Description": "Scan website PHP My Admin.",
                 "Path": "modules/auxiliary/web/scanner/php_my_admin_scan",
+                "Name": "auxiliary/web/scanner/php_my_admin_scan",
+                "Authors": [
+                    "enty8080"
+                ]
+                "Description": "Scan website PHP My Admin.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "medium"
             }
         }
     },
