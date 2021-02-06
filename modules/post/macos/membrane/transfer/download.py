@@ -42,6 +42,9 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Download remote file.",
+            'Dependencies': [
+                ''
+            ],
             'Comments': [
                 ''
             ],
