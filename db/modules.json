@@ -233,62 +233,111 @@
     "post": {
         "linux": {
             "membrane/transfer/download": {
-                "Risk": "high",
-                "Description": "Download remote file.",
                 "Path": "modules/post/linux/membrane/transfer/download",
+                "Name": "post/linux/membrane/transfer/download",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Download remote file.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "high"
             },
             "membrane/transfer/upload": {
-                "Risk": "medium",
-                "Description": "Upload local file.",
                 "Path": "modules/post/linux/membrane/transfer/upload",
+                "Name": "post/linux/membrane/transfer/upload",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Upload local file.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "medium"
             }
         },
         "macos": {
             "membrane/gather/getvol": {
-                "Risk": "medium",
-                "Description": "Get device volume level.",
                 "Path": "modules/post/macos/membrane/gather/getvol",
+                "Name": "post/macos/membrane/gather/getvol",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Get device volume level.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "medium"
             },
             "membrane/gather/prompt": {
-                "Risk": "high",
-                "Description": "Prompt user to type password.",
                 "Path": "modules/post/macos/membrane/gather/prompt",
+                "Name": "post/macos/membrane/gather/prompt",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Prompt user to type password.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "high"
             },
             "membrane/transfer/download": {
-                "Risk": "high",
-                "Description": "Download remote file.",
                 "Path": "modules/post/macos/membrane/transfer/download",
+                "Name": "post/macos/membrane/transfer/download",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Download remote file.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "high"
             },
             "membrane/transfer/upload": {
-                "Risk": "medium",
-                "Description": "Upload local file.",
                 "Path": "modules/post/macos/membrane/transfer/upload",
+                "Name": "post/macos/membrane/transfer/upload",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Upload local file.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "medium"
             },
             "membrane/trolling/say": {
-                "Risk": "low",
-                "Description": "Say text message on device.",
                 "Path": "modules/post/macos/membrane/trolling/say",
+                "Name": "post/macos/membrane/trolling/say",
+                "Authors": [
+                    "enty8080"
+                ],
+                "Description": "Say text message on device.",
                 "Dependencies": [
                     ""
-                ]
+                ],
+                "Comments": [
+                    ""
+                ],
+                "Risk": "low"
             }
         }
     }
