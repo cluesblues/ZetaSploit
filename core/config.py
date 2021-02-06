@@ -56,6 +56,8 @@ class config:
                 variable_value = True
             elif storage_variables[variable] == "False":
                 variable_value = False
+            elif storage_variables[variable] == "None":
+                variable_value = None
             else:
                 variable_value = storage_variables[variable]
             self.storage.set(variable, variable_value)
