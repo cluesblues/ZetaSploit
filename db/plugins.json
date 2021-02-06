@@ -3,10 +3,16 @@
         "type": "plugins"
     },
     "nmap": {
+        "Name": "nmap",
+        "Authors": [
+            "enty8080"
+        ],
         "Description": "Nmap scan plugin for ZetaSploit.",
-        "Path": "plugins/nmap",
         "Dependencies": [
             "nmap3"
+        ],
+        "Comments": [
+            ""
         ]
     }
 }
