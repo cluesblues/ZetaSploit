@@ -91,7 +91,8 @@ class console:
                 
                 self.jobs.stop_dead()
                 self.execute.execute_command(commands, arguments)
-                readline.write_history_file(self.history)
+                if self.storage.get("history"):
+                    readline.write_history_file(self.history)
 
             except (KeyboardInterrupt, EOFError):
                 self.badges.output_empty("")
@@ -107,7 +108,8 @@ class console:
         readline.parse_and_bind("tab: complete")
 
     def launch_shell(self):
-        self.enable_tab_completion()
+        if self.storage.get("history"):
+            self.enable_tab_completion()
         
         version = self.config.core_config['details']['version']
         codename = self.config.core_config['details']['codename']
