@@ -32,3 +32,4 @@ base_paths:
     plugins_path: '/opt/zsf/plugins/'
     commands_path: '/opt/zsf/core/commands/'
     history_path: '/opt/zsf/.history'
+    storage_path: '/opt/zsf/config/storage.json'
