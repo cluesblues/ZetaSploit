@@ -35,8 +35,9 @@ class formatter:
     def format_arguments(self, arguments):
         arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
         formated_args = list()
-        for i in arguments:
-            formated_args.append(i.strip('"' and "'"))
+        for arg in arguments:
+            if arg:
+                formated_args.append(arg.strip('"' and "'"))
         return formated_args
         
     def format_table(self, name, headers, *args, **kwargs) -> None:
