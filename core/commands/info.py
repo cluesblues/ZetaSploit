@@ -70,7 +70,7 @@ class ZetaSploitCommand:
         if current_module['Description']:
             self.badges.output_empty("  Description: " + current_module['Description'])
         if dependencies:
-            self.badges.output_emtpy(" Dependencies: " + dependencies)
+            self.badges.output_empty(" Dependencies: " + dependencies)
         if comments:
             self.badges.output_empty("     Comments: ")
             self.badges.output_empty("             ")
@@ -92,7 +92,10 @@ class ZetaSploitCommand:
         
     def run(self):
         if self.modules.check_current_module():
-            self.format_module_information(self.modules.get_current_module_object().details)
+            if len(self.details['Args']) > 0:
+                self.get_module_information(self.details['Args'][0])
+            else:
+                self.format_module_information(self.modules.get_current_module_object().details)
         else:
             if len(self.details['Args']) > 0:
                 self.get_module_information(self.details['Args'][0])
