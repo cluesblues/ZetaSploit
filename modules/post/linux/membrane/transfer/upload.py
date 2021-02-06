@@ -42,9 +42,13 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Upload local file.",
+            'Dependencies': [
+                ''
+            ],
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "medium"
         }
 
         self.options = {

@@ -49,9 +49,13 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Scan website PHP My Admin.",
+            'Dependencies': [
+                ''
+            ],
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "medium"
         }
 
         self.options = {

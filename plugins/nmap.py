@@ -43,6 +43,9 @@ class ZetaSploitPlugin:
                 'enty8080'
             ],
             'Description': "Nmap scan plugin for ZetaSploit.",
+            'Dependencies': [
+                'nmap3'
+            ],
             'Comments': [
                 ''
             ]

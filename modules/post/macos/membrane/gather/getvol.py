@@ -42,9 +42,13 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Get device volume level.",
+            'Dependencies': [
+                ''
+            ],
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "medium"
         }
 
         self.options = {

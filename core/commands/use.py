@@ -48,32 +48,33 @@ class ZetaSploitCommand:
             'Args': list()
         }
         
-    def import_module(self, database, category, platform, module):
-        modules = self.storage.get("modules")[database][category][platform][module]
+    def import_module(self, category, platform, name):
+        modules = self.modules.get_module_object(category, platform, name)
         try:
             module_object = self.importer.import_module(modules['Path'])
             if not self.storage.get("imported_modules"):
                 self.storage.set("imported_modules", dict())
-            self.storage.update("imported_modules", {self.modules.get_full_name(category, platform, module): module_object})
+            self.storage.update("imported_modules", {self.modules.get_full_name(category, platform, name): module_object})
         except Exception:
             return None
         return module_object
         
-    def add_module(self, database, category, platform, module):
-        modules = self.storage.get("modules")[database][category][platform][module]
+    def add_module(self, category, platform, name):
+        modules = self.modules.get_module_object(category, platform, name)
+        
         not_installed = list()
         for dependence in modules['Dependencies']:
             if not self.importer.import_check(dependence):
                 not_installed.append(dependence)
         if not not_installed:
             imported_modules = self.storage.get("imported_modules")
-            full_name = self.modules.get_full_name(category, platform, module)
+            full_name = self.modules.get_full_name(category, platform, name)
             
             if self.modules.check_imported(full_name):
                 module_object = imported_modules[full_name]
                 self.add_to_global(module_object)
             else:
-                module_object = self.import_module(database, category, platform, module)
+                module_object = self.import_module(category, platform, name)
                 if module_object:
                     self.add_to_global(module_object)
                 else:
@@ -105,11 +106,10 @@ class ZetaSploitCommand:
         
         category = self.modules.get_category(module)
         platform = self.modules.get_platform(module)
+        name = self.modules.get_name(module)
         
         if not self.check_if_already_used(module):
             if self.modules.check_exist(module):
-                database = self.modules.get_database(module)
-                module = self.modules.get_name(module)
-                self.add_module(database, category, platform, module)
+                self.add_module(category, platform, name)
             else:
                 self.badges.output_error("Invalid module!")

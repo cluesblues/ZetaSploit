@@ -57,11 +57,14 @@ class execute:
                 if (len(commands) - 1) < command.details['ArgsCount']:
                     self.badges.output_usage(command.details['Usage'])
                 else:
-                    command.details['Args'] = self.formatter.format_arguments(arguments)
+                    args = self.formatter.format_arguments(arguments)
+                    if args:
+                        command.details['Args'] = args
                     try:
                         command.run()
                     except (KeyboardInterrupt, EOFError):
                         self.badges.output_empty("")
+                    command.details['Args'].clear()
             else:
                 try:
                     command.run()
@@ -95,11 +98,14 @@ class execute:
             if (len(commands) - 1) < command['ArgsCount']:
                 self.badges.output_usage(command['Usage'])
             else:
-                command['Args'] = self.formatter.format_arguments(arguments)
+                args = self.formatter.format_arguments(arguments)
+                if args:
+                    command['Args'] = args
                 try:
                     command['Run']()
                 except (KeyboardInterrupt, EOFError):
                     self.badges.output_empty("")
+                command['Args'].clear()
         else:
             try:
                 command['Run']()

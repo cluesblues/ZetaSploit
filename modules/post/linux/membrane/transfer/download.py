@@ -42,9 +42,13 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Download remote file.",
+            'Dependencies': [
+                ''
+            ],
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "high"
         }
 
         self.options = {

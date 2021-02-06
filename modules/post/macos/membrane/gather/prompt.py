@@ -42,9 +42,13 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Prompt user to type password.",
+            'Dependencies': [
+                ''
+            ],
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': "high"
         }
 
         self.options = {
