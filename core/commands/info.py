@@ -57,8 +57,8 @@ class ZetaSploitCommand:
 
         comments = ""
         for line in current_module['Comments']:
-            comments += line + "\n" + (" " * 13)
-        comments = comments[:-14]
+            comments += line + "\n" + (" " * 14)
+        comments = comments[:-15]
 
         self.badges.output_information("Current module information:")
         self.badges.output_empty("")
@@ -73,7 +73,7 @@ class ZetaSploitCommand:
             self.badges.output_empty(" Dependencies: " + dependencies)
         if comments:
             self.badges.output_empty("     Comments: ")
-            self.badges.output_empty("             ")
+            self.badges.output_empty("               " + comments)
         if current_module['Risk']:
             self.badges.output_empty("         Risk: " + current_module['Risk'])
 
