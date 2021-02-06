@@ -63,18 +63,18 @@ class ZetaSploitCommand:
         self.badges.output_information("Current module information:")
         self.badges.output_empty("")
 
-        if current_module.details['Name']:
+        if current_module['Name']:
             self.badges.output_empty("         Name: " + current_module['Name'])
         if authors:
             self.badges.output_empty("      Authors: " + authors)
-        if description:
+        if current_module['Description']:
             self.badges.output_empty("  Description: " + current_module['Description'])
         if dependencies:
             self.badges.output_emtpy(" Dependencies: " + dependencies)
         if comments:
             self.badges.output_empty("     Comments: ")
             self.badges.output_empty("             ")
-        if risk:
+        if current_module['Risk']:
             self.badges.output_empty("         Risk: " + current_module['Risk'])
 
         self.badges.output_empty("")
