@@ -52,9 +52,11 @@ class ZetaSploitCommand:
         option = self.details['Args'][0]
         if option == "on":
             self.storage.set("history", True)
+            self.config.set_storage_variable("history", True)
             self.badges.output_information("ZetaSploit history: on")
         elif option == "off":
             self.storage.set("history", False)
+            self.config.set_storage_variable("history", False)
             self.badges.output_information("ZetaSploit history: off")
         elif option == "-c":
             if os.path.exists(self.history):
