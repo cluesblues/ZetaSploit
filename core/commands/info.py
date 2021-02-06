@@ -81,12 +81,11 @@ class ZetaSploitCommand:
         
     def get_module_information(self, module):
         if self.modules.check_exist(module):
-            database = self.modules.get_database(module)
             category = self.modules.get_category(module)
             platform = self.modules.get_platform(module)
-            module = self.modules.get_name(module)
+            name = self.modules.get_name(module)
             
-            module = self.storage.get("modules")[database][category][platform][module]
+            module = self.modules.get_module_object(category, platform, name)
             self.format_module_information(module)
         else:
             self.badges.output_error("Invalid module!")
