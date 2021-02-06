@@ -54,7 +54,7 @@ class ZetaSploitCommand:
             module_object = self.importer.import_module(modules['Path'])
             if not self.storage.get("imported_modules"):
                 self.storage.set("imported_modules", dict())
-            self.storage.update("imported_modules", {self.modules.get_full_name(category, platform, module): module_object})
+            self.storage.update("imported_modules", {self.modules.get_full_name(category, platform, name): module_object})
         except Exception:
             return None
         return module_object
@@ -68,7 +68,7 @@ class ZetaSploitCommand:
                 not_installed.append(dependence)
         if not not_installed:
             imported_modules = self.storage.get("imported_modules")
-            full_name = self.modules.get_full_name(category, platform, module)
+            full_name = self.modules.get_full_name(category, platform, name)
             
             if self.modules.check_imported(full_name):
                 module_object = imported_modules[full_name]
