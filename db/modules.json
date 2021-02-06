@@ -9,7 +9,7 @@
                 "Name": "auxiliary/iphoneos/checker/jailbroken_or_not",
                 "Authors": [
                     "enty8080"
-                ]
+                ],
                 "Description": "Check if remote iPhone jailbroken.",
                 "Dependencies": [
                     ""
@@ -26,7 +26,7 @@
                 "Name": "auxiliary/net/scanner/network_scanner",
                 "Authors": [
                     "enty8080"
-                ]
+                ],
                 "Description": "Scan local network.",
                 "Dependencies": [
                     "scapy"
@@ -43,7 +43,7 @@
                 "Name": "auxiliary/web/scanner/apache_users",
                 "Authors": [
                     "enty8080"
-                ]
+                ],
                 "Description": "Scan website apache users.",
                 "Dependencies": [
                     ""
@@ -58,7 +58,7 @@
                 "Name": "auxiliary/web/scanner/php_my_admin_scan",
                 "Authors": [
                     "enty8080"
-                ]
+                ],
                 "Description": "Scan website PHP My Admin.",
                 "Dependencies": [
                     ""
