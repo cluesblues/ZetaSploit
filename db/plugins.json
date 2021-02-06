@@ -3,7 +3,7 @@
         "type": "plugins"
     },
     "nmap": {
-        "Path": "plugins/nmap"
+        "Path": "plugins/nmap",
         "Name": "nmap",
         "Authors": [
             "enty8080"
