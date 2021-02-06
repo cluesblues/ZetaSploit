@@ -96,3 +96,5 @@ class ZetaSploitCommand:
         else:
             if len(self.details['Args']) > 0:
                 self.get_module_information(self.details['Args'][0])
+            else:
+                self.badges.output_usage(self.details['Usage'])
