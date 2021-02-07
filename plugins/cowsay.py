@@ -60,19 +60,19 @@ class ZetaSploitPlugin:
         }
 
     def ask_cow(message, length=40):
-	    return self.build_bubble(message, length) + self.build_cow()
+        return self.build_bubble(message, length) + self.build_cow()
         
     def get_border(lines, index):
-	    if len(lines) < 2:
-		    return ["<", ">"]
-	    if index == 0:
-		    return ["/", "\\"]
-	    if index == len(lines) - 1:
-		    return ["\\", "/"]
-	    return ["|", "|"]
+        if len(lines) < 2:
+            return ["<", ">"]
+        if index == 0:
+            return ["/", "\\"]
+        if index == len(lines) - 1:
+            return ["\\", "/"]
+        return ["|", "|"]
         
     def build_cow():
-	    return """
+        return """
          \   ^__^ 
           \  (oo)\_______
              (__)\       )\/\\
@@ -81,20 +81,20 @@ class ZetaSploitPlugin:
         """
         
     def normalize_text(message, length):
-	    lines = textwrap.wrap(message, length)
-	    maxlen = len(max(lines, key=len))
-	    return [line.ljust(maxlen) for line in lines]
+        lines = textwrap.wrap(message, length)
+        maxlen = len(max(lines, key=len))
+        return [line.ljust(maxlen) for line in lines]
     
     def build_bubble(message, length=40):
-	    bubble = []
-	    lines = self.normalize_text(message, length)
-	    bordersize = len(lines[0])
-	    bubble.append("  " + "_" * bordersize)
-	    for index, line in enumerate(lines):
-		    border = self.get_border(lines, index)
-		    bubble.append("%s %s %s" % (border[0], line, border[1]))
-	    bubble.append("  " + "-" * bordersize)
-	    return "\n".join(bubble)
+        bubble = []
+        lines = self.normalize_text(message, length)
+        bordersize = len(lines[0])
+        bubble.append("  " + "_" * bordersize)
+        for index, line in enumerate(lines):
+            border = self.get_border(lines, index)
+            bubble.append("%s %s %s" % (border[0], line, border[1]))
+        bubble.append("  " + "-" * bordersize)
+        return "\n".join(bubble)
         
     def cowsay(self):
         message = self.commands['cowsay']['cowsay']['Args'][0]
