@@ -24,7 +24,7 @@
 # SOFTWARE.
 #
 
-class storage:
+class local_storage:
     def get_all(self):
         return globals().keys()
     
