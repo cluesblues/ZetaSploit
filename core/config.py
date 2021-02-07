@@ -34,7 +34,6 @@ class config:
     def __init__(self):
         self.badges = badges()
         self.local_storage = local_storage()
-        self.global_storage = global_storage()
         
         self.base_path = '/opt/zsf/'
         self.config_path = self.base_path + 'config/'
@@ -49,25 +48,6 @@ class config:
 
     def get_config_file(self, content):
         return yaml.safe_load(content)
-            
-    def get_storage_variable(self, variable):
-        storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
-        if variable in storage_variables.keys():
-            return storage_variables[variable]
-        return None
-    
-    def delete_storage_variable(self, variable):
-        storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
-        old_storage = storage_variables
-        
-        if variable in old_storage.keys():
-            new_storage = open(self.path_config['base_paths']['storage_path'], 'w')
-        
-            del old_storage[variable]
-            new_storage.write(str(old_storage).replace("'", '"'))
-            new_storage.close()
-        else:
-            self.badges.output_error("Invalid storage variable")
         
     def set_storage_variable(self, variable, value):
         storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
@@ -91,4 +71,5 @@ class config:
         self.local_storage.set("path_config", self.path_config)
         self.local_storage.set("core_config", self.core_config)
         
-        self.global_storage.set_all(self.path_config['base_paths']['storage_path'])
+        self.global_storage = global_storage(self.path_config['base_paths']['storage_path'])
+        self.global_storage.set_all()
