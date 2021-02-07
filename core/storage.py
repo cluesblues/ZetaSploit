@@ -27,8 +27,11 @@
 import json
 
 class global_storage:
-    def set_all(self, file):
-        storage_variables = json.load(open(file))
+    def __init__(self, file):
+        self.file = file
+
+    def set_all(self):
+        storage_variables = json.load(open(self.file))
         for variable in storage_variables.keys():
             if storage_variables[variable] == "True":
                 variable_value = True
@@ -40,19 +43,19 @@ class global_storage:
                 variable_value = storage_variables[variable]
             local_storage().set(variable, variable_value)
 
-    def get_all(self, file):
+    def get_all(self):
         pass
     
-    def set(self, file, variable, value):
+    def set(self, variable, value):
         pass
     
-    def get(self, file, variable):
-        storage_variables = json.load(open(file))
+    def get(self, variable):
+        storage_variables = json.load(open(self.file))
         if variable in storage_variables.keys():
             return storage_variables[variable]
         return None
     
-    def delete(self, file, variable):
+    def delete(self, variable):
         pass
 
 class local_storage:
