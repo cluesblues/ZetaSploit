@@ -25,7 +25,6 @@
 #
 
 import yaml
-import json
 
 from core.badges import badges
 from core.storage import local_storage
@@ -50,19 +49,6 @@ class config:
 
     def get_config_file(self, content):
         return yaml.safe_load(content)
-    
-    def set_storage_variables(self):
-        storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
-        for variable in storage_variables.keys():
-            if storage_variables[variable] == "True":
-                variable_value = True
-            elif storage_variables[variable] == "False":
-                variable_value = False
-            elif storage_variables[variable] == "None":
-                variable_value = None
-            else:
-                variable_value = storage_variables[variable]
-            self.local_storage.set(variable, variable_value)
             
     def get_storage_variable(self, variable):
         storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
