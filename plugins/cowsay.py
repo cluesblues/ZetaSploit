@@ -87,11 +87,11 @@ class ZetaSploitPlugin:
         bubble = []
         lines = self.normalize_text(message, length)
         bordersize = len(lines[0])
-        bubble.append(" __" + "__" * bordersize)
+        bubble.append(" __" + "_" * bordersize)
         for index, line in enumerate(lines):
             border = self.get_border(lines, index)
             bubble.append("%s %s %s" % (border[0], line, border[1]))
-        bubble.append(" --" + "--" * bordersize)
+        bubble.append(" --" + "-" * bordersize)
         return "\n".join(bubble)
         
     def cowsay(self, argc, argv):
