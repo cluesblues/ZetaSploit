@@ -43,7 +43,7 @@ class ZetaSploitCommand:
 
     def run(self, argc, argv):
         if argc > 0:
-            if argv == "-f":
+            if argv[0] == "-f":
                 self.jobs.stop_all_jobs()
                 sys.exit(0)
         if self.jobs.exit_jobs():
