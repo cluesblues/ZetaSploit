@@ -39,9 +39,7 @@ class ZetaSploitCommand:
             'Name': "info",
             'Description': "Show module information.",
             'Usage': "info [<module>]",
-            'MinArgs': 0,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 0
         }
 
     def format_module_information(self, current_module):
