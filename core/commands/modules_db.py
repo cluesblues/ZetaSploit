@@ -41,9 +41,7 @@ class ZetaSploitCommand:
             'Name': "modules_db",
             'Description': "Manage modules databases.",
             'Usage': "modules_db [-l|-d <name>|-c <name> <path>]",
-            'MinArgs': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
     def run(self, argc, argv):
