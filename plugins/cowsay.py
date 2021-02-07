@@ -105,3 +105,5 @@ class ZetaSploitPlugin:
         message = "Cow here, moo!"
         cow = self.ask_cow(message, len(message))
         self.badges.output_empty(cow)
+        
+        self.badges.output_information("Use " + self.badges.GREEN + "cowsay" + self.badges.END + " to call me.")
