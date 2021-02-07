@@ -43,9 +43,7 @@ class ZetaSploitCommand:
             'Name': "show",
             'Description': "Show specified information.",
             'Usage': "show <information>",
-            'MinArgs': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
     def show_plugins(self):
