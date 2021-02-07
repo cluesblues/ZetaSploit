@@ -49,15 +49,6 @@ class config:
     def get_config_file(self, content):
         return yaml.safe_load(content)
         
-    def set_storage_variable(self, variable, value):
-        storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
-        old_storage = storage_variables
-        new_storage = open(self.path_config['base_paths']['storage_path'], 'w')
-        
-        old_storage[variable] = str(value)
-        new_storage.write(str(old_storage).replace("'", '"'))
-        new_storage.close()
-        
     def configure(self):
         db_config = self.get_config_file(open(self.db_config_file))
         path_config = self.get_config_file(open(self.path_config_file))
