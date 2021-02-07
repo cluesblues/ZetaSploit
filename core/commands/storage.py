@@ -25,14 +25,20 @@
 #
 
 from core.badges import badges
-from core.storage import local_storage
 from core.config import config
+
+from core.storage import local_storage
+from core.storage import global_storage
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
-        self.local_storage = local_storage()
         self.config = config()
+        
+        self.storage_path = self.config.path_config['base_paths']['storage_path']
+        
+        self.local_storage = local_storage()
+        self.global_storage = global_storage(self.storage_path)
 
         self.details = {
             'Category': "developer",
@@ -50,27 +56,27 @@ class ZetaSploitCommand:
             choice = self.details['Args'][1]
             if choice == "-l":
                 self.badges.output_information("Global storage variables:")
-                for variable in self.config.get_all_storage_variables():
+                for variable in self.global_storage.get_all():
                     if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
                         self.badges.output_empty("    * " + variable)
             elif choice == "-v":
                 if len(self.details['Args']) < 3:
                     self.badges.output_usage(self.details['Usage'])
                 else:
-                    if self.details['Args'][2] in self.config.get_all_storage_variables():
+                    if self.details['Args'][2] in self.global_storage.get_all():
                         self.badges.output_information(self.details['Args'][2] + " = " + str(
-                            self.config.get_storage_variable(self.details['Args'][2])))
+                            self.global_storage.get(self.details['Args'][2])))
             elif choice == "-s":
                 if len(self.details['Args']) < 4:
                     self.badges.output_usage(self.details['Usage'])
                 else:
-                    self.config.set_storage_variable(self.details['Args'][2], self.details['Args'][3])
+                    self.global_storage.set(self.details['Args'][2], self.details['Args'][3])
             elif choice == "-d":
                 if len(self.details['Args']) < 3:
                     self.badges.output_usage(self.details['Usage'])
                 else:
-                    if self.details['Args'][2] in self.config.get_all_storage_variables():
-                        self.config.delete_storage_variable(self.details['Args'][2])
+                    if self.details['Args'][2] in self.global_storage.get_all():
+                        self.global_storage.delete(self.details['Args'][2])
                     else:
                         self.badges.output_error("Invalid storage variable name!")
             else:
@@ -87,7 +93,8 @@ class ZetaSploitCommand:
                     self.badges.output_usage(self.details['Usage'])
                 else:
                     if self.details['Args'][2] in self.local_storage.get_all():
-                        self.badges.output_information(self.details['Args'][2] + " = " + str(self.local_storage.get(self.details['Args'][2])))
+                        self.badges.output_information(self.details['Args'][2] + " = " + str(
+                            self.local_storage.get(self.details['Args'][2])))
                     else:
                         self.badges.output_error("Invalid storage variable name!")
             elif choice == "-s":
