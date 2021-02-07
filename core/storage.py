@@ -26,8 +26,12 @@
 
 import json
 
+from core.badges import badges
+
 class global_storage:
     def __init__(self, file):
+        self.badges = badges()
+        
         self.file = file
 
     def set_all(self):
@@ -56,7 +60,17 @@ class global_storage:
         return None
     
     def delete(self, variable):
-        pass
+        storage_variables = json.load(open(self.file))
+        old_storage = storage_variables
+        
+        if variable in old_storage.keys():
+            new_storage = open(self.file, 'w')
+        
+            del old_storage[variable]
+            new_storage.write(str(old_storage).replace("'", '"'))
+            new_storage.close()
+        else:
+            self.badges.output_error("Invalid storage variable")
 
 class local_storage:
     def get_all(self):
