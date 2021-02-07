@@ -47,7 +47,10 @@ class global_storage:
         pass
     
     def get(self, file, variable):
-        pass
+        storage_variables = json.load(open(file))
+        if variable in storage_variables.keys():
+            return storage_variables[variable]
+        return None
     
     def delete(self, file, variable):
         pass
