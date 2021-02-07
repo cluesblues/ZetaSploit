@@ -41,9 +41,7 @@ class ZetaSploitCommand:
             'Name': "unload",
             'Description': "Unload specified loaded plugin.",
             'Usage': "unload <plugin>",
-            'MinArgs': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
     def run(self, argc, argv):
