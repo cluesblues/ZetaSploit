@@ -53,7 +53,7 @@ class execute:
     def execute_core_command(self, commands, arguments):
         if commands[0] in self.local_storage.get("commands").keys():
             command = self.local_storage.get("commands")[commands[0]]
-            if (len(commands) - 1) < command.details['ArgsCount']:
+            if (len(commands) - 1) < command.details['MinArgs']:
                 self.badges.output_usage(command.details['Usage'])
             else:
                 args = self.formatter.format_arguments(arguments)
@@ -85,7 +85,7 @@ class execute:
         return False
         
     def parse_and_execute_command(self, commands, command, arguments):
-        if (len(commands) - 1) < command['ArgsCount']:
+        if (len(commands) - 1) < command['MinArgs']:
             self.badges.output_usage(command['Usage'])
         else:
             args = self.formatter.format_arguments(arguments)
