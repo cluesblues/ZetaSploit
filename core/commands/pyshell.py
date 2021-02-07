@@ -39,9 +39,7 @@ class ZetaSploitCommand:
             'Name': "pyshell",
             'Description': "Open Python shell.",
             'Usage': "pyshell",
-            'MinArgs': 0,
-            'NeedsArgs': False,
-            'Args': list()
+            'MinArgs': 0
         }
 
     def run(self, argc, argv):
