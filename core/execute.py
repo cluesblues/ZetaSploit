@@ -53,21 +53,12 @@ class execute:
     def execute_core_command(self, commands, arguments):
         if commands[0] in self.local_storage.get("commands").keys():
             command = self.local_storage.get("commands")[commands[0]]
-            if command.details['NeedsArgs']:
-                if (len(commands) - 1) < command.details['ArgsCount']:
-                    self.badges.output_usage(command.details['Usage'])
-                else:
-                    args = self.formatter.format_arguments(arguments)
-                    if args:
-                        command.details['Args'] = args
-                    try:
-                        command.run()
-                    except (KeyboardInterrupt, EOFError):
-                        self.badges.output_empty("")
-                    command.details['Args'].clear()
+            if (len(commands) - 1) < command.details['ArgsCount']:
+                self.badges.output_usage(command.details['Usage'])
             else:
+                args = self.formatter.format_arguments(arguments)
                 try:
-                    command.run()
+                    command.run(len(args), args)
                 except (KeyboardInterrupt, EOFError):
                     self.badges.output_empty("")
             return True
@@ -94,20 +85,11 @@ class execute:
         return False
         
     def parse_and_execute_command(self, commands, command, arguments):
-        if command['NeedsArgs']:
-            if (len(commands) - 1) < command['ArgsCount']:
-                self.badges.output_usage(command['Usage'])
-            else:
-                args = self.formatter.format_arguments(arguments)
-                if args:
-                    command['Args'] = args
-                try:
-                    command['Run']()
-                except (KeyboardInterrupt, EOFError):
-                    self.badges.output_empty("")
-                command['Args'].clear()
+        if (len(commands) - 1) < command['ArgsCount']:
+            self.badges.output_usage(command['Usage'])
         else:
+            args = self.formatter.format_arguments(arguments)
             try:
-                command['Run']()
+                command['Run'](len(args), args)
             except (KeyboardInterrupt, EOFError):
                 self.badges.output_empty("")
