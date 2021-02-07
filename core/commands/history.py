@@ -25,6 +25,7 @@
 #
 
 import os
+import readline
 
 from core.badges import badges
 from core.config import config
@@ -66,12 +67,19 @@ class ZetaSploitCommand:
         elif option == "-l":
             using_history = self.local_storage.get("history")
             if using_history:
-                self.badges.output_information("ZetaSploit history:")
-                history_file = open(self.history, 'r')
-                history = [x.strip() for x in history_file.readlines()]
-                history_file.close()
-                for line in history:
-                    self.badges.output_empty("    * " + line)
+                if readline.get_current_history_length() > 0:
+                    self.badges.output_information("ZetaSploit history:")
+                    
+                    history_file = open(self.history, 'r')
+                    history = [x.strip() for x in history_file.readlines()]
+                    history_file.close()
+                    for line in history:
+                        self.badges.output_empty("    * " + line)
+                    
+                    for index in range(1, readline.get_current_history_length()):
+                        self.badges.output_empty("    * " + line)
+                else:
+                    self.badges.output_warning("ZetaSploit history empty.")
             else:
                 self.badges.output_warning("No history detected.")
         else:
