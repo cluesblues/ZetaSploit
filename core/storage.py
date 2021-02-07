@@ -28,8 +28,6 @@ import json
 
 class global_storage:
     def __init__(self, file):
-        self.badges = badges()
-        
         self.file = file
 
     def set_all(self):
