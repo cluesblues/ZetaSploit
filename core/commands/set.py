@@ -41,14 +41,12 @@ class ZetaSploitCommand:
             'Name': "set",
             'Description': "Set an option value.",
             'Usage': "set <option> <value>",
-            'ArgsCount': 2,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 2
         }
 
-    def run(self):
-        option = self.details['Args'][0].upper()
-        value = self.details['Args'][1]
+    def run(self, argc, argv):
+        option = argv[0].upper()
+        value = argv[1]
         
         if self.modules.check_current_module():
             current_module = self.modules.get_current_module_object()

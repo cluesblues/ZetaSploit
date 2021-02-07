@@ -39,13 +39,11 @@ class ZetaSploitCommand:
             'Name': "sleep",
             'Description': "Sleep for specified seconds.",
             'Usage': "sleep <seconds>",
-            'ArgsCount': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
-    def run(self):
-        seconds = self.details['Args'][0]
+    def run(self, argc, argv):
+        seconds = argv[0]
         
         if seconds.replace('.', '', 1).isdigit():
             time.sleep(float(seconds))

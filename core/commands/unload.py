@@ -41,13 +41,11 @@ class ZetaSploitCommand:
             'Name': "unload",
             'Description': "Unload specified loaded plugin.",
             'Usage': "unload <plugin>",
-            'ArgsCount': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
-    def run(self):
-        plugin = self.details['Args'][0]
+    def run(self, argc, argv):
+        plugin = argv[0]
         self.badges.output_process("Unloading " + plugin + " plugin...")
         
         if self.plugins.check_loaded(plugin):

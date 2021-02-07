@@ -43,9 +43,7 @@ class ZetaSploitCommand:
             'Name': "use",
             'Description': "Use specified module.",
             'Usage': "use <module>",
-            'ArgsCount': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
         
     def import_module(self, category, platform, name):
@@ -101,8 +99,8 @@ class ZetaSploitCommand:
                 return True
         return False
 
-    def run(self):
-        module = self.details['Args'][0]
+    def run(self, argc, argv):
+        module = argv[0]
         
         category = self.modules.get_category(module)
         platform = self.modules.get_platform(module)

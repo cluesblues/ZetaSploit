@@ -35,10 +35,8 @@ class ZetaSploitCommand:
             'Name': "clear",
             'Description': "Clear terminal window.",
             'Usage': "clear",
-            'ArgsCount': 0,
-            'NeedsArgs': False,
-            'Args': list()
+            'MinArgs': 0
         }
 
-    def run(self):
+    def run(self, argc, argv):
         self.execute.execute_system("clear")

@@ -51,9 +51,7 @@ class ZetaSploitPlugin:
                 'cowsay': {
                     'Description': "Ask cow to say message.",
                     'Usage': "cowsay <message>",
-                    'ArgsCount': 1,
-                    'NeedsArgs': True,
-                    'Args': list(),
+                    'MinArgs': 1,
                     'Run': self.cowsay
                 }
             }
@@ -89,15 +87,15 @@ class ZetaSploitPlugin:
         bubble = []
         lines = self.normalize_text(message, length)
         bordersize = len(lines[0])
-        bubble.append(" __" + "__" * bordersize)
+        bubble.append(" __" + "_" * bordersize)
         for index, line in enumerate(lines):
             border = self.get_border(lines, index)
             bubble.append("%s %s %s" % (border[0], line, border[1]))
-        bubble.append(" --" + "--" * bordersize)
+        bubble.append(" --" + "-" * bordersize)
         return "\n".join(bubble)
         
-    def cowsay(self):
-        message = self.commands['cowsay']['cowsay']['Args'][0]
+    def cowsay(self, argc, argv):
+        message = argv[0]
         cow = self.ask_cow(message, len(message))
         self.badges.output_empty(cow)
 

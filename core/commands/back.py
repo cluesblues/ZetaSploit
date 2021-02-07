@@ -44,12 +44,10 @@ class ZetaSploitCommand:
             'Name': "back",
             'Description': "Return to the previous module.",
             'Usage': "back",
-            'ArgsCount': 0,
-            'NeedsArgs': False,
-            'Args': list()
+            'MinArgs': 0
         }
 
-    def run(self):
+    def run(self, argc, argv):
         if self.modules.check_current_module():
             self.local_storage.set("current_module_number", self.local_storage.get("current_module_number") - 1)
             self.local_storage.set("current_module", self.local_storage.get("current_module")[0:-1])

@@ -39,12 +39,10 @@ class ZetaSploitCommand:
             'Name': "pyshell",
             'Description': "Open Python shell.",
             'Usage': "pyshell",
-            'ArgsCount': 0,
-            'NeedsArgs': False,
-            'Args': list()
+            'MinArgs': 0
         }
 
-    def run(self):
+    def run(self, argc, argv):
         self.badges.output_information(f"Python {platform.python_version()} console")
         self.badges.output_empty("")
         while True:

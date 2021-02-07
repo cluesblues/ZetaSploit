@@ -35,11 +35,9 @@ class ZetaSploitCommand:
             'Name': "exec",
             'Description': "Execute local system command.",
             'Usage': "exec <command>",
-            'ArgsCount': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
-    def run(self):
-        command = self.details['Args'][0]
+    def run(self, argc, argv):
+        command = argv[0]
         self.execute.execute_system(command)

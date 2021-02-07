@@ -49,13 +49,11 @@ class ZetaSploitCommand:
             'Name': "history",
             'Description': "Manage ZetaSploit history.",
             'Usage': "history [-l|on|off]",
-            'ArgsCount': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
-    def run(self):
-        option = self.details['Args'][0]
+    def run(self, argc, argv):
+        option = argv[0]
         if option == "on":
             self.local_storage.set("history", True)
             self.global_storage.set("history", True)

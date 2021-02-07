@@ -38,14 +38,12 @@ class ZetaSploitCommand:
             'Name': "exit",
             'Description': "Exit ZetaSploit Framework.",
             'Usage': "exit [-f]",
-            'ArgsCount': 0,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 0
         }
 
-    def run(self):
-        if len(self.details['Args']) > 0:
-            if self.details['Args'] == "-f":
+    def run(self, argc, argv):
+        if argc > 0:
+            if argv[0] == "-f":
                 self.jobs.stop_all_jobs()
                 sys.exit(0)
         if self.jobs.exit_jobs():

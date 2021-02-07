@@ -43,9 +43,7 @@ class ZetaSploitCommand:
             'Name': "help",
             'Description': "Show available commands.",
             'Usage': "help",
-            'ArgsCount': 0,
-            'NeedsArgs': False,
-            'Args': list()
+            'MinArgs': 0
         }
 
     def format_base_commands(self):
@@ -89,7 +87,7 @@ class ZetaSploitCommand:
             self.formatter.format_table("Custom Commands", headers, *commands_data)
             self.badges.output_empty("")
         
-    def run(self):
+    def run(self, argc, argv):
         self.format_base_commands()
         if self.modules.check_current_module():
             self.format_custom_commands()

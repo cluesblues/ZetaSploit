@@ -43,9 +43,7 @@ class ZetaSploitCommand:
             'Name': "load",
             'Description': "Load specified plugin.",
             'Usage': "load <plugin>",
-            'ArgsCount': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
     def import_plugin(self, database, plugin):
@@ -79,8 +77,8 @@ class ZetaSploitCommand:
             for dependence in not_installed:
                 self.badges.output_empty("    * " + dependence)
         
-    def run(self):
-        plugin = self.details['Args'][0]
+    def run(self, argc, argv):
+        plugin = argv[0]
         self.badges.output_process("Loading " + plugin + " plugin...")
         
         if not self.plugins.check_loaded(plugin):

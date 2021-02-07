@@ -45,69 +45,67 @@ class ZetaSploitCommand:
             'Name': "storage",
             'Description': "Manage storage variables.",
             'Usage': "storage [global|local] [-l|-v <name>|-s <name> <value>|-d <name>]",
-            'ArgsCount': 2,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 2
         }
 
-    def run(self):
-        type_of_storage = self.details['Args'][0]
+    def run(self, argc, argv):
+        type_of_storage = argv[0]
         if type_of_storage == "global":
-            choice = self.details['Args'][1]
+            choice = argv[1]
             if choice == "-l":
                 self.badges.output_information("Global storage variables:")
                 for variable in self.global_storage.get_all():
                     if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
                         self.badges.output_empty("    * " + variable)
             elif choice == "-v":
-                if len(self.details['Args']) < 3:
+                if argc < 3:
                     self.badges.output_usage(self.details['Usage'])
                 else:
-                    if self.details['Args'][2] in self.global_storage.get_all():
-                        self.badges.output_information(self.details['Args'][2] + " = " + str(
-                            self.global_storage.get(self.details['Args'][2])))
+                    if argv[2] in self.global_storage.get_all():
+                        self.badges.output_information(argv[2] + " = " + str(
+                            self.global_storage.get(argv[2])))
             elif choice == "-s":
-                if len(self.details['Args']) < 4:
+                if argc < 4:
                     self.badges.output_usage(self.details['Usage'])
                 else:
-                    self.global_storage.set(self.details['Args'][2], self.details['Args'][3])
+                    self.global_storage.set(argv[2], argv[3])
             elif choice == "-d":
-                if len(self.details['Args']) < 3:
+                if argc < 3:
                     self.badges.output_usage(self.details['Usage'])
                 else:
-                    if self.details['Args'][2] in self.global_storage.get_all():
-                        self.global_storage.delete(self.details['Args'][2])
+                    if argv[2] in self.global_storage.get_all():
+                        self.global_storage.delete(argv[2])
                     else:
                         self.badges.output_error("Invalid storage variable name!")
             else:
                 self.badges.output_usage(self.details['Usage'])
         elif type_of_storage == "local":
-            choice = self.details['Args'][1]
+            choice = argv[1]
             if choice == "-l":
                 self.badges.output_information("Local storage variables:")
                 for variable in self.local_storage.get_all():
                     if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
                         self.badges.output_empty("    * " + variable)
             elif choice == "-v":
-                if len(self.details['Args']) < 3:
+                if argc < 3:
                     self.badges.output_usage(self.details['Usage'])
                 else:
-                    if self.details['Args'][2] in self.local_storage.get_all():
-                        self.badges.output_information(self.details['Args'][2] + " = " + str(
-                            self.local_storage.get(self.details['Args'][2])))
+                    if argv[2] in self.local_storage.get_all():
+                        self.badges.output_information(argv[2] + " = " + str(
+                            self.local_storage.get(argv[2])))
                     else:
                         self.badges.output_error("Invalid storage variable name!")
             elif choice == "-s":
-                if len(self.details['Args']) < 4:
+                if argc < 4:
                     self.badges.output_usage(self.details['Usage'])
                 else:
-                    self.local_storage.set(self.details['Args'][2], self.details['Args'][3])
+                    self.local_storage.set(argv[2], argv[3])
             elif choice == "-d":
-                if len(self.details['Args']) < 3:
+                if argc < 3:
                     self.badges.output_usage(self.details['Usage'])
                 else:
-                    if self.details['Args'][2] in self.local_storage.get_all():
-                        self.local_storage.delete(self.details['Args'][2])
+                    if argv[2] in self.local_storage.get_all():
+                        self.local_storage.delete(argv[2])
                     else:
                         self.badges.output_error("Invalid storage variable name!")
             else:
