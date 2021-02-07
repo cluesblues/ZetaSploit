@@ -24,27 +24,20 @@
 # SOFTWARE.
 #
 
-import nmap3
-
 from core.badges import badges
-
-from data.plugins.nmap.core.banner import banner
 
 class ZetaSploitPlugin:
     def __init__(self):
-        self.nmap = nmap3.Nmap()
         self.badges = badges()
 
-        self.banner = banner()
-
         self.details = {
-            'Name': "nmap",
+            'Name': "cowsay",
             'Authors': [
                 'enty8080'
             ],
-            'Description': "Nmap scan plugin for ZetaSploit.",
+            'Description': "Cowsay plugin for ZetaSploit.",
             'Dependencies': [
-                'nmap3'
+                ''
             ],
             'Comments': [
                 ''
@@ -52,27 +45,21 @@ class ZetaSploitPlugin:
         }
 
         self.commands = {
-            'scanner': {
-                'port_scan': {
-                    'Description': "Run port scan on host.",
-                    'Usage': "port_scan <host>",
+            'cowsay': {
+                'cowsay': {
+                    'Description': "Ask cow to say message.",
+                    'Usage': "cowsay <message>",
                     'ArgsCount': 1,
                     'NeedsArgs': True,
                     'Args': list(),
-                    'Run': self.port_scan
+                    'Run': self.cowsay
                 }
             }
         }
 
-    def port_scan(self):
-        host = self.commands['scanner']['port_scan']['Args'][0]
-        self.badges.output_process("Performing port scan on " + host + "...")
-        try:
-            result = self.nmap.scan_top_ports(host)
-            self.badges.output_information("Raw: " + str(result))
-        except Exception:
-            self.badges.output_error("Failed to perform port scan on " + host + "!")
+    def cowsay(self):
+        message = self.commands['cowsay']['cowsay']['Args'][0]
+        pass
 
     def run(self):
-        self.banner.print_banner()
-        self.badges.output_information("nmap v1.0 | ZetaSploit nmap plugin")
+        pass
