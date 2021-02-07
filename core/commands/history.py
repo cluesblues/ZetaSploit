@@ -81,7 +81,7 @@ class ZetaSploitCommand:
                         self.badges.output_empty("    * " + line)
                     
                     for index in range(1, readline.get_current_history_length()):
-                        self.badges.output_empty("    * " + line)
+                        self.badges.output_empty("    * " + readline.get_history_item(index))
                 else:
                     self.badges.output_warning("ZetaSploit history empty.")
             else:
