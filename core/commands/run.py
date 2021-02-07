@@ -43,9 +43,7 @@ class ZetaSploitCommand:
             'Name': "run",
             'Description': "Run current module.",
             'Usage': "run [-h|-j]",
-            'MinArgs': 0,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 0
         }
 
     def entry_to_module(self, current_module):
