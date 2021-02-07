@@ -64,6 +64,10 @@ class ZetaSploitCommand:
             self.local_storage.set("history", False)
             self.global_storage.set("history", False)
             self.badges.output_information("ZetaSploit history: off")
+        elif option == "-c":
+            readline.clear_history()
+            with open(self.history, 'w') as history:
+                history.write("")
         elif option == "-l":
             using_history = self.local_storage.get("history")
             if using_history:
