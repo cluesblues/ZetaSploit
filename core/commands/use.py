@@ -43,9 +43,7 @@ class ZetaSploitCommand:
             'Name': "use",
             'Description': "Use specified module.",
             'Usage': "use <module>",
-            'MinArgs': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
         
     def import_module(self, category, platform, name):
