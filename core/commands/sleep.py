@@ -39,9 +39,7 @@ class ZetaSploitCommand:
             'Name': "sleep",
             'Description': "Sleep for specified seconds.",
             'Usage': "sleep <seconds>",
-            'MinArgs': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
     def run(self, argc, argv):
