@@ -41,9 +41,7 @@ class ZetaSploitCommand:
             'Name': "set",
             'Description': "Set an option value.",
             'Usage': "set <option> <value>",
-            'MinArgs': 2,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 2
         }
 
     def run(self, argc, argv):
