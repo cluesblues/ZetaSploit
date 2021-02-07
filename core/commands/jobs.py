@@ -43,9 +43,7 @@ class ZetaSploitCommand:
             'Name': "jobs",
             'Description': "Manage active jobs.",
             'Usage': "jobs [-l|-k <id>]",
-            'MinArgs': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
     def run(self, argc, argv):
