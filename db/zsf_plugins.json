@@ -3,14 +3,14 @@
         "type": "plugins"
     },
     "nmap": {
-        "Path": "plugins/nmap",
-        "Name": "nmap",
+        "Path": "plugins/cowsay",
+        "Name": "cowsay",
         "Authors": [
             "enty8080"
         ],
-        "Description": "Nmap scan plugin for ZetaSploit.",
+        "Description": "Cowsay plugin for ZetaSploit.",
         "Dependencies": [
-            "nmap3"
+            ""
         ],
         "Comments": [
             ""
