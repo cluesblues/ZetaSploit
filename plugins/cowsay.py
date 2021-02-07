@@ -59,10 +59,10 @@ class ZetaSploitPlugin:
             }
         }
 
-    def ask_cow(message, length=40):
+    def ask_cow(self, message, length=40):
         return self.build_bubble(message, length) + self.build_cow()
         
-    def get_border(lines, index):
+    def get_border(self, lines, index):
         if len(lines) < 2:
             return ["<", ">"]
         if index == 0:
@@ -71,7 +71,7 @@ class ZetaSploitPlugin:
             return ["\\", "/"]
         return ["|", "|"]
         
-    def build_cow():
+    def build_cow(self):
         return """
          \   ^__^ 
           \  (oo)\_______
@@ -80,12 +80,12 @@ class ZetaSploitPlugin:
                  ||     ||
         """
         
-    def normalize_text(message, length):
+    def normalize_text(self, message, length):
         lines = textwrap.wrap(message, length)
         maxlen = len(max(lines, key=len))
         return [line.ljust(maxlen) for line in lines]
     
-    def build_bubble(message, length=40):
+    def build_bubble(self, message, length=40):
         bubble = []
         lines = self.normalize_text(message, length)
         bordersize = len(lines[0])
