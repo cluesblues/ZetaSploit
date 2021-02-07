@@ -29,11 +29,13 @@ import json
 
 from core.badges import badges
 from core.storage import local_storage
+from core.storage import global_storage
 
 class config:
     def __init__(self):
         self.badges = badges()
         self.local_storage = local_storage()
+        self.global_storage = global_storage()
         
         self.base_path = '/opt/zsf/'
         self.config_path = self.base_path + 'config/'
@@ -103,4 +105,4 @@ class config:
         self.local_storage.set("path_config", self.path_config)
         self.local_storage.set("core_config", self.core_config)
         
-        self.set_storage_variables()
+        self.global_storage.set_all(self.path_config['base_paths']['storage_path'])
