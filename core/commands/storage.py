@@ -45,9 +45,7 @@ class ZetaSploitCommand:
             'Name': "storage",
             'Description': "Manage storage variables.",
             'Usage': "storage [global|local] [-l|-v <name>|-s <name> <value>|-d <name>]",
-            'MinArgs': 2,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 2
         }
 
     def run(self, argc, argv):
