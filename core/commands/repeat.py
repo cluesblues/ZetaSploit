@@ -37,9 +37,7 @@ class ZetaSploitCommand:
             'Name': "repeat",
             'Description': "Repeat specified command.",
             'Usage': "repeat <times> <command>",
-            'MinArgs': 2,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 2
         }
 
     def run(self, argc, argv):
