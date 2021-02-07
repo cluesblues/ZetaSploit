@@ -24,6 +24,19 @@
 # SOFTWARE.
 #
 
+class global_storage:
+    def get_all(self, file):
+        pass
+    
+    def set(self, file, variable, value):
+        pass
+    
+    def get(self, file, variable):
+        pass
+    
+    def delete(self, file, variable):
+        pass
+
 class local_storage:
     def get_all(self):
         return globals().keys()
