@@ -31,10 +31,8 @@ class ZetaSploitCommand:
             'Name': "",
             'Description': "",
             'Usage': "",
-            'ArgsCount': 0,
-            'NeedsArgs': False,
-            'Args': list()
+            'MinArgs': 0
         }
 
-    def run(self):
+    def run(self, argc, argv):
         pass
