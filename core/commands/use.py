@@ -43,7 +43,7 @@ class ZetaSploitCommand:
             'Name': "use",
             'Description': "Use specified module.",
             'Usage': "use <module>",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

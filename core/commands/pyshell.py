@@ -39,7 +39,7 @@ class ZetaSploitCommand:
             'Name': "pyshell",
             'Description': "Open Python shell.",
             'Usage': "pyshell",
-            'ArgsCount': 0,
+            'MinArgs': 0,
             'NeedsArgs': False,
             'Args': list()
         }

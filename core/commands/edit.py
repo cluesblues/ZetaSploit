@@ -45,7 +45,7 @@ class ZetaSploitCommand:
             'Name': "edit",
             'Description': "Open module in editor.",
             'Usage': "edit <module>",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

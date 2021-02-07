@@ -41,7 +41,7 @@ class ZetaSploitCommand:
             'Name': "unload",
             'Description': "Unload specified loaded plugin.",
             'Usage': "unload <plugin>",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

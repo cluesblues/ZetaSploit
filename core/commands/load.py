@@ -43,7 +43,7 @@ class ZetaSploitCommand:
             'Name': "load",
             'Description': "Load specified plugin.",
             'Usage': "load <plugin>",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

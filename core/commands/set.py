@@ -41,7 +41,7 @@ class ZetaSploitCommand:
             'Name': "set",
             'Description': "Set an option value.",
             'Usage': "set <option> <value>",
-            'ArgsCount': 2,
+            'MinArgs': 2,
             'NeedsArgs': True,
             'Args': list()
         }

@@ -35,7 +35,7 @@ class ZetaSploitCommand:
             'Name': "clear",
             'Description': "Clear terminal window.",
             'Usage': "clear",
-            'ArgsCount': 0,
+            'MinArgs': 0,
             'NeedsArgs': False,
             'Args': list()
         }

@@ -44,7 +44,7 @@ class ZetaSploitCommand:
             'Name': "back",
             'Description': "Return to the previous module.",
             'Usage': "back",
-            'ArgsCount': 0,
+            'MinArgs': 0,
             'NeedsArgs': False,
             'Args': list()
         }

@@ -43,7 +43,7 @@ class ZetaSploitCommand:
             'Name': "run",
             'Description': "Run current module.",
             'Usage': "run [-h|-j]",
-            'ArgsCount': 0,
+            'MinArgs': 0,
             'NeedsArgs': True,
             'Args': list()
         }

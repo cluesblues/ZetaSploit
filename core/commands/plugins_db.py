@@ -41,7 +41,7 @@ class ZetaSploitCommand:
             'Name': "plugins_db",
             'Description': "Manage plugins databases.",
             'Usage': "plugins_db [-l|-d <name>|-c <name> <path>]",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

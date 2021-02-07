@@ -43,7 +43,7 @@ class ZetaSploitCommand:
             'Name': "jobs",
             'Description': "Manage active jobs.",
             'Usage': "jobs [-l|-k <id>]",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

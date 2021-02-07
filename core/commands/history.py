@@ -49,7 +49,7 @@ class ZetaSploitCommand:
             'Name': "history",
             'Description': "Manage ZetaSploit history.",
             'Usage': "history [-l|on|off]",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

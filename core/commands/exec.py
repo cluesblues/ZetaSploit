@@ -35,7 +35,7 @@ class ZetaSploitCommand:
             'Name': "exec",
             'Description': "Execute local system command.",
             'Usage': "exec <command>",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

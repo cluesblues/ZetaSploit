@@ -43,7 +43,7 @@ class ZetaSploitCommand:
             'Name': "show",
             'Description': "Show specified information.",
             'Usage': "show <information>",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

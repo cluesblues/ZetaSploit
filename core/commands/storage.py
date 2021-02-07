@@ -45,7 +45,7 @@ class ZetaSploitCommand:
             'Name': "storage",
             'Description': "Manage storage variables.",
             'Usage': "storage [global|local] [-l|-v <name>|-s <name> <value>|-d <name>]",
-            'ArgsCount': 2,
+            'MinArgs': 2,
             'NeedsArgs': True,
             'Args': list()
         }

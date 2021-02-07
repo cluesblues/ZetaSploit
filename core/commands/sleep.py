@@ -39,7 +39,7 @@ class ZetaSploitCommand:
             'Name': "sleep",
             'Description': "Sleep for specified seconds.",
             'Usage': "sleep <seconds>",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

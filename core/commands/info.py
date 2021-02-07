@@ -39,7 +39,7 @@ class ZetaSploitCommand:
             'Name': "info",
             'Description': "Show module information.",
             'Usage': "info [<module>]",
-            'ArgsCount': 0,
+            'MinArgs': 0,
             'NeedsArgs': True,
             'Args': list()
         }

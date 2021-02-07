@@ -41,7 +41,7 @@ class ZetaSploitCommand:
             'Name': "modules_db",
             'Description': "Manage modules databases.",
             'Usage': "modules_db [-l|-d <name>|-c <name> <path>]",
-            'ArgsCount': 1,
+            'MinArgs': 1,
             'NeedsArgs': True,
             'Args': list()
         }

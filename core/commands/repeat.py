@@ -37,7 +37,7 @@ class ZetaSploitCommand:
             'Name': "repeat",
             'Description': "Repeat specified command.",
             'Usage': "repeat <times> <command>",
-            'ArgsCount': 2,
+            'MinArgs': 2,
             'NeedsArgs': True,
             'Args': list()
         }
