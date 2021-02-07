@@ -38,9 +38,7 @@ class ZetaSploitCommand:
             'Name': "exit",
             'Description': "Exit ZetaSploit Framework.",
             'Usage': "exit [-f]",
-            'MinArgs': 0,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 0
         }
 
     def run(self, argc, argv):
