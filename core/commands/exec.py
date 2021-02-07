@@ -40,6 +40,6 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def run(self):
-        command = self.details['Args'][0]
+    def run(self, argc, argv):
+        command = argv[0]
         self.execute.execute_system(command)

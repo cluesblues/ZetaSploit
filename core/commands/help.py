@@ -89,7 +89,7 @@ class ZetaSploitCommand:
             self.formatter.format_table("Custom Commands", headers, *commands_data)
             self.badges.output_empty("")
         
-    def run(self):
+    def run(self, argc, argv):
         self.format_base_commands()
         if self.modules.check_current_module():
             self.format_custom_commands()

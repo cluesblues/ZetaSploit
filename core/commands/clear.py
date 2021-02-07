@@ -40,5 +40,5 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def run(self):
+    def run(self, argc, argv):
         self.execute.execute_system("clear")

@@ -50,8 +50,8 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def run(self):
-        module = self.details['Args'][0]
+    def run(self, argc, argv):
+        module = argv[0]
         
         module_category = self.modules.get_category(module)
         module_platform = self.modules.get_platform(module)

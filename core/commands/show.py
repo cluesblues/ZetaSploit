@@ -111,8 +111,8 @@ class ZetaSploitCommand:
         else:
             self.badges.output_warning("No informations available!")
         
-    def run(self):
-        information = self.details['Args'][0]
+    def run(self, argc, argv):
+        information = argv[0]
         
         if self.modules.check_current_module():
             current_module = self.modules.get_current_module_object()

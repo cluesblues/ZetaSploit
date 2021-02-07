@@ -44,7 +44,7 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def run(self):
+    def run(self, argc, argv):
         self.badges.output_information(f"Python {platform.python_version()} console")
         self.badges.output_empty("")
         while True:

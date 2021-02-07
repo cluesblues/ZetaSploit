@@ -49,17 +49,17 @@ class ZetaSploitCommand:
         }
 
     def entry_to_module(self, current_module):
-        if len(self.details['Args']) > 0:
-            if self.details['Args'][0] == "-j":
+        if argc > 0:
+            if argv[0] == "-j":
                 self.badges.output_process("Running module as a background job...")
                 job_id = self.jobs.create_job(current_module.details['Name'], current_module.details['Name'], current_module.run)
                 self.badges.output_information("Module started as a background job " + str(job_id) + ".")
                 return
         current_module.run()
         
-    def run(self):
-        if len(self.details['Args']) > 0:
-            if self.details['Args'][0] == "-h":
+    def run(self, argc, argv):
+        if argc > 0:
+            if argv[0] == "-h":
                 self.badges.output_usage(self.details['Usage'])
                 return
 

@@ -44,8 +44,8 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def run(self):
-        seconds = self.details['Args'][0]
+    def run(self, argc, argv):
+        seconds = argv[0]
         
         if seconds.replace('.', '', 1).isdigit():
             time.sleep(float(seconds))

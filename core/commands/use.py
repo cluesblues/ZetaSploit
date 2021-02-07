@@ -101,8 +101,8 @@ class ZetaSploitCommand:
                 return True
         return False
 
-    def run(self):
-        module = self.details['Args'][0]
+    def run(self, argc, argv):
+        module = argv[0]
         
         category = self.modules.get_category(module)
         platform = self.modules.get_platform(module)

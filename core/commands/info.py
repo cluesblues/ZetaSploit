@@ -90,14 +90,14 @@ class ZetaSploitCommand:
         else:
             self.badges.output_error("Invalid module!")
         
-    def run(self):
+    def run(self, argc, argv):
         if self.modules.check_current_module():
-            if len(self.details['Args']) > 0:
-                self.get_module_information(self.details['Args'][0])
+            if argc > 0:
+                self.get_module_information(argv[0])
             else:
                 self.format_module_information(self.modules.get_current_module_object().details)
         else:
-            if len(self.details['Args']) > 0:
-                self.get_module_information(self.details['Args'][0])
+            if argc > 0:
+                self.get_module_information(argv[0])
             else:
                 self.badges.output_usage(self.details['Usage'])

@@ -48,8 +48,8 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def run(self):
-        choice = self.details['Args'][0]
+    def run(self, argc, argv):
+        choice = argv[0]
         if choice == '-l':
             if self.local_storage.get("jobs"):
                 jobs_data = list()
@@ -63,9 +63,9 @@ class ZetaSploitCommand:
             else:
                 self.badges.output_warning("No running jobs available.")
         elif choice == '-k':
-            if len(self.details['Args']) < 2:
+            if argc < 2:
                 self.badges.output_usage(self.details['Usage'])
             else:
-                self.jobs.delete_job(self.details['Args'][1])
+                self.jobs.delete_job(argv[1])
         else:
             self.badges.output_usage(self.details['Usage'])

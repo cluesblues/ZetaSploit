@@ -42,9 +42,9 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def run(self):
-        times = self.details['Args'][0]
-        command = self.details['Args'][1]
+    def run(self, argc, argv):
+        times = argv[0]
+        command = argv[1]
         
         if times.isdigit():
             commands = command.split()
