@@ -49,9 +49,7 @@ class ZetaSploitCommand:
             'Name': "history",
             'Description': "Manage ZetaSploit history.",
             'Usage': "history [-l|on|off]",
-            'MinArgs': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
     def run(self, argc, argv):
