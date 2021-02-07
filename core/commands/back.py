@@ -44,9 +44,7 @@ class ZetaSploitCommand:
             'Name': "back",
             'Description': "Return to the previous module.",
             'Usage': "back",
-            'MinArgs': 0,
-            'NeedsArgs': False,
-            'Args': list()
+            'MinArgs': 0
         }
 
     def run(self, argc, argv):
