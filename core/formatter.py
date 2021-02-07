@@ -37,7 +37,7 @@ class formatter:
         formated_args = list()
         for arg in arguments:
             if arg:
-                formated_args.append(arg.strip('"' and "'"))
+                formated_args.append(arg.strip('"').strip("'"))
         return formated_args
         
     def format_table(self, name, headers, *args, **kwargs) -> None:
