@@ -32,13 +32,17 @@ class ZetaSploitModule:
                 ''
             ],
             'Description': "",
+            'Dependencies': [
+                ''
+            ],
             'Comments': [
                 ''
-            ]
+            ],
+            'Risk': ""
         }
         
         self.options = {
-            'OPTION': {
+            '': {
                 'Description': "",
                 'Value': None,
                 'Required': True
@@ -46,17 +50,15 @@ class ZetaSploitModule:
         }
 
         self.commands = {
-            'command': {
+            '': {
                 'Description': "",
                 'Usage': "",
-                'ArgsCount': 0,
-                'NeedsArgs': False,
-                'Args': list(),
+                'MinArgs': 0,
                 'Run': self.command
             }
         }
 
-    def command(self):
+    def command(self, argc, argv):
         pass
         
     def run(self):
