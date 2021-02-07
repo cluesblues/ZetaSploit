@@ -43,9 +43,7 @@ class ZetaSploitCommand:
             'Name': "help",
             'Description': "Show available commands.",
             'Usage': "help",
-            'MinArgs': 0,
-            'NeedsArgs': False,
-            'Args': list()
+            'MinArgs': 0
         }
 
     def format_base_commands(self):
