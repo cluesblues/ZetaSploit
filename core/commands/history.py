@@ -27,13 +27,13 @@
 import os
 
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.config import config
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.config = config()
         
         self.history = self.config.path_config['base_paths']['history_path']
@@ -51,15 +51,15 @@ class ZetaSploitCommand:
     def run(self):
         option = self.details['Args'][0]
         if option == "on":
-            self.storage.set("history", True)
+            self.local_storage.set("history", True)
             self.config.set_storage_variable("history", True)
             self.badges.output_information("ZetaSploit history: on")
         elif option == "off":
-            self.storage.set("history", False)
+            self.local_storage.set("history", False)
             self.config.set_storage_variable("history", False)
             self.badges.output_information("ZetaSploit history: off")
         elif option == "-l":
-            using_history = self.storage.get("history")
+            using_history = self.local_storage.get("history")
             if using_history:
                 self.badges.output_information("ZetaSploit history:")
                 history_file = open(self.history, 'r')

@@ -28,14 +28,14 @@ import os
 
 from core.jobs import jobs
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
         self.jobs = jobs()
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.formatter = formatter()
 
         self.details = {
@@ -51,10 +51,10 @@ class ZetaSploitCommand:
     def run(self):
         choice = self.details['Args'][0]
         if choice == '-l':
-            if self.storage.get("jobs"):
+            if self.local_storage.get("jobs"):
                 jobs_data = list()
                 headers = ("ID", "Name", "Module")
-                jobs = self.storage.get("jobs")
+                jobs = self.local_storage.get("jobs")
                 for job_id in jobs.keys():
                     jobs_data.append((job_id, jobs[job_id]['job_name'], jobs[job_id]['module_name']))
                 self.badges.output_empty("")

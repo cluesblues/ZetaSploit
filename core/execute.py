@@ -29,14 +29,14 @@ import sys
 import subprocess
 
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.formatter import formatter
 from core.modules import modules
 
 class execute:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.formatter = formatter()
         self.modules = modules()
 
@@ -51,8 +51,8 @@ class execute:
         subprocess.call(self.formatter.format_arguments(commands))
         
     def execute_core_command(self, commands, arguments):
-        if commands[0] in self.storage.get("commands").keys():
-            command = self.storage.get("commands")[commands[0]]
+        if commands[0] in self.local_storage.get("commands").keys():
+            command = self.local_storage.get("commands")[commands[0]]
             if command.details['NeedsArgs']:
                 if (len(commands) - 1) < command.details['ArgsCount']:
                     self.badges.output_usage(command.details['Usage'])
@@ -83,12 +83,12 @@ class execute:
         return False
         
     def execute_plugin_command(self, commands, arguments):
-        if self.storage.get("loaded_plugins"):
-            for plugin in self.storage.get("loaded_plugins").keys():
-                if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
-                    for label in self.storage.get("loaded_plugins")[plugin].commands.keys():
-                        if commands[0] in self.storage.get("loaded_plugins")[plugin].commands[label].keys():
-                            command = self.storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
+        if self.local_storage.get("loaded_plugins"):
+            for plugin in self.local_storage.get("loaded_plugins").keys():
+                if hasattr(self.local_storage.get("loaded_plugins")[plugin], "commands"):
+                    for label in self.local_storage.get("loaded_plugins")[plugin].commands.keys():
+                        if commands[0] in self.local_storage.get("loaded_plugins")[plugin].commands[label].keys():
+                            command = self.local_storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
                             self.parse_and_execute_command(commands, command, arguments)
                             return True
         return False

@@ -33,7 +33,7 @@ import string
 
 from core.db import db
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.helper import helper
 from core.config import config
 from core.modules import modules
@@ -43,7 +43,7 @@ class importer:
     def __init__(self):
         self.db = db()
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.helper = helper()
         self.config = config()
         self.modules = modules()
@@ -120,7 +120,7 @@ class importer:
                         self.badges.output_error("Failed to load " + file[:-3] + " command!")
         except Exception:
             pass
-        self.storage.set("commands", commands)
+        self.local_storage.set("commands", commands)
 
     def import_database(self):
         self.db.connect_modules_database('zsf_modules', self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['modules_database'])

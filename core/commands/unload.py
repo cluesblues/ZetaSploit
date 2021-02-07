@@ -27,13 +27,13 @@
 import os
 
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.plugins import plugins
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.plugins = plugins()
 
         self.details = {
@@ -51,7 +51,7 @@ class ZetaSploitCommand:
         self.badges.output_process("Unloading " + plugin + " plugin...")
         
         if self.plugins.check_loaded(plugin):
-            self.storage.delete_element("loaded_plugins", plugin)
+            self.local_storage.delete_element("loaded_plugins", plugin)
             self.badges.output_success("Successfully unloaded " + plugin + " plugin!")
         else:
             self.badges.output_error("Plugin not loaded!")

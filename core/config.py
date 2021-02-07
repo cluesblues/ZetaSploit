@@ -28,12 +28,12 @@ import yaml
 import json
 
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 
 class config:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         
         self.base_path = '/opt/zsf/'
         self.config_path = self.base_path + 'config/'
@@ -42,9 +42,9 @@ class config:
         self.path_config_file = self.config_path + 'path_config.yml'
         self.core_config_file = self.config_path + 'core_config.yml'
         
-        self.db_config = self.storage.get("db_config")
-        self.path_config = self.storage.get("path_config")
-        self.core_config = self.storage.get("core_config")
+        self.db_config = self.local_storage.get("db_config")
+        self.path_config = self.local_storage.get("path_config")
+        self.core_config = self.local_storage.get("core_config")
 
     def get_config_file(self, content):
         return yaml.safe_load(content)
@@ -60,7 +60,7 @@ class config:
                 variable_value = None
             else:
                 variable_value = storage_variables[variable]
-            self.storage.set(variable, variable_value)
+            self.local_storage.set(variable, variable_value)
             
     def get_storage_variable(self, variable):
         storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
@@ -99,8 +99,8 @@ class config:
         self.path_config = path_config
         self.core_config = core_config
         
-        self.storage.set("db_config", self.db_config)
-        self.storage.set("path_config", self.path_config)
-        self.storage.set("core_config", self.core_config)
+        self.local_storage.set("db_config", self.db_config)
+        self.local_storage.set("path_config", self.path_config)
+        self.local_storage.set("core_config", self.core_config)
         
         self.set_storage_variables()

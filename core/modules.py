@@ -27,16 +27,16 @@
 import os
 
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 
 class modules:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         
     def check_exist(self, name):
         if self.check_style(name):
-            all_modules = self.storage.get("modules")
+            all_modules = self.local_storage.get("modules")
             if all_modules:
                 for database in all_modules.keys():
                     modules = all_modules[database]
@@ -52,7 +52,7 @@ class modules:
         return False
 
     def check_imported(self, name):
-        imported_modules = self.storage.get("imported_modules")
+        imported_modules = self.local_storage.get("imported_modules")
         if imported_modules:
             if name in imported_modules.keys():
                 return True
@@ -64,8 +64,8 @@ class modules:
         return False
     
     def check_current_module(self):
-        if self.storage.get("current_module"):
-            if len(self.storage.get("current_module")) > 0:
+        if self.local_storage.get("current_module"):
+            if len(self.local_storage.get("current_module")) > 0:
                 return True
         return False
     
@@ -73,22 +73,22 @@ class modules:
         module_full_name = self.get_full_name(category, platform, name)
         if self.check_exist(module_full_name):
             database = self.get_database(module_full_name)
-            return self.storage.get("modules")[database][category][platform][name]
+            return self.local_storage.get("modules")[database][category][platform][name]
         return None
     
     def get_current_module_object(self):
         if self.check_current_module():
-            return self.storage.get_array("current_module", self.storage.get("current_module_number"))
+            return self.local_storage.get_array("current_module", self.local_storage.get("current_module_number"))
         return None
     
     def get_current_module_name(self):
         if self.check_current_module():
-            return self.storage.get_array("current_module", self.storage.get("current_module_number")).details['Name']
+            return self.local_storage.get_array("current_module", self.local_storage.get("current_module_number")).details['Name']
         return None
        
     def get_database(self, name):
         if self.check_style(name):
-            all_modules = self.storage.get("modules")
+            all_modules = self.local_storage.get("modules")
             if all_modules:
                 for database in all_modules.keys():
                     modules = all_modules[database]

@@ -27,14 +27,14 @@
 import os
 
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.modules import modules
 from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.modules = modules()
         self.formatter = formatter()
 
@@ -49,7 +49,7 @@ class ZetaSploitCommand:
         }
 
     def show_plugins(self):
-        plugins = self.storage.get("plugins")
+        plugins = self.local_storage.get("plugins")
         plugins_data = list()
         number = 0
         headers = ("Number", "Name", "Database", "Description")
@@ -63,7 +63,7 @@ class ZetaSploitCommand:
         self.badges.output_empty("")
         
     def show_modules(self, information):
-        modules = self.storage.get("modules")
+        modules = self.local_storage.get("modules")
         modules_data = list()
         number = 0
         headers = ("Number", "Name", "Database", "Risk", "Description")
@@ -123,8 +123,8 @@ class ZetaSploitCommand:
         else:
             options = False
         
-        modules = self.storage.get("modules")
-        plugins = self.storage.get("plugins")
+        modules = self.local_storage.get("modules")
+        plugins = self.local_storage.get("plugins")
         
         informations = list()
         if modules:

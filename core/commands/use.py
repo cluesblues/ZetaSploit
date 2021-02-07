@@ -28,14 +28,14 @@ import os
 
 from core.importer import importer
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.modules import modules
 
 class ZetaSploitCommand:
     def __init__(self):
         self.importer = importer()
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.modules = modules()
 
         self.details = {
@@ -52,9 +52,9 @@ class ZetaSploitCommand:
         modules = self.modules.get_module_object(category, platform, name)
         try:
             module_object = self.importer.import_module(modules['Path'])
-            if not self.storage.get("imported_modules"):
-                self.storage.set("imported_modules", dict())
-            self.storage.update("imported_modules", {self.modules.get_full_name(category, platform, name): module_object})
+            if not self.local_storage.get("imported_modules"):
+                self.local_storage.set("imported_modules", dict())
+            self.local_storage.update("imported_modules", {self.modules.get_full_name(category, platform, name): module_object})
         except Exception:
             return None
         return module_object
@@ -67,7 +67,7 @@ class ZetaSploitCommand:
             if not self.importer.import_check(dependence):
                 not_installed.append(dependence)
         if not not_installed:
-            imported_modules = self.storage.get("imported_modules")
+            imported_modules = self.local_storage.get("imported_modules")
             full_name = self.modules.get_full_name(category, platform, name)
             
             if self.modules.check_imported(full_name):
@@ -86,14 +86,14 @@ class ZetaSploitCommand:
                 
     def add_to_global(self, module_object):
         if self.modules.check_current_module():
-            self.storage.add_array("current_module", '')
-            self.storage.set("current_module_number", self.storage.get("current_module_number") + 1)
-            self.storage.set_array("current_module", self.storage.get("current_module_number"), module_object)
+            self.local_storage.add_array("current_module", '')
+            self.local_storage.set("current_module_number", self.local_storage.get("current_module_number") + 1)
+            self.local_storage.set_array("current_module", self.local_storage.get("current_module_number"), module_object)
         else:
-            self.storage.set("current_module", [])
-            self.storage.set("current_module_number", 0)
-            self.storage.add_array("current_module", '')
-            self.storage.set_array("current_module", self.storage.get("current_module_number"), module_object)
+            self.local_storage.set("current_module", [])
+            self.local_storage.set("current_module_number", 0)
+            self.local_storage.add_array("current_module", '')
+            self.local_storage.set_array("current_module", self.local_storage.get("current_module_number"), module_object)
 
     def check_if_already_used(self, module):
         if self.modules.check_current_module():

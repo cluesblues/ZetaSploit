@@ -26,14 +26,14 @@
 
 from core.db import db
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
         self.db = db()
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.formatter = formatter()
         
         self.details = {
@@ -49,11 +49,11 @@ class ZetaSploitCommand:
     def run(self):
         choice = self.details['Args'][0]
         if choice == "-l":
-            if self.storage.get("connected_modules_databases"):
+            if self.local_storage.get("connected_modules_databases"):
                 databases_data = list()
                 number = 0
                 headers = ("Number", "Name", "Path")
-                databases = self.storage.get("connected_modules_databases")
+                databases = self.local_storage.get("connected_modules_databases")
                 for name in databases.keys():
                     databases_data.append((number, name, databases[name]['path']))
                     number += 1
