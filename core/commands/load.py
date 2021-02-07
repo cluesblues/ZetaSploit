@@ -43,9 +43,7 @@ class ZetaSploitCommand:
             'Name': "load",
             'Description': "Load specified plugin.",
             'Usage': "load <plugin>",
-            'MinArgs': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
     def import_plugin(self, database, plugin):
