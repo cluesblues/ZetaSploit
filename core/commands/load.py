@@ -27,14 +27,14 @@
 import os
 
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.plugins import plugins
 from core.importer import importer
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.plugins = plugins()
         self.importer = importer()
 
@@ -50,7 +50,7 @@ class ZetaSploitCommand:
 
     def import_plugin(self, database, plugin):
         loaded_plugins = dict()
-        plugins = self.storage.get("plugins")[database][plugin]
+        plugins = self.local_storage.get("plugins")[database][plugin]
         try:
             loaded_plugins[plugin] = self.importer.import_plugin(plugins['Path'])
         except Exception:
@@ -58,7 +58,7 @@ class ZetaSploitCommand:
         return loaded_plugins
         
     def add_plugin(self, database, plugin):
-        plugins = self.storage.get("plugins")[database][plugin]
+        plugins = self.local_storage.get("plugins")[database][plugin]
         not_installed = list()
         for dependence in plugins['Dependencies']:
             if not self.importer.import_check(dependence):
@@ -66,11 +66,11 @@ class ZetaSploitCommand:
         if not not_installed:
             plugin_object = self.import_plugin(database, plugin)
             if plugin_object:
-                if self.storage.get("loaded_plugins"):
-                    self.storage.update("loaded_plugins", plugin_object)
+                if self.local_storage.get("loaded_plugins"):
+                    self.local_storage.update("loaded_plugins", plugin_object)
                 else:
-                    self.storage.set("loaded_plugins", plugin_object)
-                self.storage.get("loaded_plugins")[plugin].run()
+                    self.local_storage.set("loaded_plugins", plugin_object)
+                self.local_storage.get("loaded_plugins")[plugin].run()
                 self.badges.output_success("Successfully loaded " + plugin + " plugin!")
             else:
                 self.badges.output_error("Failed to load plugin!")

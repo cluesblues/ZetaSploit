@@ -28,17 +28,17 @@ import os
 
 from core.badges import badges
 from core.importer import importer
-from core.storage import storage
+from core.storage import local_storage
 
 class plugins_tests:
     def __init__(self):
         self.badges = badges()
         self.importer = importer()
-        self.storage = storage()
+        self.local_storage = local_storage()
         
     def perform_test(self):
         fail = False
-        all_plugins = self.storage.get("plugins")
+        all_plugins = self.local_storage.get("plugins")
         if all_plugins:
             for database in all_plugins.keys():
                 self.badges.output_process("Testing plugins from " + database + " database...")

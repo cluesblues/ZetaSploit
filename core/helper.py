@@ -28,11 +28,11 @@ import os
 import socket
 import url_normalize
 
-from core.storage import storage
+from core.storage import local_storage
 
 class helper:
     def __init__(self):
-        self.storage = storage()
+        self.local_storage = local_storage()
 
     def getip(self):
         try:

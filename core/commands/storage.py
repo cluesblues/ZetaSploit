@@ -25,54 +25,92 @@
 #
 
 from core.badges import badges
-from core.storage import storage
+from core.config import config
+
+from core.storage import local_storage
+from core.storage import global_storage
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.config = config()
+        
+        self.storage_path = self.config.path_config['base_paths']['storage_path']
+        
+        self.local_storage = local_storage()
+        self.global_storage = global_storage(self.storage_path)
 
         self.details = {
             'Category': "developer",
             'Name': "storage",
             'Description': "Manage storage variables.",
-            'Usage': "storage [-l|-v <name>|-s <name> <value>|-d <name>]",
-            'ArgsCount': 1,
+            'Usage': "storage [global|local] [-l|-v <name>|-s <name> <value>|-d <name>]",
+            'ArgsCount': 2,
             'NeedsArgs': True,
             'Args': list()
         }
 
     def run(self):
-        choice = self.details['Args'][0]
-        if choice == "-l":
-            self.badges.output_information("Storage variables:")
-            for variable in self.storage.get_all():
-                if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
-                    self.badges.output_empty("    * " + variable)
-        elif choice == "-v":
-            if len(self.details['Args']) < 2:
-                self.badges.output_usage(self.details['Usage'])
-            else:
-                if self.details['Args'][1] in self.storage.get_all():
-                    self.badges.output_information(self.details['Args'][1] + " = " + str(self.storage.get(self.details['Args'][1])))
+        type_of_storage = self.details['Args'][0]
+        if type_of_storage == "global":
+            choice = self.details['Args'][1]
+            if choice == "-l":
+                self.badges.output_information("Global storage variables:")
+                for variable in self.global_storage.get_all():
+                    if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
+                        self.badges.output_empty("    * " + variable)
+            elif choice == "-v":
+                if len(self.details['Args']) < 3:
+                    self.badges.output_usage(self.details['Usage'])
                 else:
-                    self.badges.output_error("Invalid storage variable name!")
-        elif choice == "-s":
-            if len(self.details['Args']) < 3:
-                self.badges.output_usage(self.details['Usage'])
-            else:
-                self.badges.output_warning("This action may harm ZetaSploit Framework.")
-                if self.badges.input_question("Continue anyway? [y/N] ").lower() in ['yes', 'y']:
-                    self.storage.set(self.details['Args'][1], self.details['Args'][2])
-        elif choice == "-d":
-            if len(self.details['Args']) < 2:
-                self.badges.output_usage(self.details['Usage'])
-            else:
-                if self.details['Args'][1] in self.storage.get_all():
-                    self.badges.output_warning("This action may harm ZetaSploit Framework.")
-                    if self.badges.input_question("Continue anyway? [y/N] ").lower() in ['yes', 'y']:
-                        self.storage.delete(self.details['Args'][1])
+                    if self.details['Args'][2] in self.global_storage.get_all():
+                        self.badges.output_information(self.details['Args'][2] + " = " + str(
+                            self.global_storage.get(self.details['Args'][2])))
+            elif choice == "-s":
+                if len(self.details['Args']) < 4:
+                    self.badges.output_usage(self.details['Usage'])
                 else:
-                    self.badges.output_error("Invalid storage variable name!")
+                    self.global_storage.set(self.details['Args'][2], self.details['Args'][3])
+            elif choice == "-d":
+                if len(self.details['Args']) < 3:
+                    self.badges.output_usage(self.details['Usage'])
+                else:
+                    if self.details['Args'][2] in self.global_storage.get_all():
+                        self.global_storage.delete(self.details['Args'][2])
+                    else:
+                        self.badges.output_error("Invalid storage variable name!")
+            else:
+                self.badges.output_usage(self.details['Usage'])
+        elif type_of_storage == "local":
+            choice = self.details['Args'][1]
+            if choice == "-l":
+                self.badges.output_information("Local storage variables:")
+                for variable in self.local_storage.get_all():
+                    if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
+                        self.badges.output_empty("    * " + variable)
+            elif choice == "-v":
+                if len(self.details['Args']) < 3:
+                    self.badges.output_usage(self.details['Usage'])
+                else:
+                    if self.details['Args'][2] in self.local_storage.get_all():
+                        self.badges.output_information(self.details['Args'][2] + " = " + str(
+                            self.local_storage.get(self.details['Args'][2])))
+                    else:
+                        self.badges.output_error("Invalid storage variable name!")
+            elif choice == "-s":
+                if len(self.details['Args']) < 4:
+                    self.badges.output_usage(self.details['Usage'])
+                else:
+                    self.local_storage.set(self.details['Args'][2], self.details['Args'][3])
+            elif choice == "-d":
+                if len(self.details['Args']) < 3:
+                    self.badges.output_usage(self.details['Usage'])
+                else:
+                    if self.details['Args'][2] in self.local_storage.get_all():
+                        self.local_storage.delete(self.details['Args'][2])
+                    else:
+                        self.badges.output_error("Invalid storage variable name!")
+            else:
+                self.badges.output_usage(self.details['Usage'])
         else:
             self.badges.output_usage(self.details['Usage'])

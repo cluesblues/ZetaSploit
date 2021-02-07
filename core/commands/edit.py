@@ -28,7 +28,7 @@ import os
 
 from core.badges import badges
 from core.config import config
-from core.storage import storage
+from core.storage import local_storage
 from core.modules import modules
 from core.execute import execute
 
@@ -36,7 +36,7 @@ class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
         self.config = config()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.modules = modules()
         self.execute = execute()
         
@@ -70,7 +70,7 @@ class ZetaSploitCommand:
         if self.modules.check_exist(module):
             if not self.modules.check_imported(module):
                 database = self.modules.get_database(module)
-                module_path = self.storage.get("modules")[database][module_category][module_platform][module_name]['Path']
+                module_path = self.local_storage.get("modules")[database][module_category][module_platform][module_name]['Path']
                 edit_mode = editor + " " + self.config.path_config['root_path'] + module_path
                 self.execute.execute_system(edit_mode)
             else:

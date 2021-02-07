@@ -24,7 +24,58 @@
 # SOFTWARE.
 #
 
-class storage:
+import json
+
+class global_storage:
+    def __init__(self, file):
+        self.file = file
+
+    def set_all(self):
+        storage_variables = json.load(open(self.file))
+        for variable in storage_variables.keys():
+            if storage_variables[variable] == "True":
+                variable_value = True
+            elif storage_variables[variable] == "False":
+                variable_value = False
+            elif storage_variables[variable] == "None":
+                variable_value = None
+            else:
+                variable_value = storage_variables[variable]
+            local_storage().set(variable, variable_value)
+
+    def get_all(self):
+        storage_variables = json.load(open(self.file))
+        return storage_variables.keys()
+    
+    def set(self, variable, value):
+        storage_variables = json.load(open(self.file))
+        old_storage = storage_variables
+        new_storage = open(self.file, 'w')
+        
+        old_storage[variable] = str(value)
+        new_storage.write(str(old_storage).replace("'", '"'))
+        new_storage.close()
+    
+    def get(self, variable):
+        storage_variables = json.load(open(self.file))
+        if variable in storage_variables.keys():
+            return storage_variables[variable]
+        return None
+    
+    def delete(self, variable):
+        storage_variables = json.load(open(self.file))
+        old_storage = storage_variables
+        
+        if variable in old_storage.keys():
+            new_storage = open(self.file, 'w')
+        
+            del old_storage[variable]
+            new_storage.write(str(old_storage).replace("'", '"'))
+            new_storage.close()
+        else:
+            pass
+
+class local_storage:
     def get_all(self):
         return globals().keys()
     

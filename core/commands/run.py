@@ -27,14 +27,14 @@
 import os
 
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.modules import modules
 from core.jobs import jobs
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.modules = modules()
         self.jobs = jobs()
 

@@ -28,12 +28,12 @@ import os
 import json
 
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 
 class db:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         
     def identify_database(self, path):
         database = json.load(open(path))
@@ -43,24 +43,24 @@ class db:
         return "modules"
         
     def disconnect_modules_database(self, name):
-        if self.storage.get("connected_modules_databases"):
-            if name in self.storage.get("connected_modules_databases"):
-                self.storage.delete_element("connected_modules_databases", name)
-                self.storage.delete_element("modules", name)
+        if self.local_storage.get("connected_modules_databases"):
+            if name in self.local_storage.get("connected_modules_databases"):
+                self.local_storage.delete_element("connected_modules_databases", name)
+                self.local_storage.delete_element("modules", name)
                 return
         self.badges.output_error("No such modules database connected!")
         
     def disconnect_plugins_database(self, name):
-        if self.storage.get("connected_plugins_databases"):
-            if name in self.storage.get("connected_plugins_databases"):
-                self.storage.delete_element("connected_plugins_databases", name)
-                self.storage.delete_element("plugins", name)
+        if self.local_storage.get("connected_plugins_databases"):
+            if name in self.local_storage.get("connected_plugins_databases"):
+                self.local_storage.delete_element("connected_plugins_databases", name)
+                self.local_storage.delete_element("plugins", name)
                 return
         self.badges.output_error("No such plugins database connected!")
         
     def connect_modules_database(self, name, path):
-        if self.storage.get("connected_modules_databases"):
-            if name in self.storage.get("connected_modules_databases"):
+        if self.local_storage.get("connected_modules_databases"):
+            if name in self.local_storage.get("connected_modules_databases"):
                 self.bagdes.output_error("Modules database already connected!")
                 return
         if not os.path.exists(path) or not str.endswith(path, "json"):
@@ -86,18 +86,18 @@ class db:
                 'path': path
             }
         }
-        if not self.storage.get("connected_modules_databases"):
-            self.storage.set("connected_modules_databases", dict())
-        self.storage.update("connected_modules_databases", data)
+        if not self.local_storage.get("connected_modules_databases"):
+            self.local_storage.set("connected_modules_databases", dict())
+        self.local_storage.update("connected_modules_databases", data)
         
-        if self.storage.get("modules"):
-            self.storage.update("modules", modules)
+        if self.local_storage.get("modules"):
+            self.local_storage.update("modules", modules)
         else:
-            self.storage.set("modules", modules)
+            self.local_storage.set("modules", modules)
       
     def connect_plugins_database(self, name, path):
-        if self.storage.get("connected_plugins_databases"):
-            if name in self.storage.get("connected_plugins_databases"):
+        if self.local_storage.get("connected_plugins_databases"):
+            if name in self.local_storage.get("connected_plugins_databases"):
                 self.bagdes.output_error("Plugins database already connected!")
                 return
         if not os.path.exists(path) or not str.endswith(path, "json"):
@@ -123,11 +123,11 @@ class db:
                 'path': path
             }
         }
-        if not self.storage.get("connected_plugins_databases"):
-            self.storage.set("connected_plugins_databases", dict())
-        self.storage.update("connected_plugins_databases", data)
+        if not self.local_storage.get("connected_plugins_databases"):
+            self.local_storage.set("connected_plugins_databases", dict())
+        self.local_storage.update("connected_plugins_databases", data)
         
-        if self.storage.get("plugins"):
-            self.storage.update("plugins", plugins)
+        if self.local_storage.get("plugins"):
+            self.local_storage.update("plugins", plugins)
         else:
-            self.storage.set("plugins", plugins)
+            self.local_storage.set("plugins", plugins)

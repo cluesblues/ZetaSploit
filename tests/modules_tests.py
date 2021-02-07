@@ -28,19 +28,19 @@ import os
 
 from core.badges import badges
 from core.importer import importer
-from core.storage import storage
+from core.storage import local_storage
 from core.modules import modules
 
 class modules_tests:
     def __init__(self):
         self.badges = badges()
         self.importer = importer()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.modules = modules()
         
     def perform_test(self):
         fail = False
-        all_modules = self.storage.get("modules")
+        all_modules = self.local_storage.get("modules")
         if all_modules:
             for database in all_modules.keys():
                 self.badges.output_process("Testing modules from " + database + " database...")

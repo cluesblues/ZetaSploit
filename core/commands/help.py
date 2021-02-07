@@ -29,14 +29,14 @@ import os
 from core.badges import badges
 from core.formatter import formatter
 from core.modules import modules
-from core.storage import storage
+from core.storage import local_storage
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
         self.formatter = formatter()
         self.modules = modules()
-        self.storage = storage()
+        self.local_storage = local_storage()
 
         self.details = {
             'Category': "core",
@@ -51,7 +51,7 @@ class ZetaSploitCommand:
     def format_base_commands(self):
         commands_data = dict()
         headers = ("Command", "Description")
-        commands = self.storage.get("commands")
+        commands = self.local_storage.get("commands")
         for command in sorted(commands.keys()):
             label = commands[command].details['Category']
             commands_data[label] = list()
@@ -64,8 +64,8 @@ class ZetaSploitCommand:
             self.badges.output_empty("")
 
     def format_plugin_commands(self):
-        for plugin in self.storage.get("loaded_plugins").keys():
-            loaded_plugin = self.storage.get("loaded_plugins")[plugin]
+        for plugin in self.local_storage.get("loaded_plugins").keys():
+            loaded_plugin = self.local_storage.get("loaded_plugins")[plugin]
             if hasattr(loaded_plugin, "commands"):
                 commands_data = dict()
                 headers = ("Command", "Description")
@@ -93,5 +93,5 @@ class ZetaSploitCommand:
         self.format_base_commands()
         if self.modules.check_current_module():
             self.format_custom_commands()
-        if self.storage.get("loaded_plugins"):
+        if self.local_storage.get("loaded_plugins"):
             self.format_plugin_commands()

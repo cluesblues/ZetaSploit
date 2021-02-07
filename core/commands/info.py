@@ -26,13 +26,13 @@
 
 from core.badges import badges
 from core.modules import modules
-from core.storage import storage
+from core.storage import local_storage
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
         self.modules = modules()
-        self.storage = storage()
+        self.local_storage = local_storage()
         
         self.details = {
             'Category': "module",
@@ -60,7 +60,7 @@ class ZetaSploitCommand:
             comments += line + "\n" + (" " * 14)
         comments = comments[:-15]
 
-        self.badges.output_information("Current module information:")
+        self.badges.output_information("Module information:")
         self.badges.output_empty("")
 
         if current_module['Name']:

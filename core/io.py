@@ -28,26 +28,26 @@ import os
 import sys
 import readline
 
-from core.storage import storage
+from core.storage import local_storage
 
 class io:
     def __init__(self):
-        self.storage = storage()
+        self.local_storage = local_storage()
 
     def output(self, message, end=os.linesep):
         sys.stdout.write('\033[1K\r' + message + end)
         sys.stdout.flush()
-        if self.storage.get("current_prompt") and self.storage.get("active_input"):
-            sys.stdout.write('\033[1K\r' + self.storage.get("current_prompt") + readline.get_line_buffer())
+        if self.local_storage.get("current_prompt") and self.local_storage.get("active_input"):
+            sys.stdout.write('\033[1K\r' + self.local_storage.get("current_prompt") + readline.get_line_buffer())
             sys.stdout.flush()
 
     def input(self, prompt_message):
-        self.storage.set("current_prompt", prompt_message)
-        self.storage.set("active_input", True)
+        self.local_storage.set("current_prompt", prompt_message)
+        self.local_storage.set("active_input", True)
         command = input('\033[1K\r' + prompt_message)
         commands = command.split()
         arguments = ""
         if commands:
             arguments = command.replace(commands[0], "", 1).strip()
-        self.storage.set("active_input", False)
+        self.local_storage.set("active_input", False)
         return (commands, arguments)

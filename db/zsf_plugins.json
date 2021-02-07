@@ -2,15 +2,15 @@
     "__database__": {
         "type": "plugins"
     },
-    "nmap": {
-        "Path": "plugins/nmap",
-        "Name": "nmap",
+    "cowsay": {
+        "Path": "plugins/cowsay",
+        "Name": "cowsay",
         "Authors": [
             "enty8080"
         ],
-        "Description": "Nmap scan plugin for ZetaSploit.",
+        "Description": "Cowsay plugin for ZetaSploit.",
         "Dependencies": [
-            "nmap3"
+            ""
         ],
         "Comments": [
             ""

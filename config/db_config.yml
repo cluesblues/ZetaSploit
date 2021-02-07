@@ -23,5 +23,5 @@
 #
 
 base_dbs:
-    modules_database: "modules.json"
-    plugins_database: "plugins.json"
+    modules_database: "zsf_modules.json"
+    plugins_database: "zsf_plugins.json"

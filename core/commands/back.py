@@ -28,14 +28,14 @@ import os
 import sys
 
 from core.jobs import jobs
-from core.storage import storage
+from core.storage import local_storage
 from core.modules import modules
 from core.exceptions import exceptions
 
 class ZetaSploitCommand:
     def __init__(self):
         self.jobs = jobs()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.modules = modules()
         self.exceptions = exceptions()
 
@@ -51,7 +51,7 @@ class ZetaSploitCommand:
 
     def run(self):
         if self.modules.check_current_module():
-            self.storage.set("current_module_number", self.storage.get("current_module_number") - 1)
-            self.storage.set("current_module", self.storage.get("current_module")[0:-1])
-            if not self.storage.get("current_module"):
-                self.storage.set("current_module_number", 0)
+            self.local_storage.set("current_module_number", self.local_storage.get("current_module_number") - 1)
+            self.local_storage.set("current_module", self.local_storage.get("current_module")[0:-1])
+            if not self.local_storage.get("current_module"):
+                self.local_storage.set("current_module_number", 0)

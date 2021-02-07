@@ -32,7 +32,7 @@ import threading
 from core.exceptions import exceptions
 from core.formatter import formatter
 from core.badges import badges
-from core.storage import storage
+from core.storage import local_storage
 from core.modules import modules
 
 class jobs():
@@ -40,25 +40,25 @@ class jobs():
         self.exceptions = exceptions()
         self.formatter = formatter()
         self.badges = badges()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.modules = modules()
 
         self.job_process = None
         
     def stop_dead(self):
-        jobs = self.storage.get("jobs")
+        jobs = self.local_storage.get("jobs")
         if jobs:
             for job_id in list(jobs):
                 if not jobs[job_id]['job_process'].is_alive():
                     self.delete_job(job_id)
         
     def check_jobs(self):
-        if not self.storage.get("jobs"):
+        if not self.local_storage.get("jobs"):
             return True
         return False
     
     def check_module_job(self, module_name):
-        jobs = self.storage.get("jobs")
+        jobs = self.local_storage.get("jobs")
         if jobs:
             for job_id in jobs.keys():
                 if jobs[job_id]['module_name'] == module_name:
@@ -77,7 +77,7 @@ class jobs():
 
     def stop_all_jobs(self):
         if not self.check_jobs():
-            for job_id in list(self.storage.get("jobs").keys()):
+            for job_id in list(self.local_storage.get("jobs").keys()):
                 self.delete_job(job_id)
 
     def stop_job(self, job):
@@ -98,10 +98,10 @@ class jobs():
     def delete_job(self, job_id):
         if not self.check_jobs():
             job_id = int(job_id)
-            if job_id in list(self.storage.get("jobs").keys()):
+            if job_id in list(self.local_storage.get("jobs").keys()):
                 try:
-                    self.stop_job(self.storage.get("jobs")[job_id]['job_process'])
-                    self.storage.delete_element("jobs", job_id)
+                    self.stop_job(self.local_storage.get("jobs")[job_id]['job_process'])
+                    self.local_storage.delete_element("jobs", job_id)
                 except Exception:
                     self.badges.output_error("Failed to stop job!")
             else:
@@ -111,9 +111,9 @@ class jobs():
 
     def create_job(self, job_name, module_name, job_function, job_arguments=()):
         self.start_job(job_function, job_arguments)
-        if not self.storage.get("jobs"):
-            self.storage.set("jobs", dict())
-        job_id = len(self.storage.get("jobs"))
+        if not self.local_storage.get("jobs"):
+            self.local_storage.set("jobs", dict())
+        job_id = len(self.local_storage.get("jobs"))
         job_data = {
             job_id: {
                 'job_name': job_name,
@@ -121,5 +121,5 @@ class jobs():
                 'job_process': self.job_process
             }
         }
-        self.storage.update("jobs", job_data)
+        self.local_storage.update("jobs", job_data)
         return job_id

@@ -39,11 +39,9 @@ from core.loader import loader
 from core.config import config
 from core.badges import badges
 from core.banner import banner
-from core.storage import storage
+from core.storage import local_storage
 from core.modules import modules
 from core.exceptions import exceptions
-
-readline.parse_and_bind("tab: complete")
 
 class console:
     def __init__(self):
@@ -55,9 +53,11 @@ class console:
         self.config = config()
         self.badges = badges()
         self.banner = banner()
-        self.storage = storage()
+        self.local_storage = local_storage()
         self.modules = modules()
         self.exceptions = exceptions()
+        
+        self.history = self.config.path_config['base_paths']['history_path']
 
     def check_root(self):
         if os.getuid() == 0:
@@ -91,6 +91,8 @@ class console:
                 
                 self.jobs.stop_dead()
                 self.execute.execute_command(commands, arguments)
+                if self.local_storage.get("history"):
+                    readline.write_history_file(self.history)
 
             except (KeyboardInterrupt, EOFError):
                 self.badges.output_empty("")
@@ -98,8 +100,18 @@ class console:
                 pass
             except Exception as e:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
-            
+    
+    def enable_history_file(self):
+        if not os.path.exists(self.history):
+            open(self.history, 'w').close()
+        readline.read_history_file(self.history)
+
     def launch_shell(self):
+        using_history = self.local_storage.get("history")
+        if using_history:
+            self.enable_history_file()
+        readline.parse_and_bind("tab: complete")
+        
         version = self.config.core_config['details']['version']
         codename = self.config.core_config['details']['codename']
         if self.config.core_config['console']['clear']:
@@ -109,8 +121,8 @@ class console:
             self.banner.print_random_banner()
         
         if self.config.core_config['console']['header']:
-            plugins = self.storage.get("plugins")
-            modules = self.storage.get("modules")
+            plugins = self.local_storage.get("plugins")
+            modules = self.local_storage.get("modules")
             
             plugins_total = 0
             modules_total = 0
