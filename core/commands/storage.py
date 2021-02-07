@@ -26,53 +26,59 @@
 
 from core.badges import badges
 from core.storage import storage
+from core.config import config
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
+        self.config = config()
 
         self.details = {
             'Category': "developer",
             'Name': "storage",
             'Description': "Manage storage variables.",
-            'Usage': "storage [-l|-v <name>|-s <name> <value>|-d <name>]",
-            'ArgsCount': 1,
+            'Usage': "storage [global|local] [-l|-v <name>|-s <name> <value>|-d <name>]",
+            'ArgsCount': 2,
             'NeedsArgs': True,
             'Args': list()
         }
 
     def run(self):
-        choice = self.details['Args'][0]
-        if choice == "-l":
-            self.badges.output_information("Storage variables:")
-            for variable in self.storage.get_all():
-                if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
-                    self.badges.output_empty("    * " + variable)
-        elif choice == "-v":
-            if len(self.details['Args']) < 2:
-                self.badges.output_usage(self.details['Usage'])
-            else:
-                if self.details['Args'][1] in self.storage.get_all():
-                    self.badges.output_information(self.details['Args'][1] + " = " + str(self.storage.get(self.details['Args'][1])))
+        type_of_storage = self.details['Args'][0]
+        if type_of_storage == "local":
+            choice = self.details['Args'][1]
+            if choice == "-l":
+                self.badges.output_information("Storage variables:")
+                for variable in self.storage.get_all():
+                    if not str.startswith(variable, '__') and not str.endswith(variable, '__'):
+                        self.badges.output_empty("    * " + variable)
+            elif choice == "-v":
+                if len(self.details['Args']) < 3:
+                    self.badges.output_usage(self.details['Usage'])
                 else:
-                    self.badges.output_error("Invalid storage variable name!")
-        elif choice == "-s":
-            if len(self.details['Args']) < 3:
-                self.badges.output_usage(self.details['Usage'])
-            else:
-                self.badges.output_warning("This action may harm ZetaSploit Framework.")
-                if self.badges.input_question("Continue anyway? [y/N] ").lower() in ['yes', 'y']:
-                    self.storage.set(self.details['Args'][1], self.details['Args'][2])
-        elif choice == "-d":
-            if len(self.details['Args']) < 2:
-                self.badges.output_usage(self.details['Usage'])
-            else:
-                if self.details['Args'][1] in self.storage.get_all():
+                    if self.details['Args'][2] in self.storage.get_all():
+                        self.badges.output_information(self.details['Args'][2] + " = " + str(self.storage.get(self.details['Args'][2])))
+                    else:
+                        self.badges.output_error("Invalid storage variable name!")
+            elif choice == "-s":
+                if len(self.details['Args']) < 4:
+                    self.badges.output_usage(self.details['Usage'])
+                else:
                     self.badges.output_warning("This action may harm ZetaSploit Framework.")
                     if self.badges.input_question("Continue anyway? [y/N] ").lower() in ['yes', 'y']:
-                        self.storage.delete(self.details['Args'][1])
+                        self.storage.set(self.details['Args'][2], self.details['Args'][3])
+            elif choice == "-d":
+                if len(self.details['Args']) < 3:
+                    self.badges.output_usage(self.details['Usage'])
                 else:
-                    self.badges.output_error("Invalid storage variable name!")
+                    if self.details['Args'][2] in self.storage.get_all():
+                        self.badges.output_warning("This action may harm ZetaSploit Framework.")
+                        if self.badges.input_question("Continue anyway? [y/N] ").lower() in ['yes', 'y']:
+                            self.storage.delete(self.details['Args'][2])
+                    else:
+                        self.badges.output_error("Invalid storage variable name!")
+            else:
+                self.badges.output_usage(self.details['Usage'])
         else:
             self.badges.output_usage(self.details['Usage'])
