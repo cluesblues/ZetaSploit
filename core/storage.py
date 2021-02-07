@@ -24,7 +24,22 @@
 # SOFTWARE.
 #
 
+import json
+
 class global_storage:
+    def set_all(self, file):
+        storage_variables = json.load(open(file))
+        for variable in storage_variables.keys():
+            if storage_variables[variable] == "True":
+                variable_value = True
+            elif storage_variables[variable] == "False":
+                variable_value = False
+            elif storage_variables[variable] == "None":
+                variable_value = None
+            else:
+                variable_value = storage_variables[variable]
+            local_storage().set(variable, variable_value)
+
     def get_all(self, file):
         pass
     
