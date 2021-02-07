@@ -2,7 +2,7 @@
     "__database__": {
         "type": "plugins"
     },
-    "nmap": {
+    "cowsay": {
         "Path": "plugins/cowsay",
         "Name": "cowsay",
         "Authors": [
