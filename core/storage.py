@@ -48,10 +48,17 @@ class global_storage:
             local_storage().set(variable, variable_value)
 
     def get_all(self):
-        pass
+        storage_variables = json.load(open(self.file))
+        return storage_variables.keys()
     
     def set(self, variable, value):
-        pass
+        storage_variables = json.load(open(self.file))
+        old_storage = storage_variables
+        new_storage = open(self.file, 'w')
+        
+        old_storage[variable] = str(value)
+        new_storage.write(str(old_storage).replace("'", '"'))
+        new_storage.close()
     
     def get(self, variable):
         storage_variables = json.load(open(self.file))
