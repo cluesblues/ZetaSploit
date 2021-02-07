@@ -61,6 +61,15 @@ class config:
             else:
                 variable_value = storage_variables[variable]
             self.storage.set(variable, variable_value)
+            
+    def delete_storage_variable(self, variable):
+        storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
+        old_storage = storage_variables
+        new_storage = open(self.path_config['base_paths']['storage_path'], 'w')
+        
+        del old_storage[variable]
+        new_storage.write(str(old_storage).replace("'", '"'))
+        new_storage.close()
         
     def set_storage_variable(self, variable, value):
         storage_variables = json.load(open(self.path_config['base_paths']['storage_path']))
