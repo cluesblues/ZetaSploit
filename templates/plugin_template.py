@@ -32,25 +32,26 @@ class ZetaSploitPlugin:
                 ''
             ],
             'Description': "",
+            'Dependencies': [
+                ''
+            ],
             'Comments': [
                 ''
             ]
         }
 
         self.commands = {
-            'category': {
-                'command': {
+            '': {
+                '': {
                     'Description': "",
                     'Usage': "",
-                    'ArgsCount': 0,
-                    'NeedsArgs': False,
-                    'Args': list(),
+                    'MinArgs': 0,
                     'Run': self.command
                 }
             }
         }
 
-    def command(self):
+    def command(self, argc, argv):
         pass
 
     def run(self):
