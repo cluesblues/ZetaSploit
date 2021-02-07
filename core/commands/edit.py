@@ -45,9 +45,7 @@ class ZetaSploitCommand:
             'Name': "edit",
             'Description': "Open module in editor.",
             'Usage': "edit <module>",
-            'MinArgs': 1,
-            'NeedsArgs': True,
-            'Args': list()
+            'MinArgs': 1
         }
 
     def run(self, argc, argv):
